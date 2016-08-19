@@ -13,3 +13,17 @@ block content
               .thumb(style="background-image: url('#{catalog.sources.thumbnail}')")
               h2= catalog.name
   include includes/footer
+
+append javascript
+  - baseURL = 'http://' + (req.get('x-forwarded-host') || req.get('host')) + '/'
+  script(type="application/ld+json").
+    {
+      "@context": "http://schema.org",
+      "@type": "WebSite",
+      "url": "#{baseURL}",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "#{baseURL}?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    }
