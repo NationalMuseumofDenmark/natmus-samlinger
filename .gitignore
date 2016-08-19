@@ -1,5 +1,6 @@
 /app/styles/main.css
 node_modules
+npm-debug.log
 public
 .tmp
 .sass-cache
