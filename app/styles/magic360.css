@@ -71,7 +71,7 @@
   left: 0;
   margin: -30px auto auto;
   background: transparent !important;
-  filter: progid: DXImageTransform.Microsoft.gradient(GradientType=0, StartColorStr='#5cffffff', EndColorStr='#5cffffff');
+  /*filter: progid: DXImageTransform.Microsoft.gradient(GradientType=0, StartColorStr='#5cffffff', EndColorStr='#5cffffff');*/
 }
 
 .lt-ie7-magic .Magic360-loading-box {
@@ -99,7 +99,7 @@
 
 .lt-ie9-magic .Magic360-progress-bar {
   background: #c5c5c5 !important;
-  filter: progid: DXImageTransform.Microsoft.Alpha(enabled=true, opacity=60);
+  /*filter: progid: DXImageTransform.Microsoft.Alpha(enabled=true, opacity=60);*/
 }
 
 .Magic360-progress-bar-state {
@@ -124,7 +124,7 @@
 .lt-ie9-magic .Magic360-progress-bar-state {
   border-radius: 0;
   background: transparent !important;
-  filter: progid: DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr='#c5c5c5', endColorstr='#ffffff');
+  /*filter: progid: DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr='#c5c5c5', endColorstr='#ffffff');*/
 }
 
 .Magic360-loading-box-fs {
@@ -221,7 +221,7 @@
 }
 
 .lt-ie9-magic .Magic360-fullscreen .Magic360-progress-bar-state {
-  filter: progid: DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr='#c5c5c5', endColorstr='#ffffff');
+  /*filter: progid: DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr='#c5c5c5', endColorstr='#ffffff');*/
 }
 
 .Magic360 .magnifier {
@@ -538,12 +538,12 @@
 
 .lt-ie8-magic .hotspot-box {
   /* For IE 5.5 - 7 */
-  filter: progid: DXImageTransform.Microsoft.Glow(Strength=2, Color='#888888') !important;
+  /*filter: progid: DXImageTransform.Microsoft.Glow(Strength=2, Color='#888888') !important;*/
 }
 
 .ie8-magic .hotspot-box {
   /* For IE 8 */
-  -ms-filter: "progid:DXImageTransform.Microsoft.Glow(Strength=2, Color='#888888')" !important;
+  /*-ms-filter: "progid:DXImageTransform.Microsoft.Glow(Strength=2, Color='#888888')" !important;*/
 }
 
 .hotspot-box .b-close {

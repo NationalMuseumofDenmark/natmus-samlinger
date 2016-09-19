@@ -1,5 +1,0 @@
-User-agent: *
-Allow: /
-Disallow: /infinite/*
-Disallow: /images/*
-Disallow: */thumbnail$
