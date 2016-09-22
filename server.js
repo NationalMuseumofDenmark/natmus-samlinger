@@ -9,12 +9,11 @@ var config = require('./config');
 var app = express();
 co.config(config);
 
-// Plugins
-require('collections-online-cumulus');
-
-co.initialize(app);
-
-require('./routes')(app);
-co.registerRoutes(app);
-
-co.registerErrors(app);
+// Initialize the collections online application
+co.initialize(app, [
+  require('collections-online-cumulus')
+]).then(() => {
+  require('./routes')(app);
+  co.registerRoutes(app);
+  co.registerErrors(app);
+}, console.error);

@@ -1,15 +1,10 @@
 'use strict';
 
-var co = require('collections-online');
-
-// Loading the configuration
-var state = {};
+// Configure collections-online
 var config = require('./config');
-co.indexing(state, config).then(function() {
-  console.log('\nAll done - good bye!');
-  process.exit(0);
-}, function(err) {
-  console.error('An error occured!');
-  console.error(err.stack || err);
-  process.exit(1);
-});
+require('collections-online').config(config);
+
+// This registers the cumulus indexing-engine
+require('collections-online-cumulus').registerPlugins();
+// Start the indexing
+require('collections-online/indexing');
