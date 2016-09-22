@@ -11,6 +11,9 @@ var config = require('./config');
 var app = express();
 co.config(config);
 
+// Plugins
+require('collections-online-cumulus');
+
 co.initialize(app);
 
 require('./routes')(app);
