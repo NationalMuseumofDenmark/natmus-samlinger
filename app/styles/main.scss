@@ -5,15 +5,17 @@
 @import '../../node_modules/collections-online/bower_components/bootstrap-sass-official/vendor/assets/stylesheets/bootstrap';
 @import '../../node_modules/collections-online/app/styles/asset';
 @import '../../node_modules/collections-online/app/styles/button';
+@import '../../node_modules/collections-online/app/styles/container-fluid-expandable';
 @import '../../node_modules/collections-online/app/styles/dropdown';
 @import '../../node_modules/collections-online/app/styles/facebook-group';
 @import '../../node_modules/collections-online/app/styles/footer';
 @import '../../node_modules/collections-online/app/styles/frontpage';
 @import '../../node_modules/collections-online/app/styles/input';
 @import '../../node_modules/collections-online/app/styles/loading';
+@import '../../node_modules/collections-online/app/styles/main';
 @import '../../node_modules/collections-online/app/styles/menu';
 @import '../../node_modules/collections-online/app/styles/overlay';
-/*@import '../../node_modules/collections-online/app/styles/search-filter-sidebar';*/
+/* @import '../../node_modules/collections-online/app/styles/search-filter-sidebar'; */
 @import '../../node_modules/collections-online/app/styles/search-results';
 @import '../../node_modules/collections-online/app/styles/snackbar';
 @import '../../node_modules/collections-online/app/styles/tab-focus';
@@ -23,7 +25,6 @@
 @import '../../node_modules/collections-online/app/styles/topbar';
 @import '../../node_modules/collections-online/app/styles/translate';
 @import '../../node_modules/collections-online/app/styles/typography';
-@import '../../node_modules/collections-online/app/styles/main';
 
 /* Dependencies */
 @import 'magic360';
