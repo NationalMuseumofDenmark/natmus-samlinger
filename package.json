@@ -5,7 +5,7 @@
   "scripts": {
     "gulp": "gulp",
     "index": "node indexing.js",
-    "install": "check-node-version --package && gulp build",
+    "install": "gulp build",
     "start": "node server.js",
     "test": "echo \"Error: no test specified - but lets succeed\" && exit 0"
   },
@@ -16,7 +16,6 @@
   "license": "MIT",
   "dependencies": {
     "canvas": "^1.5.0",
-    "check-node-version": "^1.1.2",
     "collections-online": "git+https://github.com/collections-online/collections-online.git",
     "csurf": "^1.9.0",
     "dotenv": "^2.0.0",
