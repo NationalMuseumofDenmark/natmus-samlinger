@@ -1,0 +1,20 @@
+// Typography
+@font-face {
+  font-family: 'Nationale';
+  src        : url('fonts/nationale-demibold.eot');
+  src        : url('fonts/nationale-demibold.eot?#iefix') format('embedded-opentype'), url('fonts/nationale-demibold.woff2') format('woff2'), url('fonts/nationale-demibold.woff') format('woff'), url('fonts/nationale-demibold.ttf') format('truetype');
+  font-weight: 600;
+  font-style : normal;
+}
+@font-face {
+  font-family: 'Nationale';
+  src        : url('fonts/nationale-regular.eot');
+  src        : url('fonts/nationale-regular.eot?#iefix') format('embedded-opentype'), url('fonts/nationale-regular.woff2') format('woff2'), url('fonts/nationale-regular.woff') format('woff'), url('fonts/nationale-regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style : normal;
+}
+
+$font-family-sans-serif: 'Nationale', sans-serif !default;
+//$brand-primary: #9e0b0f !default;
+
+@import '../../node_modules/collections-online/app/styles/variables';
