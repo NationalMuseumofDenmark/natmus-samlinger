@@ -3,10 +3,10 @@
   "version": "0.1.0",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
-    "index": "node indexing.js",
     "gulp": "gulp",
-    "prepublish": "gulp build",
+    "index": "node indexing.js",
+    "install": "check-node-version --package && gulp build",
+    "start": "node server.js",
     "test": "echo \"Error: no test specified - but lets succeed\" && exit 0"
   },
   "repository": {
@@ -16,6 +16,7 @@
   "license": "MIT",
   "dependencies": {
     "canvas": "^1.5.0",
+    "check-node-version": "^1.1.2",
     "collections-online": "git+https://github.com/collections-online/collections-online.git",
     "csurf": "^1.9.0",
     "dotenv": "^2.0.0",
@@ -29,6 +30,6 @@
     "run-sequence": "^1.1.5"
   },
   "engines": {
-    "node": ">=5.6.0"
+    "node": "^6.1.0"
   }
 }
