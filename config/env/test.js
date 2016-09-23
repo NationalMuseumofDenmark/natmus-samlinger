@@ -17,7 +17,7 @@ module.exports = _.merge(base, {
     host: '172.16.1.222:80',
     assetsIndex: 'test_assets',
     allIndecies: [
-      'test_assets',
+      'assets_camel_casing',
       'dev_mom_objects_public',
       'dev_es_objects_public',
       'dev_as_objects_public',

@@ -10,7 +10,7 @@ module.exports = _.merge(base, {
   googleAnalyticsPropertyID: 'no-please',
   es: {
     allIndecies: [
-      'assets',
+      'assets_camel_casing',
       'dev_mom_objects_public',
       'dev_es_objects_public',
       'dev_as_objects_public',
