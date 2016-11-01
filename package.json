@@ -16,6 +16,7 @@
   },
   "license": "MIT",
   "dependencies": {
+    "bootstrap-sass": "^3.3.7",
     "canvas": "^1.5.0",
     "collections-online": "git+https://github.com/collections-online/collections-online.git",
     "collections-online-cumulus": "git+https://github.com/collections-online/collections-online-cumulus.git",
