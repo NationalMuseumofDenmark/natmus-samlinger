@@ -17,6 +17,21 @@ The solution is built by [Headnet ApS](http://www.headnet.dk) and [Socialsquare 
 
 ![Screenshot](misc/screenshot.png)
 
+## How to setup 2.0
+* Ensure that you have a running version of node.js (v6), bower and elasticsearch (v2.4).  
+    * On mac these can be installed using homebrew.
+* Clone this repository, collections-online and collections-online-cumulus.
+* Symlink Collections Online by running `npm link` in that folder and `npm link collections-online` in this folder.
+* Symlink Collections Online Cumulus by running `npm link` in that folder and `npm link collections-online-cumulus` in this folder.
+* Create a .env file in this folder with correct:
+```
+CIP_USERNAME=""
+CIP_PASSWORD=""
+ES_HOST=
+```
+* In a new terminal window start elasticsearch
+* In this folder run `npm run index all`
+
 ## How to setup
 
 First ensure that you have a running version of node.js (~0.10.20) and also [npm](https://www.npmjs.org/),
