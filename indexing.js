@@ -7,4 +7,4 @@ require('collections-online').config(config);
 // This registers the cumulus indexing-engine
 require('collections-online-cumulus').registerPlugins();
 // Start the indexing
-require('collections-online/indexing');
+require('collections-online/indexing').run();
