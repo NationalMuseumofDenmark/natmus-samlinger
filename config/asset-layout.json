@@ -51,8 +51,7 @@
         {
           "title": "Samling",
           "template": "!= catalogLinked(catalogs, catalog)"
-        },
-        {
+        }, {
           "title": "Licens",
           "template": "!= licenseLinked(license)"
         }, {
