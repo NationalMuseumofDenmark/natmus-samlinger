@@ -16,4 +16,4 @@ co.initialize(app, [
   require('./routes')(app);
   co.registerRoutes(app);
   co.registerErrors(app);
-}, console.error);
+}).then(null, console.error);
