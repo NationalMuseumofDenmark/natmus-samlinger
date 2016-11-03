@@ -12,8 +12,8 @@ header.topbar(class=frontpage ? 'topbar--frontpage' : '')
               | Nationalmuseets
               br
               | Samlinger Online
-        - var path = (req.path).split('/')
-        - var searchMethod = (isSearching ? 'modify-query' : '')
+        - var searchMethod = (isSearching ? 'modify-query' : '');
+        - var query = req && req.query && req.query.q ? req.query.q : '';
         - if(config.features.clientSideSearchResultRendering) {
         -   // Turning off the search related behaviour defined in main.js
         -   searchMethod = false;
@@ -26,7 +26,7 @@ header.topbar(class=frontpage ? 'topbar--frontpage' : '')
               placeholder='Søg på samlinger.natmus.dk',
               name='q',
               autocomplete="off",
-              value=req.query.q || '')
+              value=query)
             .input-group-btn
               button.btn-search.btn
                 span.sr-only Søg
