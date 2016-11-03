@@ -54,7 +54,8 @@ module.exports = {
     rotationalImages: true,
     crowdtagging: true,
     clientSideSearchResultRendering: false,
-    filterSidebar: false
+    filterSidebar: false,
+    watermarks: false
   },
   generatedDir: generatedDir,
   googleAnalyticsPropertyID: null,
@@ -68,6 +69,10 @@ module.exports = {
   natmusApiMaxSockets: 10,
   filterOptions: require('../filter-options.json'),
   sortOptions: require('../sort-options.json'),
+  types: ['asset'],
+  typeRouters: {
+    'asset': 'collections-online/lib/routers/asset'
+  },
   assetFields: require('../asset-fields.json'),
   assetLayout: require('../asset-layout.json'),
   licenseMapping: require('../license-mapping.json'),
