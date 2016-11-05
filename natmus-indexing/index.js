@@ -97,12 +97,12 @@ function transformAndInsert(hits, index) {
   });
 }
 
-function run(index) {
+function run(query, index) {
   console.log('Hello from natmus-indexing');
-  const SIZE = 100;
+  const SIZE = 1000;
   let offset = 0;
   function nextPage() {
-    search('*', SIZE, offset).then((response) => {
+    search(query, SIZE, offset).then((response) => {
       if(response.numberOfResultsTotal > 0) {
         return transformAndInsert(response.results, index)
         .then(() => {
@@ -124,4 +124,5 @@ function run(index) {
   nextPage();
 }
 
-run('new_assets');
+run('type:asset', 'new_assets');
+run('type:object', 'new_objects');
