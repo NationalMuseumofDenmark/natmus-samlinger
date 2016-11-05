@@ -19,7 +19,6 @@ module.exports = {
     appDir
   ],
   assetFields: require('../asset-fields.json'),
-  assetLayout: require('../asset-layout.json'),
   categoryBlacklist: require('../category-blacklist.js'),
   cip: {
     baseURL: 'http://cumulus.natmus.dk/CIP',
@@ -75,4 +74,9 @@ module.exports = {
   sortOptions: require('../sort-options.json'),
   tagsBlacklist: require('../tags-blacklist.json'),
   themeColor: '#262626',
+  types: {
+    asset: {
+      layout: require('../layouts/asset.json')
+    },
+  }
 };
