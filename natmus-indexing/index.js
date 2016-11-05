@@ -27,7 +27,7 @@ var es = new elasticsearch.Client({
 });
 
 const TRANSFORMATIONS = [
-  require('./print-metadata')
+  require('./clean-id')
   // require('./camel-casing-field-names'),
   // require('./field-renaming'),
   // require('./generate-urls'),
