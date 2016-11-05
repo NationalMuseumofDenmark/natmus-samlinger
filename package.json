@@ -6,6 +6,7 @@
     "gulp": "gulp",
     "index": "node indexing.js",
     "es-index": "node es-indexing",
+    "natmus-index": "node natmus-indexing",
     "install": "gulp build",
     "start": "node server.js",
     "test": "echo \"Error: no test specified - but lets succeed\" && exit 0"
