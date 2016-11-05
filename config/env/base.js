@@ -55,7 +55,7 @@ module.exports = {
     rotationalImages: true,
     crowdtagging: true,
     clientSideSearchResultRendering: true,
-    filterSidebar: false,
+    filterSidebar: true,
     watermarks: false
   },
   filterOptions: require('../filter-options.json'),
@@ -63,7 +63,7 @@ module.exports = {
   googleAnalyticsPropertyID: null,
   googleAPIKey: process.env.GOOGLE_API_KEY,
   googleMapsAPIKey: 'AIzaSyCkoZ8EB9Vf5SfXUzMY6bewq6diets-pxU',
-  ip:   process.env.IP || '0.0.0.0',
+  ip: process.env.IP || '0.0.0.0',
   licenseMapping: require('../license-mapping.json'),
   natmusApiBaseURL: 'http://testapi.natmus.dk/',
   natmusApiMaxSockets: 10,
