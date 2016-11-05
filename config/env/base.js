@@ -12,14 +12,15 @@ var cipCatalogs = require('../cip-catalogs.json');
 const REVIEW_STATE_FIELD = '{a493be21-0f70-4cae-9394-703eca848bad}';
 
 module.exports = {
-  root: rootPath, // TODO: Consider removing this
   appDir: appDir,
+  appName: 'Samlinger',
   appPaths: [
     generatedDir,
     appDir
   ],
-  ip:   process.env.IP || '0.0.0.0',
-  port: process.env.PORT || 9000,
+  assetFields: require('../asset-fields.json'),
+  assetLayout: require('../asset-layout.json'),
+  categoryBlacklist: require('../category-blacklist.js'),
   cip: {
     baseURL: 'http://cumulus.natmus.dk/CIP',
     username: process.env.CIP_USERNAME,
@@ -53,29 +54,25 @@ module.exports = {
     geotagging: true,
     rotationalImages: true,
     crowdtagging: true,
-    clientSideSearchResultRendering: false,
+    clientSideSearchResultRendering: true,
     filterSidebar: false,
     watermarks: false
   },
+  filterOptions: require('../filter-options.json'),
   generatedDir: generatedDir,
   googleAnalyticsPropertyID: null,
-  googleMapsAPIKey: 'AIzaSyCkoZ8EB9Vf5SfXUzMY6bewq6diets-pxU',
   googleAPIKey: process.env.GOOGLE_API_KEY,
-  projectOxfordAPIKey: process.env.PROJECT_OXFORD_API_KEY,
-  categoryBlacklist: require('../category-blacklist.js'),
-  tagsBlacklist: require('../tags-blacklist.json'),
-  natmusApiBaseURL: 'http://testapi.natmus.dk/',
-  natmusApiVersion: 1,
-  natmusApiMaxSockets: 10,
-  filterOptions: require('../filter-options.json'),
-  sortOptions: require('../sort-options.json'),
-  types: ['asset'],
-  typeRouters: {
-    'asset': 'collections-online/lib/routers/asset'
-  },
-  assetFields: require('../asset-fields.json'),
-  assetLayout: require('../asset-layout.json'),
+  googleMapsAPIKey: 'AIzaSyCkoZ8EB9Vf5SfXUzMY6bewq6diets-pxU',
+  ip:   process.env.IP || '0.0.0.0',
   licenseMapping: require('../license-mapping.json'),
+  natmusApiBaseURL: 'http://testapi.natmus.dk/',
+  natmusApiMaxSockets: 10,
+  natmusApiVersion: 1,
+  port: process.env.PORT || 9000,
+  projectOxfordAPIKey: process.env.PROJECT_OXFORD_API_KEY,
+  root: rootPath, // TODO: Consider removing this
+  searchPath: 'søg',
+  sortOptions: require('../sort-options.json'),
+  tagsBlacklist: require('../tags-blacklist.json'),
   themeColor: '#262626',
-  appName: 'Samlinger',
 };

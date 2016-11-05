@@ -5,9 +5,6 @@ var base = require('./base');
 
 module.exports = _.merge(base, {
   env: 'development',
-  viewsPath: '/app/views',
-  siteTitle: 'Nationalmuseets Samlinger Online (dev)',
-  googleAnalyticsPropertyID: 'no-please',
   es: {
     allIndecies: [
       'assets',
@@ -20,5 +17,8 @@ module.exports = _.merge(base, {
       'dev_mus_objects_public',
       'dev_flm_objects_public'
     ]
-  }
+  },
+  googleAnalyticsPropertyID: 'no-please',
+  siteTitle: 'Nationalmuseets Samlinger Online (dev)',
+  viewsPath: '/app/views',
 });
