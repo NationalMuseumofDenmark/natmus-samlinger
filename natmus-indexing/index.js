@@ -64,7 +64,7 @@ function transformAndInsert(hits, index) {
     return TRANSFORMATIONS.reduce(Q.when, hit.data).then((metadata) => {
       let type = (hit.meta.type || '').toLowerCase();
       let collection = (metadata.collection || '').toLowerCase();
-      let id = [collection, type, metadata.id].join('-');
+      let id = [collection, type, metadata.id].join('/');
       return {
         _id: id,
         _type: type,
