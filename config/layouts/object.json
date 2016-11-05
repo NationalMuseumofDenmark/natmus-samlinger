@@ -1,0 +1,13 @@
+{
+  "sections": {
+    "place": {
+      "title": "Sted",
+      "rows": [
+        {
+          "title": "Adresse",
+          "template": "= workDescription"
+        }
+      ]
+    }
+  }
+}

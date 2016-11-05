@@ -78,5 +78,9 @@ module.exports = {
     asset: {
       layout: require('../layouts/asset.json')
     },
+    object: {
+      router: path.join(__dirname, '..', '..', 'routers', 'object'),
+      layout: require('../layouts/object.json')
+    }
   }
 };
