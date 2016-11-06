@@ -24,5 +24,13 @@ module.exports = _.merge(base, {
   googleAnalyticsPropertyID: 'UA-2930791-3',
   natmusApiBaseURL: 'http://api.natmus.dk/',
   siteTitle: 'Nationalmuseets Samlinger Online',
+  types: {
+    asset: {
+      index: 'assets'
+    },
+    object: {
+      index: 'new_objects'
+    }
+  },
   viewsPath: '/views',
 });

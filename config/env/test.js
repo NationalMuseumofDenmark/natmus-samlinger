@@ -25,5 +25,13 @@ module.exports = _.merge(base, {
   natmusApiBaseURL: 'http://testapi.natmus.dk/',
   port: process.env.PORT || 9000,
   siteTitle: 'Nationalmuseets Samlinger Online (beta)',
+  types: {
+    asset: {
+      index: 'assets'
+    },
+    object: {
+      index: 'new_objects'
+    }
+  },
   viewsPath: '/views',
 });
