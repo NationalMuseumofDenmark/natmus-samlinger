@@ -1,5 +1,7 @@
 extends index
 
+include ./includes/related-asset.jade
+
 block content
 
   article.object
@@ -8,8 +10,8 @@ block content
         .col-md-6
           .row
             each asset in metadata.relatedAssets
-              .col-md-6= asset.assetID
-              - console.log(asset);
+              .col-md-6
+                +relatedAssetImage(asset)
         .col-md-6.metadata
           h1= metadata.workDescription || 'Ingen arbejdsbetegnelse'
-          != objectSection('place', metadata)
+          != objectSection('events', metadata)

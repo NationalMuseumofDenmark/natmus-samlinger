@@ -1,0 +1,7 @@
+mixin relatedAssetImage(asset)
+  - let assetId = asset.assetID.split('-');
+  - let id = assetId[assetId.length-1];
+  - let collection = asset.collection;
+  - let href = '/' + [collection, 'asset', id].join('/')
+  a(href=href)
+    img(src=href+'/thumbnail', class='object__image')
