@@ -47,7 +47,7 @@ module.exports = {
   },
   es: {
     host: process.env.ES_HOST || 'localhost:9200',
-    assetsIndex: process.env.ES_ASSETS_INDEX || 'assets',
+    assetsIndex: process.env.ES_ASSETS_INDEX || 'assets'
   },
   features: {
     geotagging: true,

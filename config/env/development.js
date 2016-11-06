@@ -14,5 +14,13 @@ module.exports = _.merge(base, {
   },
   googleAnalyticsPropertyID: 'no-please',
   siteTitle: 'Nationalmuseets Samlinger Online (dev)',
+  types: {
+    asset: {
+      index: 'assets'
+    },
+    object: {
+      index: 'new_objects'
+    }
+  },
   viewsPath: '/app/views',
 });
