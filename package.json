@@ -26,6 +26,7 @@
     "express": "^4.13.4",
     "keystone": "https://github.com/keystonejs/keystone.git#32d3a13",
     "lodash": "^4.12.0",
+    "moment": "^2.15.2",
     "q": "^1.4.1"
   },
   "devDependencies": {
