@@ -13,7 +13,8 @@ co.config(config);
 co.initialize(app, [
   require('collections-online-cumulus')
 ]).then(() => {
-  require('./routes')(app);
+  var mainRouter = require('./routers/main');
+  app.use('/', mainRouter);
   co.registerRoutes(app);
   co.registerErrors(app);
 }).then(null, console.error);
