@@ -1,5 +1,7 @@
 extends index
 
+include ./includes/related-asset.jade
+
 block content
 
   article.object
@@ -7,16 +9,9 @@ block content
       .row
         .col-md-6
           .row
-            .col-md-6
-              img.object__image(src="https://placekitten.com/g/400/400")
-            .col-md-6
-              img.object__image(src="https://placekitten.com/g/400/400")
-            .col-md-6
-              img.object__image(src="https://placekitten.com/g/400/400")
-            .col-md-6
-              img.object__image(src="https://placekitten.com/g/400/400")
             each asset in metadata.relatedAssets
-              .col-md-6= asset.assetID
+              .col-md-6
+                +relatedAssetImage(asset)
         .col-md-6
           h1= metadata.workDescription || 'Ingen arbejdsbetegnelse'
     .container-fluid
