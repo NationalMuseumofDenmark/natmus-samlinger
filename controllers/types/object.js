@@ -30,12 +30,23 @@ function getObject(req) {
 
   let url = 'http://testapi.natmus.dk/search/public/elasticSearchString?' + qs;
   request({
-    url
-  }, (err, res) => {
+    url,
+    json: true
+  }, (err, res, body) => {
     if(err) {
       deferred.reject(err);
     } else {
-      deferred.resolve(res);
+      let results = body.results;
+      if(body.numberOfResultsTotal > 1) {
+        let err = new Error('The API returned more than one record');
+        deferred.reject(err);
+      } else if(body.numberOfResultsTotal === 0) {
+        let err = new Error('The API returned no records');
+        err.status = 404;
+        deferred.reject(err);
+      } else {
+        deferred.resolve(results[0].data || {});
+      }
     }
   });
   return deferred.promise;
