@@ -7,19 +7,9 @@ block content
       .row
         .col-md-6
           .row
-            .col-md-6
-              img.object__image(src="https://placekitten.com/g/400/400")
-            .col-md-6
-              img.object__image(src="https://placekitten.com/g/400/400")
-            .col-md-6
-              img.object__image(src="https://placekitten.com/g/400/400")
-            .col-md-6
-              img.object__image(src="https://placekitten.com/g/400/400")
             each asset in metadata.relatedAssets
               .col-md-6= asset.assetID
-        .col-md-6
+              - console.log(asset);
+        .col-md-6.metadata
           h1= metadata.workDescription || 'Ingen arbejdsbetegnelse'
-    .container-fluid
-      .row
-        .col-sm-6
           != objectSection('place', metadata)
