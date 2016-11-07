@@ -4,6 +4,7 @@ var _ = require('lodash');
 var base = require('./base');
 
 module.exports = _.merge(base, {
+  allowRobots: true,
   env: 'production',
   viewsPath: '/views',
   siteTitle: 'Nationalmuseets Samlinger Online',
