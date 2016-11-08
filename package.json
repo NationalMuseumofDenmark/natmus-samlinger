@@ -16,7 +16,7 @@
   "license": "MIT",
   "dependencies": {
     "canvas": "^1.5.0",
-    "collections-online": "git+https://github.com/collections-online/collections-online.git",
+    "collections-online": "git+https://github.com/NationalMuseumofDenmark/collections-online.git",
     "csurf": "^1.9.0",
     "dotenv": "^2.0.0",
     "express": "^4.13.4",
