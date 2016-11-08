@@ -57,7 +57,6 @@ module.exports = {
     filterSidebar: true,
     watermarks: false
   },
-  filterOptions: require('../filter-options.json'),
   generatedDir: generatedDir,
   googleAnalyticsPropertyID: null,
   googleAPIKey: process.env.GOOGLE_API_KEY,
@@ -70,7 +69,10 @@ module.exports = {
   port: process.env.PORT || 9000,
   projectOxfordAPIKey: process.env.PROJECT_OXFORD_API_KEY,
   root: rootPath, // TODO: Consider removing this
-  searchPath: 'søg',
+  search: {
+    path: 'søg',
+    filters: require('../filters.json'),
+  },
   sortOptions: require('../sort-options.json'),
   tagsBlacklist: require('../tags-blacklist.json'),
   themeColor: '#262626',

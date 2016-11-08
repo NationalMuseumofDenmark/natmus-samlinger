@@ -4,6 +4,7 @@ var _ = require('lodash');
 var base = require('./base');
 
 module.exports = _.merge(base, {
+  allowRobots: false,
   env: 'test',
   es: {
     host: '172.16.1.222:80',
