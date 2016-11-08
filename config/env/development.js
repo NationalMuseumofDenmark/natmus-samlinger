@@ -7,8 +7,8 @@ module.exports = _.merge(base, {
   env: 'development',
   es: {
     allIndecies: [
-      'assets'
-      //'new_assets',
+      //'assets'
+      'new_assets',
       //'new_objects'
     ]
   },
