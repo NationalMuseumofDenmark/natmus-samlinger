@@ -1,7 +1,7 @@
 {
   "collection": {
     "type": "term",
-    "field": "catalog_name.raw",
+    "field": "collectionName",
     "singular": "samling",
     "plural": "samlinger"
   },
@@ -13,13 +13,13 @@
   },
   "media": {
     "type": "term",
-    "field": "file_format",
+    "field": "file.mediaType",
     "singular": "medietype",
     "plural": "medietyper"
   },
   "license": {
     "type": "term",
-    "field": "license.displaystring",
+    "field": "rights.license",
     "singular": "licens",
     "plural": "licenser"
   },
