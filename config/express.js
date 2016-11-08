@@ -38,7 +38,7 @@ module.exports = function(app) {
     app.set('views', config.root + config.viewsPath);
   }
 
-  app.set('view engine', 'jade');
+  app.set('view engine', 'pug');
   app.use(morgan('dev'));
   app.use(bodyParser.urlencoded({
     extended: true

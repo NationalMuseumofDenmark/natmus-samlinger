@@ -96,7 +96,7 @@ exports.index = function(req, res, next) {
   })
   .then(function(renderParameters) {
     if (renderParameters) {
-      res.render('object.jade', renderParameters);
+      res.render('object.pug', renderParameters);
     }
   })
   .then(null, function(error) {
