@@ -18,7 +18,6 @@ module.exports = {
     generatedDir,
     appDir
   ],
-  assetFields: require('../asset-fields.json'),
   categoryBlacklist: require('../category-blacklist.js'),
   cip: {
     baseURL: 'http://cumulus.natmus.dk/CIP',
