@@ -1,3 +1,36 @@
 {
-  
+  "collection": {
+    "type": "term",
+    "field": "catalog_name.raw",
+    "singular": "samling",
+    "plural": "samlinger"
+  },
+  "creation": {
+    "type": "date-range",
+    "field": "creation_time.timestamp",
+    "singular": "fremstillingstid",
+    "plural": "fremstillingstider"
+  },
+  "media": {
+    "type": "term",
+    "field": "file_format",
+    "singular": "medietype",
+    "plural": "medietyper"
+  },
+  "license": {
+    "type": "term",
+    "field": "license.displaystring",
+    "singular": "licens",
+    "plural": "licenser"
+  },
+  "resolution": {
+    "type": "term",
+    "field": "original_material.displaystring",
+    "singular": "størrelse",
+    "plural": "størrelser"
+  },
+  "q": {
+    "type": "querystring",
+    "skipSplit": true
+  }
 }
