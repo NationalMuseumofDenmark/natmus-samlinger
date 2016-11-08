@@ -64,10 +64,13 @@ function transformAndInsert(hits, index) {
   return Q.all(hits.map(function (hit) {
     return TRANSFORMATIONS.reduce(Q.when, hit.data).then((metadata) => {
       let type = (hit.meta.type || '').toLowerCase();
-      let collection = (metadata.collection || '').toLowerCase();
-      let id = [collection, type, metadata.id].join('/');
+      let collection = metadata.collection;
+      if(!collection) {
+        throw new Error('Got document without a collection');
+      }
+      let id = metadata.id;
       return {
-        _id: id,
+        _id: collection + '-' + id,
         _type: type,
         _source: metadata
       };
