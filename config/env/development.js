@@ -16,7 +16,7 @@ module.exports = _.merge(base, {
   siteTitle: 'Nationalmuseets Samlinger Online (dev)',
   types: {
     asset: {
-      index: 'assets'
+      index: 'new_assets'
     },
     object: {
       index: 'new_objects'
