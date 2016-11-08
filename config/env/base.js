@@ -77,7 +77,8 @@ module.exports = {
   themeColor: '#262626',
   types: {
     asset: {
-      layout: require('../layouts/asset.json')
+      layout: require('../layouts/asset.json'),
+      mapping: require('../mappings/asset.json'),
     },
     object: {
       router: path.join(__dirname, '..', '..', 'routers', 'object'),

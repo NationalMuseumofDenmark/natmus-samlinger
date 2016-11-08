@@ -97,6 +97,34 @@ function transformAndInsert(hits, index) {
   });
 }
 
+function ensureIndex(type, index) {
+  return es.indices.exists({
+    index: index
+  }).then(function(exists) {
+    if (exists) {
+      console.log('Index was already created');
+      return true;
+    } else {
+      let mappings = {};
+      mappings[type] = {
+        properties: config.types[type].mapping
+      };
+      return es.indices.create({
+        index: index,
+        body: {
+          'index': {
+            'max_result_window': 100000 // So sitemaps can access all assets
+          },
+          'mappings': mappings
+        }
+      }).then(function() {
+        console.log('Index created.');
+        return true;
+      }, console.error);
+    }
+  });
+}
+
 function run(query, index) {
   console.log('Hello from natmus-indexing');
   const SIZE = 1000;
@@ -124,5 +152,36 @@ function run(query, index) {
   nextPage();
 }
 
-run('type:asset', 'new_assets');
-run('type:object', 'new_objects');
+if(process.argv.length <= 2) {
+  console.error('Give a second argument: asset, object');
+} else if(process.argv.length <= 3) {
+  console.error('Give a third argument: clear, all');
+} else {
+  let type = process.argv[2];
+  let action = process.argv[3];
+  if(action === 'all') {
+    let index;
+    if(process.argv.length > 4) {
+      index = process.argv[3];
+    } else {
+      index = 'new_' + type + 's';
+      console.log('Assuming index: ' + index);
+    }
+    ensureIndex(type, index).then(() => {
+      run('type:' + type, index);
+    }, console.error);
+  } else if(action === 'clear') {
+    if(process.argv.length > 4) {
+      let index = process.argv[4];
+      return es.indices.delete({
+        index: index
+      }).then(function() {
+        console.log('Index "' + index + '" cleared');
+      }, console.error);
+    } else {
+      console.error('Give a forth argument: {index}');
+    }
+  } else {
+    console.error('Unexpected action: ' + action);
+  }
+}

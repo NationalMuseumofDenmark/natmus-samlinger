@@ -1,0 +1,18 @@
+{
+  "rights": {
+    "properties": {
+      "license": {
+        "type": "string",
+        "index": "not_analyzed"
+      }
+    }
+  },
+  "file": {
+    "properties": {
+      "mediaType": {
+        "type": "string",
+        "index": "not_analyzed"
+      }
+    }
+  }
+}
