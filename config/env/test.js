@@ -11,7 +11,7 @@ module.exports = _.merge(base, {
     assetsIndex: 'test_assets',
     allIndecies: [
       'new_assets',
-      'new_objects'
+      // 'new_objects'
     ]
   },
   googleAnalyticsPropertyID: 'UA-2930791-7',
