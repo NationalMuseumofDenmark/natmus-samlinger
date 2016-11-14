@@ -1,7 +1,8 @@
 {
   "relevance": {
     "label": "Relevans",
-    "method": "_score"
+    "method": "_score",
+    "default": true
   },
   "title|asc": {
     "label": "Alfabetisk: a-z",
