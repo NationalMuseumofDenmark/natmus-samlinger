@@ -172,7 +172,13 @@ if(process.argv.length <= 2) {
       console.log('Assuming index: ' + index);
     }
     ensureIndex(type, index).then(() => {
-      run('type:' + type, index);
+      var query = 'type:' + type;
+      if(type === 'object') {
+        // Let's get some objects with assets
+        // TODO: Remove this later
+        query += ' AND _exists_:relatedAssets';
+      }
+      run(query, index);
     }, console.error);
   } else if(action === 'clear') {
     if(process.argv.length > 4) {
