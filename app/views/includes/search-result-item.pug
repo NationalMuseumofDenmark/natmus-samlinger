@@ -1,0 +1,13 @@
+include ../mixins/icon.pug
+
+- var href = '/' + metadata.catalog;
+- if(Object.keys(config.types).length > 1) {
+-   href += '/' + type;
+- }
+- href += '/' + metadata.id;
+
+a(href=href).box.col-xs-6.col-sm-4
+  .overlay.box__squared-container
+    img(src=href + '/thumbnail').box__squared-image
+  h2.h4.box__title= metadata.short_title
+  p.description.box__description= metadata.description
