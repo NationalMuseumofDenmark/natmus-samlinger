@@ -28,8 +28,8 @@ var es = new elasticsearch.Client({
 
 const TRANSFORMATIONS = [
   require('./clean-id'),
-  require('./derive-collection-name')
-  // require('./camel-casing-field-names'),
+  require('./derive-collection-name'),
+  require('./sizes')
   // require('./field-renaming'),
   // require('./generate-urls'),
   // require('./remove-null-values')
