@@ -86,7 +86,7 @@
           "template": "= id"
         }, {
           "title": "Filstørrelse (mb)",
-          "template": "= filesizeMB(file_size)"
+          "template": "= file && natmusFilesizeMB(file.size)"
         }, {
           "title": "Størrelse (pixel)",
           "template": "!= decimals(width_px, 0) + ' &times; ' + decimals(height_px, 0)"
@@ -95,7 +95,7 @@
           "template": "!= decimals(width_cm, 1) + ' &times; ' + decimals(height_cm, 1)"
         }, {
           "title": "Opløsning (DPI)",
-          "template": "= decimals(file.dimensions.ppi, 0)"
+          "template": "= file && decimals(file.dimensions.ppi, 0)"
         }
       ]
     }
