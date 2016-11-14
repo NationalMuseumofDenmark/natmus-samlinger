@@ -161,8 +161,8 @@ if(process.argv.length <= 2) {
 } else if(process.argv.length <= 3) {
   console.error('Give a third argument: clear, all');
 } else {
-  let type = process.argv[2];
-  let action = process.argv[3];
+  let action = process.argv[2];
+  let type = process.argv[3];
   if(action === 'all') {
     let index;
     if(process.argv.length > 4) {
