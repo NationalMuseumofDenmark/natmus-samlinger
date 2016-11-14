@@ -17,11 +17,13 @@
   },
   "license": "MIT",
   "dependencies": {
+    "agentkeepalive": "~2.0.3",
     "bootstrap-sass": "^3.3.7",
     "canvas": "^1.5.0",
     "collections-online-cumulus": "git+https://github.com/collections-online/collections-online-cumulus.git",
     "csurf": "^1.9.0",
     "dotenv": "^2.0.0",
+    "elasticsearch": "~11.0.1",
     "express": "^4.13.4",
     "keystone": "https://github.com/keystonejs/keystone.git#32d3a13",
     "lodash": "^4.12.0",
