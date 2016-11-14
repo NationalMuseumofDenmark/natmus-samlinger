@@ -95,7 +95,7 @@
           "template": "!= decimals(width_cm, 1) + ' &times; ' + decimals(height_cm, 1)"
         }, {
           "title": "Opløsning (DPI)",
-          "template": "= decimals(dpi, 0)"
+          "template": "= decimals(file.dimensions.ppi, 0)"
         }
       ]
     }
