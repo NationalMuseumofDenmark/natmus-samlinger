@@ -14,9 +14,8 @@ html {
 }
 
 body {
-  // For category menu
   overflow-x: hidden; // Enable bleeds without horizontal scroll
-  position  : relative;
+  position  : relative; // For category menu
 
   a {
     cursor : pointer;
