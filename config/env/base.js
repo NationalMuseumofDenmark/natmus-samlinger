@@ -60,7 +60,7 @@ module.exports = {
   googleAPIKey: process.env.GOOGLE_API_KEY,
   googleMapsAPIKey: 'AIzaSyCkoZ8EB9Vf5SfXUzMY6bewq6diets-pxU',
   ip: process.env.IP || '0.0.0.0',
-  licenseMapping: require('../license-mapping.json'),
+  licenseMapping: require('../mappings/license.json'),
   natmusApiBaseURL: 'http://testapi.natmus.dk/',
   natmusApiMaxSockets: 10,
   natmusApiVersion: 1,
