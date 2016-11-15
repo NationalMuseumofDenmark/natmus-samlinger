@@ -62,19 +62,13 @@
           "template": "= rights.administrator"
         }, {
           "title": "Arkivalie nr",
-          "template": "= archiveno"
+          "template": "= physicalReference.archivename"
         }, {
           "title": "Negativ nr",
-          "template": "= negative_number"
+          "template": "= physicalReference.negativeNumber"
         }, {
           "title": "Genstands nr",
-          "template": "= object_number"
-        }, {
-          "title": "Inventar nr",
-          "template": "= inventory_number"
-        }, {
-          "title": "Arkivnavn",
-          "template": "= archivename ? archivename.displaystring : ''"
+          "template": "= physicalReference.objectNumber"
         }
       ]
     },
