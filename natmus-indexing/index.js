@@ -164,14 +164,11 @@ if(process.argv.length <= 2) {
 } else {
   let action = process.argv[2];
   let type = process.argv[3];
+  if(!(type in config.types)) {
+    throw new Error('No configuration for type: ' + type);
+  }
+  let index = config.types[type].index;
   if(action === 'all') {
-    let index;
-    if(process.argv.length > 4) {
-      index = process.argv[3];
-    } else {
-      index = 'new_' + type + 's';
-      console.log('Assuming index: ' + index);
-    }
     ensureIndex(type, index).then(() => {
       var query = 'type:' + type;
       if(type === 'object') {
@@ -182,16 +179,11 @@ if(process.argv.length <= 2) {
       run(query, index);
     }, console.error);
   } else if(action === 'clear') {
-    if(process.argv.length > 4) {
-      let index = process.argv[4];
-      return es.indices.delete({
-        index: index
-      }).then(function() {
-        console.log('Index "' + index + '" cleared');
-      }, console.error);
-    } else {
-      console.error('Give a forth argument: {index}');
-    }
+    return es.indices.delete({
+      index: index
+    }).then(function() {
+      console.log('Index "' + index + '" cleared');
+    }, console.error);
   } else {
     console.error('Unexpected action: ' + action);
   }
