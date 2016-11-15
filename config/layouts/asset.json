@@ -53,7 +53,7 @@
           "template": "!= collectionLinked(collection, collectionName)"
         }, {
           "title": "Licens",
-          "template": "!= licenseLinked(license)"
+          "template": "!= natmusLicenseLinked(rights.license)"
         }, {
           "title": "Fotograf/skaber",
           "template": "= creators(actor)"
@@ -61,7 +61,7 @@
           "title": "Kilde",
           "template": "= rights.administrator"
         }, {
-          "title": "Arkivalie nr",
+          "title": "Arkivnavn",
           "template": "= physicalReference.archivename"
         }, {
           "title": "Negativ nr",
