@@ -5,6 +5,23 @@
     "singular": "samling",
     "plural": "samlinger"
   },
+  "type": {
+    "type": "filters",
+    "filters" : {
+      "Medie": {
+        "term": {
+          "type": "asset"
+        }
+      },
+      "Genstand": {
+        "term": {
+          "type": "object"
+        }
+      }
+    },
+    "singular": "type",
+    "plural": "typer"
+  },
   "creation": {
     "type": "date-interval-range",
     "fields": {
@@ -26,9 +43,43 @@
     "singular": "licens",
     "plural": "licenser"
   },
-  "resolution": {
-    "type": "term",
-    "field": "original_material.displaystring",
+  "size": {
+    "type": "filters",
+    "filters" : {
+      "Minimum 1000px": {
+        "bool": {
+          "should": [
+            {"range": { "file.dimensions.width": { "gte": 1000 }}},
+            {"range": { "file.dimensions.height": { "gte": 1000 }}}
+          ]
+        }
+      },
+      "Minimum 2500px": {
+        "bool": {
+          "should": [
+            {"range": { "file.dimensions.width": { "gte": 2500 }}},
+            {"range": { "file.dimensions.height": { "gte": 2500 }}}
+          ]
+        }
+      },
+      "Minimum 4000px": {
+        "bool": {
+          "should": [
+            {"range": { "file.dimensions.width": { "gte": 4000 }}},
+            {"range": { "file.dimensions.height": { "gte": 4000 }}}
+          ]
+        }
+      },
+      "Printvenling": {
+        "bool": {
+          "should": [
+            {"range": { "file.dimensions.ppi": { "gte": 300 }}},
+            {"range": { "file.dimensions.width": { "gte": 2400 }}},
+            {"range": { "file.dimensions.height": { "gte": 2400 }}}
+          ]
+        }
+      }
+    },
     "singular": "størrelse",
     "plural": "størrelser"
   },
