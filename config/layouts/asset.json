@@ -50,7 +50,7 @@
       "rows": [
         {
           "title": "Samling",
-          "template": "!= catalogLinked(catalogs, catalog)"
+          "template": "!= collectionLinked(collection, collectionName)"
         }, {
           "title": "Licens",
           "template": "!= licenseLinked(license)"
