@@ -56,10 +56,10 @@
           "template": "!= licenseLinked(license)"
         }, {
           "title": "Fotograf/skaber",
-          "template": "= creator"
+          "template": "= creators(actor)"
         }, {
           "title": "Kilde",
-          "template": "= copyright"
+          "template": "= rights.administrator"
         }, {
           "title": "Arkivalie nr",
           "template": "= archiveno"
