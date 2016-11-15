@@ -29,15 +29,15 @@
           "title": "Optagelsestid",
           "type": "date-interval",
           "fields": {
-            "from": "acceptance_time_from",
-            "to": "acceptance_time_to"
+            "from": "date.recorded.from",
+            "to": "date.recorded.to"
           }
         }, {
           "title": "Fremstillingstid",
           "type": "date-interval",
           "fields": {
-            "from": "creation_time_from",
-            "to": "creation_time_to"
+            "from": "date.created.from",
+            "to": "date.created.to"
           }
         }, {
           "title": "Tidsnote",

@@ -29,6 +29,7 @@ var es = new elasticsearch.Client({
 const TRANSFORMATIONS = [
   require('./clean-id'),
   require('./derive-collection-name'),
+  require('./derive-timestamps'),
   require('./remap')
   // require('./field-renaming'),
   // require('./generate-urls'),

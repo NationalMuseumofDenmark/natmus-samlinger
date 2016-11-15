@@ -18,5 +18,49 @@
   "collectionName": {
     "type": "string",
     "index": "not_analyzed"
+  },
+  "date": {
+    "properties": {
+      "created": {
+        "properties": {
+          "from": {
+            "properties": {
+              "timestamp": {
+                "type": "date",
+                "format": "yyyy/MM/dd||epoch_millis"
+              }
+            }
+          },
+          "to": {
+            "properties": {
+              "timestamp": {
+                "type": "date",
+                "format": "yyyy/MM/dd||epoch_millis"
+              }
+            }
+          }
+        }
+      },
+      "recorded": {
+        "properties": {
+          "from": {
+            "properties": {
+              "timestamp": {
+                "type": "date",
+                "format": "yyyy/MM/dd||epoch_millis"
+              }
+            }
+          },
+          "to": {
+            "properties": {
+              "timestamp": {
+                "type": "date",
+                "format": "yyyy/MM/dd||epoch_millis"
+              }
+            }
+          }
+        }
+      }
+    }
   }
 }

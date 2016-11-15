@@ -6,8 +6,11 @@
     "plural": "samlinger"
   },
   "creation": {
-    "type": "date-range",
-    "field": "creation_time.timestamp",
+    "type": "date-interval-range",
+    "fields": {
+      "from": "date.created.from.timestamp",
+      "to": "date.created.to.timestamp"
+    },
     "singular": "fremstillingstid",
     "plural": "fremstillingstider"
   },
