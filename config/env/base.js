@@ -45,8 +45,7 @@ module.exports = {
     },
   },
   es: {
-    host: process.env.ES_HOST || 'localhost:9200',
-    assetsIndex: process.env.ES_ASSETS_INDEX || 'assets'
+    host: process.env.ES_HOST || 'localhost:9200'
   },
   features: {
     geotagging: true,
@@ -78,11 +77,12 @@ module.exports = {
   types: {
     asset: {
       layout: require('../layouts/asset.json'),
-      mapping: require('../mappings/asset.json'),
+      mapping: require('../mappings/asset.json')
     },
     object: {
       router: path.join(__dirname, '..', '..', 'routers', 'object'),
-      layout: require('../layouts/object.json')
+      layout: require('../layouts/object.json'),
+      mapping: require('../mappings/object.json')
     }
   }
 };

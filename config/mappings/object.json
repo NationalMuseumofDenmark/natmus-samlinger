@@ -1,0 +1,6 @@
+{
+  "collectionName": {
+    "type": "string",
+    "index": "not_analyzed"
+  }
+}

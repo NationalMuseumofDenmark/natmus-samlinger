@@ -7,12 +7,7 @@ module.exports = _.merge(base, {
   allowRobots: false,
   env: 'test',
   es: {
-    host: '172.16.1.222:80',
-    assetsIndex: 'test_assets',
-    allIndecies: [
-      'new_assets',
-      // 'new_objects'
-    ]
+    host: '172.16.1.222:80'
   },
   googleAnalyticsPropertyID: 'UA-2930791-7',
   ip: process.env.IP || '0.0.0.0',
