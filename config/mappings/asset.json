@@ -27,7 +27,7 @@
             "properties": {
               "timestamp": {
                 "type": "date",
-                "format": "yyyy/MM/dd||epoch_millis"
+                "format": "yyyy/MM/dd"
               }
             }
           },
@@ -35,7 +35,7 @@
             "properties": {
               "timestamp": {
                 "type": "date",
-                "format": "yyyy/MM/dd||epoch_millis"
+                "format": "yyyy/MM/dd"
               }
             }
           }
@@ -47,7 +47,7 @@
             "properties": {
               "timestamp": {
                 "type": "date",
-                "format": "yyyy/MM/dd||epoch_millis"
+                "format": "yyyy/MM/dd"
               }
             }
           },
@@ -55,7 +55,7 @@
             "properties": {
               "timestamp": {
                 "type": "date",
-                "format": "yyyy/MM/dd||epoch_millis"
+                "format": "yyyy/MM/dd"
               }
             }
           }
