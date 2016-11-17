@@ -10,7 +10,22 @@ var app = express();
 co.config(config);
 
 // Initialize the collections online application
+// Natmus specific plugins
+const plugins = require('collections-online/plugins');
+
+const natmusModule = {
+  initialize: () => {
+    // Nothing really
+  },
+  registerPlugins: () => {
+    // plugins.register('geo-tag-controller', require('./controllers/geo-tag'));
+    plugins.register('motif-tag-controller',
+                     require('./controllers/motif-tag'));
+  }
+};
+
 co.initialize(app, [
+  natmusModule,
   require('collections-online-cumulus')
 ]).then(() => {
   var mainRouter = require('./routers/main');
