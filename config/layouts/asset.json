@@ -14,6 +14,9 @@
         "title": "Postnummer",
         "template": "= location.zipcode"
       }, {
+        "title": "Bemærkning",
+        "template": "= location.note"
+      }, {
         "title": "Koordinater",
         "type": "map-coordinates",
         "fields": {
@@ -39,7 +42,7 @@
           "to": "date.created.to"
         }
       }, {
-        "title": "Tidsnote",
+        "title": "Bemærkning",
         "template": "= date.note"
       }]
     },
