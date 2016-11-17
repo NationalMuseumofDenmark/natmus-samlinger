@@ -1,97 +1,94 @@
 {
+  "title": "= text['da-DK'].title",
+  "description": "= text['da-DK'].description",
   "sections": {
     "place": {
       "title": "Sted",
-      "rows": [
-        {
-          "title": "Adresse",
-          "template": "= address || street"
-        }, {
-          "title": "By",
-          "template": "= city"
-        }, {
-          "title": "Topnr",
-          "template": "= topno"
-        }, {
-          "title": "Koordinater",
-          "type": "map-coordinates",
-          "fields": {
-            "latitude": "latitude",
-            "longitude": "longitude"
-          }
+      "rows": [{
+        "title": "Adresse",
+        "template": "= location.address"
+      }, {
+        "title": "By",
+        "template": "= location.city"
+      }, {
+        "title": "Postnummer",
+        "template": "= location.zipcode"
+      }, {
+        "title": "Koordinater",
+        "type": "map-coordinates",
+        "fields": {
+          "latitude": "latitude",
+          "longitude": "longitude"
         }
-      ]
+      }, {
+        "title": "Stedsnote",
+        "template": "= location.note"
+      }]
     },
     "time": {
       "title": "Tid",
-      "rows": [
-        {
-          "title": "Optagelsestid",
-          "type": "date-interval",
-          "fields": {
-            "from": "date.recorded.from",
-            "to": "date.recorded.to"
-          }
-        }, {
-          "title": "Fremstillingstid",
-          "type": "date-interval",
-          "fields": {
-            "from": "date.created.from",
-            "to": "date.created.to"
-          }
-        }, {
-          "title": "Tidsnote",
-          "template": "= timenote"
+      "rows": [{
+        "title": "Optagelsestid",
+        "type": "date-interval",
+        "fields": {
+          "from": "date.recorded.from",
+          "to": "date.recorded.to"
         }
-      ]
+      }, {
+        "title": "Fremstillingstid",
+        "type": "date-interval",
+        "fields": {
+          "from": "date.created.from",
+          "to": "date.created.to"
+        }
+      }, {
+        "title": "Tidsnote",
+        "template": "= date.note"
+      }]
     },
     "additional-information": {
       "title": "Yderligere oplysninger",
-      "rows": [
-        {
-          "title": "Samling",
-          "template": "!= collectionLinked(collection, collectionName)"
-        }, {
-          "title": "Licens",
-          "template": "!= natmusLicenseLinked(rights.license)"
-        }, {
-          "title": "Fotograf/skaber",
-          "template": "= creators(actor)"
-        }, {
-          "title": "Kilde",
-          "template": "= rights.administrator"
-        }, {
-          "title": "Arkivnavn",
-          "template": "= physicalReference.archivename"
-        }, {
-          "title": "Negativ nr",
-          "template": "= physicalReference.negativeNumber"
-        }, {
-          "title": "Genstands nr",
-          "template": "= physicalReference.objectNumber"
-        }
-      ]
+      "rows": [{
+        "title": "Samling",
+        "template": "!= collectionLinked(collection, collectionName)"
+      }, {
+        "title": "Licens",
+        "template": "!= natmusLicenseLinked(rights.license)"
+      }, {
+        "title": "Fotograf/skaber",
+        "template": "= creators(actor)"
+      }, {
+        "title": "Kilde",
+        "template": "= rights.administrator"
+      }, {
+        "title": "Arkivnavn",
+        "template": "= physicalReference.archivename"
+      }, {
+        "title": "Negativ nr",
+        "template": "= physicalReference.negativeNumber"
+      }, {
+        "title": "Genstands nr",
+        "template": "= physicalReference.objectNumber"
+      }]
     },
     "technical-information": {
       "title": "Tekniske oplysninger",
-      "rows": [
-        {
-          "title": "Fil-ID",
-          "template": "= id"
-        }, {
-          "title": "Filstørrelse (mb)",
-          "template": "= natmusFilesizeMB(file.size)"
-        }, {
-          "title": "Størrelse (pixel)",
-          "template": "!= decimals(width_px, 0) + ' &times; ' + decimals(height_px, 0)"
-        }, {
-          "title": "Størrelse (cm)",
-          "template": "!= decimals(width_cm, 1) + ' &times; ' + decimals(height_cm, 1)"
-        }, {
-          "title": "Opløsning (DPI)",
-          "template": "= decimals(file.dimensions.ppi, 0)"
-        }
-      ]
+      "rows": [{
+        "title": "Fil-ID",
+        "template": "= id"
+      }, {
+        "title": "Filstørrelse (mb)",
+        "template": "= natmusFilesizeMB(file.size)"
+      }, {
+        "title": "Størrelse (pixel)",
+        "template": "!= decimals(width_px, 0) + ' &times; ' + decimals(height_px, 0)"
+      }, {
+        "title": "Størrelse (cm)",
+        "template": "!= decimals(width_cm, 1) + ' &times; ' + decimals(height_cm, 1)"
+      }, {
+        "title": "Opløsning (DPI)",
+        "template": "= decimals(file.dimensions.ppi, 0)"
+      }]
     }
   }
 }
