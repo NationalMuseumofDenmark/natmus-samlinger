@@ -37,7 +37,7 @@ const TRANSFORMATIONS = [
 ];
 
 const BASE_URL = 'http://testapi.natmus.dk/';
-const SEARCH_URL = BASE_URL + 'search/public/elasticSearchString';
+const SEARCH_URL = BASE_URL + 'search/public/simple';
 const natmusAgent = new Agent();
 
 function search(query, size, offset) {

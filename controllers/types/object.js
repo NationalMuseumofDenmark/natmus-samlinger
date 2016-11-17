@@ -59,7 +59,7 @@ function getObject(req) {
     size: 1
   });
 
-  let url = 'http://testapi.natmus.dk/search/public/elasticSearchString?' + qs;
+  let url = 'http://testapi.natmus.dk/search/public/simple?' + qs;
   request({
     url,
     json: true
