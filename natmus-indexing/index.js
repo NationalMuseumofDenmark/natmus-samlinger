@@ -157,6 +157,10 @@ function run(query, index) {
   nextPage();
 }
 
+module.exports.single = (type, collection, id) => {
+  console.log('Index a single thing: ', type, collection, id);
+};
+
 if(process.argv.length <= 2) {
   console.error('Give a second argument: asset, object');
 } else if(process.argv.length <= 3) {
@@ -178,6 +182,21 @@ if(process.argv.length <= 2) {
       }
       run(query, index);
     }, console.error);
+  } else if(action === 'single') {
+    if(process.argv.length <= 5) {
+      console.error('Give a fourth and fifth arguments: {collection} {id}');
+    } else {
+      let collection = process.argv[4];
+      let id = process.argv[5];
+      ensureIndex(type, index).then(() => {
+        var query = [
+          'type:' + type,
+          'collection:' + collection,
+          'id:' + id
+        ].join(' AND ');
+        run(query, index);
+      }, console.error);
+    }
   } else if(action === 'clear') {
     return es.indices.delete({
       index: index
