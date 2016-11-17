@@ -59,7 +59,7 @@ function getObject(req) {
     size: 1
   });
 
-  let url = 'http://testapi.natmus.dk/search/public/elasticSearchString?' + qs;
+  let url = 'http://testapi.natmus.dk/search/public/simple?' + qs;
   request({
     url,
     json: true
@@ -68,6 +68,7 @@ function getObject(req) {
       deferred.reject(err);
     } else {
       let results = body.results;
+      console.log(results);
       if(body.numberOfResultsTotal > 1) {
         let err = new Error('The API returned more than one record');
         deferred.reject(err);
