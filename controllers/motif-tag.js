@@ -4,7 +4,7 @@ const es = require('collections-online/lib/services/elasticsearch');
 const motifTagController =
   require('collections-online-cumulus/controllers/motif-tag');
 
-const indexSingle = require('../natmus-indexing').single;
+const indexSingle = require('../natmus-indexing').indexSingle;
 
 module.exports.save = motifTagController.save;
 
