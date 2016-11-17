@@ -68,7 +68,6 @@ function getObject(req) {
       deferred.reject(err);
     } else {
       let results = body.results;
-      console.log(results);
       if(body.numberOfResultsTotal > 1) {
         let err = new Error('The API returned more than one record');
         deferred.reject(err);
