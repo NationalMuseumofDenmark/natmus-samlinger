@@ -17,12 +17,9 @@
         "title": "Koordinater",
         "type": "map-coordinates",
         "fields": {
-          "latitude": "latitude",
-          "longitude": "longitude"
+          "latitude": ["location.verified.latitude", "location.crowd.latitude"],
+          "longitude": ["location.verified.longitude", "location.crowd.longitude"]
         }
-      }, {
-        "title": "Stedsnote",
-        "template": "= location.note"
       }]
     },
     "time": {
