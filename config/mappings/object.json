@@ -1,4 +1,14 @@
 {
+  "title": {
+    "type": "string",
+    "analyzer": "english",
+    "fields": {
+      "raw": {
+        "type": "string",
+        "index": "not_analyzed"
+      }
+    }
+  },
   "collectionName": {
     "type": "string",
     "index": "not_analyzed"

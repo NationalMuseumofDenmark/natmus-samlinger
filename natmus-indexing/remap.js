@@ -8,7 +8,9 @@ module.exports = (metadata) => {
     metadata.height_cm = dimensions.height / dimensions.ppi * 2.54;
 
     // More remap because API changes
-    metadata.short_title = metadata.text['da-DK'].title;
+    metadata.title = metadata.text['da-DK'].title;
+  } else if(metadata.type === 'object') {
+    metadata.title = metadata.workDescription;
   }
 
   // Return
