@@ -4,20 +4,12 @@
  * various transformations along the way
  */
 
-const co = require('collections-online');
 const Q = require('q');
 const elasticsearch = require('elasticsearch');
 const Agent = require('agentkeepalive');
 const request = require('request');
 const querystring = require('querystring');
-
-// This allows loading of environment variables from a .env file
-require('dotenv').config({
-  silent: true,
-  path: '..'
-});
 const config = require('../config');
-co.config(config);
 
 var es = new elasticsearch.Client({
   host: config.es.host,
@@ -157,53 +149,42 @@ function run(query, index) {
   nextPage();
 }
 
-module.exports.single = (type, collection, id) => {
-  console.log('Index a single thing: ', type, collection, id);
-};
-
-if(process.argv.length <= 2) {
-  console.error('Give a second argument: asset, object');
-} else if(process.argv.length <= 3) {
-  console.error('Give a third argument: clear, all');
-} else {
-  let action = process.argv[2];
-  let type = process.argv[3];
-  if(!(type in config.types)) {
-    throw new Error('No configuration for type: ' + type);
-  }
-  let index = config.types[type].index;
-  if(action === 'all') {
-    ensureIndex(type, index).then(() => {
-      var query = 'type:' + type;
-      if(type === 'object') {
-        // Let's get some objects with assets
-        // TODO: Remove this later
-        query += ' AND _exists_:relatedAssets';
-      }
-      run(query, index);
-    }, console.error);
-  } else if(action === 'single') {
-    if(process.argv.length <= 5) {
-      console.error('Give a fourth and fifth arguments: {collection} {id}');
-    } else {
-      let collection = process.argv[4];
-      let id = process.argv[5];
-      ensureIndex(type, index).then(() => {
-        var query = [
-          'type:' + type,
-          'collection:' + collection,
-          'id:' + id
-        ].join(' AND ');
-        run(query, index);
-      }, console.error);
-    }
-  } else if(action === 'clear') {
-    return es.indices.delete({
-      index: index
-    }).then(function() {
-      console.log('Index "' + index + '" cleared');
-    }, console.error);
-  } else {
-    console.error('Unexpected action: ' + action);
-  }
+function indexSingle(type, collection, id) {
+  const index = config.types[type].index;
+  ensureIndex(type, index).then(() => {
+    var query = [
+      'type:' + type,
+      'collection:' + collection,
+      'id:' + id
+    ].join(' AND ');
+    return run(query, index);
+  }, console.error);
 }
+
+module.exports.indexSingle = indexSingle;
+
+function indexAll(type) {
+  const index = config.types[type].index;
+  ensureIndex(type, index).then(() => {
+    var query = 'type:' + type;
+    if(type === 'object') {
+      // Let's get some objects with assets
+      // TODO: Remove this later
+      query += ' AND _exists_:relatedAssets';
+    }
+    return run(query, index);
+  }, console.error);
+}
+
+module.exports.indexAll = indexAll;
+
+function deleteIndex(type) {
+  const index = config.types[type].index;
+  return es.indices.delete({
+    index: index
+  }).then(function() {
+    console.log('Index "' + index + '" cleared');
+  }, console.error);
+}
+
+module.exports.deleteIndex = deleteIndex;
