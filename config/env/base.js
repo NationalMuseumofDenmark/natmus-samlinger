@@ -44,9 +44,6 @@ module.exports = {
       serverAddress: 'ppcumulus.natmus.int'
     },
   },
-  es: {
-    host: process.env.ES_HOST || 'localhost:9200'
-  },
   features: {
     geotagging: true,
     rotationalImages: true,
@@ -61,9 +58,12 @@ module.exports = {
   googleMapsAPIKey: 'AIzaSyCkoZ8EB9Vf5SfXUzMY6bewq6diets-pxU',
   ip: process.env.IP || '0.0.0.0',
   licenseMapping: require('../license-mapping.json'),
-  natmusApiBaseURL: 'http://testapi.natmus.dk/',
-  natmusApiMaxSockets: 10,
-  natmusApiVersion: 1,
+  natmus: {
+    api: {
+      baseURL: 'http://testapi.natmus.dk',
+      maxSockets: 10
+    }
+  },
   port: process.env.PORT || 9000,
   projectOxfordAPIKey: process.env.PROJECT_OXFORD_API_KEY,
   root: rootPath, // TODO: Consider removing this

@@ -1,7 +1,7 @@
 {
   "collection": {
     "type": "term",
-    "field": "collectionName",
+    "field": "collection",
     "singular": "samling",
     "plural": "samlinger"
   },

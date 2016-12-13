@@ -21,10 +21,8 @@ const natmusModule = {
     // plugins.register('geo-tag-controller', require('./controllers/geo-tag'));
     plugins.register('motif-tag-controller',
                      require('./controllers/motif-tag'));
-    /*
     plugins.register('document-service',
                      require('./services/natmus-api'));
-    */
   }
 };
 
