@@ -62,14 +62,6 @@ module.exports = {
     });
   },
   getSource: (options) => {
-    /*
-    query: {
-      ids: {
-        type: options.type,
-        values: [options.id]
-      }
-    }
-    */
     let type = options.type;
     let collectionAndId = options.id.split('-');
     if(collectionAndId.length != 2) {
@@ -106,6 +98,46 @@ module.exports = {
       } else {
         return response.hits.hits[0]._source;
       }
+    });
+  },
+  mget: (options) => {
+    const type = options.type;
+    const queries = options.body.ids.map(id => {
+      const collectionAndId = id.split('-');
+      if(collectionAndId.length != 2) {
+        throw new Error('Expected a collection and id seperated by a dash "-"');
+      }
+
+      return {
+        bool: {
+          must: [
+            {term: {collection: collectionAndId[0].toLowerCase()}},
+            {term: {id: collectionAndId[1]}},
+            {term: {type}},
+          ]
+        }
+      };
+    });
+
+    return proxy({
+      url: SEARCH_RAW_URL,
+      method: 'POST',
+      json: true,
+      body: {
+        size: queries.length,
+        query: {
+          bool: {
+            should: queries
+          }
+        }
+      }
+    }).then((response) => {
+      return {
+        docs: response.hits.hits.map(hit => {
+          hit.found = true;
+          return hit;
+        })
+      };
     });
   }
 };
