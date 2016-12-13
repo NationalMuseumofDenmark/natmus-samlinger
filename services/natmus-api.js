@@ -18,6 +18,7 @@ const SEARCH_SIMPLE_URL = BASE_URL + '/search/public/simple';
 const SEARCH_RAW_URL = BASE_URL + '/search/public/raw';
 
 function proxy(options) {
+  console.log('Requesting natmus API with', JSON.stringify(options.body));
   return new Promise((resolve, reject) => {
     request(options, function(error, response, body) {
       if(error) {
@@ -40,15 +41,11 @@ function proxy(options) {
 
 module.exports = {
   search: (body) => {
-    console.log('Requesting the natmus API: ' + JSON.stringify(body));
     return proxy({
       url: SEARCH_RAW_URL,
       method: 'POST',
       json: true,
       body: body
-    }).then((response) => {
-      console.log('Search result from natmus:', response);
-      return response;
     });
   },
   count: () => {
@@ -62,6 +59,53 @@ module.exports = {
     }).then((response) => {
       response.count = response.hits.total;
       return response;
+    });
+  },
+  getSource: (options) => {
+    /*
+    query: {
+      ids: {
+        type: options.type,
+        values: [options.id]
+      }
+    }
+    */
+    let type = options.type;
+    let collectionAndId = options.id.split('-');
+    if(collectionAndId.length != 2) {
+      throw new Error('Expected a collection and id seperated by a dash "-"');
+    }
+    let collection = collectionAndId[0];
+    // Apparently the collection needs to be lowercase to match
+    collection = collection.toLowerCase();
+    let id = collectionAndId[1];
+
+    return proxy({
+      url: SEARCH_RAW_URL,
+      method: 'POST',
+      json: true,
+      body: {
+        size: 1,
+        query: {
+          bool: {
+            must: [
+              {term: {id}},
+              {term: {collection}},
+              {term: {type}},
+            ]
+          }
+        }
+      }
+    }).then((response) => {
+      if(response.hits.total !== 1) {
+        let err = new Error('Expected one result, got ' + response.hits.total);
+        if(response.hits.total === 0) {
+          err.status = 404;
+        }
+        throw err;
+      } else {
+        return response.hits.hits[0]._source;
+      }
     });
   }
 };
