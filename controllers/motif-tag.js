@@ -1,13 +1,13 @@
 const config = require('collections-online/lib/config');
-const es = require('collections-online/lib/services/elasticsearch');
 
-const motifTagController =
-  require('collections-online-cumulus/controllers/motif-tag');
+// const motifTagController = require('collections-online-cumulus/controllers/motif-tag');
+// const indexSingle = require('../natmus-indexing').indexSingle;
 
-const indexSingle = require('../natmus-indexing').indexSingle;
-
-module.exports.save = motifTagController.save;
+module.exports.save = () => {
+  throw new Error('Not implemented yet');
+};
 
 module.exports.updateIndex = (metadata) => {
-  return indexSingle('asset', metadata.collection, metadata.id);
+  throw new Error('Not implemented yet');
+  // return indexSingle('asset', metadata.collection, metadata.id);
 };

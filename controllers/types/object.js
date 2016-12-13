@@ -1,6 +1,5 @@
 'use strict';
 
-const es = require('collections-online/lib/services/elasticsearch');
 const documentCtrl = require('collections-online/lib/controllers/document');
 const config = require('collections-online/lib/config');
 const section = require('collections-online/lib/section');
