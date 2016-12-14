@@ -1,9 +1,13 @@
+const config = require('collections-online/lib/config');
 let helpers = require('collections-online/shared/helpers');
 
 helpers.documentTitle = (metadata) => {
   let title = 'Dokument med ukendt type';
   if (metadata.type === 'asset') {
-    title = metadata.text['da-DK'].title || 'Billede uden titel';
+    title = metadata.text['da-DK'].title;
+    if(!title) {
+      title = helpers.mediaFileType(metadata) + ' uden titel';
+    }
   } else if(metadata.type === 'object') {
     title = metadata.workDescription || 'Genstand uden titel';
   }
@@ -13,8 +17,7 @@ helpers.documentTitle = (metadata) => {
 helpers.documentDescription = (metadata) => {
   let description = '';
   if (metadata.type === 'asset') {
-    description = metadata.text['da-DK'].description ||
-                  'Billede uden beskrivelse';
+    description = metadata.text['da-DK'].description || '';
   } else if(metadata.type === 'object') {
     let dimensions = metadata.dimensions || [];
     description = dimensions
@@ -23,6 +26,12 @@ helpers.documentDescription = (metadata) => {
     description = description || 'Genstand uden beskrivelse';
   }
   return helpers.capitalizeFirstLetter(description);
+};
+
+helpers.mediaFileType = (metadata) => {
+  if(metadata.file && metadata.file.mediaType) {
+    return config.mediaFileTypes[metadata.file.mediaType] || 'Medie';
+  }
 };
 
 module.exports = helpers;
