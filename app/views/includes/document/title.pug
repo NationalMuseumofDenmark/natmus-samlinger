@@ -1,6 +1,0 @@
-if(metadata.type === 'asset')
-  = helpers.capitalizeFirstLetter(metadata.text['da-DK'].title || 'Billede uden titel')
-else if(metadata.type === 'object')
-  = helpers.capitalizeFirstLetter(metadata.workDescription || 'Genstand uden titel')
-else
-  | Dokument med ukendt type
