@@ -5,13 +5,12 @@ require('dotenv').config({silent: true});
 
 var gulp = require('gulp');
 var sequence = require('run-sequence');
-var config = require('./config');
 
 // ------------------------------------------
 // Get the gulp content from the main
 // ------------------------------------------
 
-require('collections-online/build/gulp')(gulp, config);
+require('collections-online/build/gulp')(gulp, __dirname);
 
 // ------------------------------------------
 // Combining tasks

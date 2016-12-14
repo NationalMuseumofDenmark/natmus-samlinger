@@ -4,19 +4,18 @@ var path = require('path');
 var _ = require('lodash');
 
 var rootPath = path.normalize(__dirname + '/../../..');
-var generatedDir = path.join(__dirname, '..', '..', 'generated');
-var appDir = path.join(__dirname, '..', '..', 'app');
+var childPath = path.normalize(path.join(__dirname, '..', '..'));
 
 var cipCatalogs = require('../cip-catalogs.json');
 
 const REVIEW_STATE_FIELD = '{a493be21-0f70-4cae-9394-703eca848bad}';
 
 module.exports = {
-  appDir: appDir,
+  childPath: childPath,
   appName: 'Samlinger',
   appPaths: [
-    generatedDir,
-    appDir
+    path.join(childPath, 'generated'),
+    path.join(childPath, 'app')
   ],
   categoryBlacklist: require('../category-blacklist.js'),
   cip: {
@@ -52,7 +51,6 @@ module.exports = {
     filterSidebar: true,
     watermarks: false
   },
-  generatedDir: generatedDir,
   googleAnalyticsPropertyID: null,
   googleAPIKey: process.env.GOOGLE_API_KEY,
   googleMapsAPIKey: 'AIzaSyCkoZ8EB9Vf5SfXUzMY6bewq6diets-pxU',
