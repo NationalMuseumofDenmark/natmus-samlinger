@@ -1,0 +1,6 @@
+if(metadata.type === 'asset')
+  = metadata.text['da-DK'].description || 'Billede uden beskrivelse'
+else if(metadata.type === 'object')
+  = (metadata.dimensions || []).map(dimension => dimension.overallDescription).join(', ') || 'Genstand uden beskrivelse'
+else
+  | Dokument med ukendt type

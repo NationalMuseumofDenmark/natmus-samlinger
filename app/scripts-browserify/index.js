@@ -1,3 +1,5 @@
 /* global config */
-require('search');
-require('dropdown');
+// Always include collections-online's base
+require('base');
+
+// Project specific
