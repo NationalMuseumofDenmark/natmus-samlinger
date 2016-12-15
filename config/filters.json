@@ -1,34 +1,34 @@
 {
   "collection": {
-    "type": "term",
     "field": "collection.keyword",
+    "plural": "samlinger",
     "singular": "samling",
-    "plural": "samlinger"
+    "translations": "collections",
+    "type": "term"
   },
   "creation": {
-    "type": "date-interval-range",
     "fields": {
       "from": "date.created.from.timestamp",
       "to": "date.created.to.timestamp"
     },
+    "plural": "fremstillingstider",
     "singular": "fremstillingstid",
-    "plural": "fremstillingstider"
+    "type": "date-interval-range"
   },
   "media": {
-    "type": "term",
     "field": "file.mediaType.keyword",
-    "translations": "media-file-types",
+    "plural": "medietyper",
     "singular": "medietype",
-    "plural": "medietyper"
+    "translations": "mediaFileTypes",
+    "type": "term"
   },
   "license": {
-    "type": "term",
     "field": "rights.license.keyword",
+    "plural": "licenser",
     "singular": "licens",
-    "plural": "licenser"
+    "type": "term"
   },
   "size": {
-    "type": "filters",
     "filters" : {
       "Minimum 1000px": {
         "bool": {
@@ -64,11 +64,12 @@
         }
       }
     },
+    "plural": "størrelser",
     "singular": "størrelse",
-    "plural": "størrelser"
+    "type": "filters"
   },
   "q": {
-    "type": "querystring",
-    "skipSplit": true
+    "skipSplit": true,
+    "type": "querystring"
   }
 }
