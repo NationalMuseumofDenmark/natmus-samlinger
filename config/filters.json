@@ -68,6 +68,29 @@
     "singular": "størrelse",
     "type": "filters"
   },
+  "location": {
+    "filters" : {
+      "Har placering": {
+        "bool": {
+          "should": [
+            {"exists": { "field": "location.verified.latitude" }},
+            {"exists": { "field": "location.crowd.latitude" }}
+          ]
+        }
+      },
+      "Mangler placering": {
+        "bool": {
+          "must_not": [
+            {"exists": { "field": "location.verified.latitude" }},
+            {"exists": { "field": "location.crowd.latitude" }}
+          ]
+        }
+      }
+    },
+    "plural": "placeringer",
+    "singular": "placering",
+    "type": "filters"
+  },
   "q": {
     "skipSplit": true,
     "type": "querystring"
