@@ -69,6 +69,11 @@ module.exports = {
   search: {
     path: 'søg',
     filters: require('../filters.json'),
+    baseQuery: {
+      'term': {
+        'type': 'asset'
+      }
+    }
   },
   sortOptions: require('../sort-options.json'),
   tagsBlacklist: require('../tags-blacklist.json'),

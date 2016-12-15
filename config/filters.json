@@ -5,23 +5,6 @@
     "singular": "samling",
     "plural": "samlinger"
   },
-  "type": {
-    "type": "filters",
-    "filters" : {
-      "Medie": {
-        "term": {
-          "type": "asset"
-        }
-      },
-      "Genstand": {
-        "term": {
-          "type": "object"
-        }
-      }
-    },
-    "singular": "type",
-    "plural": "typer"
-  },
   "creation": {
     "type": "date-interval-range",
     "fields": {
