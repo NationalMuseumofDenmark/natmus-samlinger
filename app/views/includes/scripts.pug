@@ -10,18 +10,11 @@ script.
   // Set colors
   UserVoice.push(['set', {
   accent_color: '#808283',
-  contact_enabled: 'false',
+  menu_enabled: 'false',
   forum_id: '358821', // https://natmus.uservoice.com/admin/forums/358821-samlinger-natmus-dk
   strings: {
-    post_suggestion_title: 'Vi hører rigtig gerne fra dig',
-    post_suggestion_body: 'Har du forslag til forbedringer eller måske en mere generel kommentar (fejl, kommentar til indhold, etc.)?',
-    post_suggestion_message_placeholder: '',
-    post_suggestion_submit_button: 'Send input',
-    suggestion_title_label: 'Beskriv dit input med få ord',
-    suggestion_title_placeholder: '',
-    suggestion_category_label: 'Kategori',
-    email_address_label: 'Din email (valgfrit)',
-    email_address_placeholder: '',
+    email_address_label: 'Angiv din mailadresse så vi kan give dig et svar',
+    email_address_placeholder: ''
   },
   trigger_color: 'white',
   trigger_background_color: 'rgba(46, 49, 51, 0.6)'
@@ -44,7 +37,7 @@ script.
   //}
   }]);
   // Add default trigger to the bottom-right corner of the window:
-  UserVoice.push(['addTrigger', {mode: 'feedback', trigger_position: 'bottom-left' }]);
+  UserVoice.push(['addTrigger', {mode: 'contact', trigger_position: 'bottom-left' }]);
   // Or, use your own custom trigger:
   //UserVoice.push(['addTrigger', '#id', { mode: 'contact' }]);
   // Autoprompt for Satisfaction and SmartVote (only displayed under certain conditions)
