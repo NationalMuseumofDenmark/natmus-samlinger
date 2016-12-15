@@ -34,6 +34,7 @@
   "media": {
     "type": "term",
     "field": "file.mediaType.keyword",
+    "translations": "media-file-types",
     "singular": "medietype",
     "plural": "medietyper"
   },

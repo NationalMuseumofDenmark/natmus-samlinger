@@ -56,7 +56,7 @@ module.exports = {
   googleMapsAPIKey: 'AIzaSyCkoZ8EB9Vf5SfXUzMY6bewq6diets-pxU',
   ip: process.env.IP || '0.0.0.0',
   licenseMapping: require('../license-mapping.json'),
-  mediaFileTypes: require('../media-file-types.json'),
+  translations: require('../../translations'),
   natmus: {
     api: {
       baseURL: 'http://testapi.natmus.dk',
