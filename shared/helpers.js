@@ -128,8 +128,6 @@ helpers.getDownloadURL = (metadata) => {
   ].join('/');
 };
 
-
-
 helpers.magic360Options = function(relatedAssets) {
   let smallImages = relatedAssets.filter((asset) => {
     return asset.relation === 'child';
