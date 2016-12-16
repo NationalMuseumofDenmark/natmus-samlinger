@@ -11,8 +11,8 @@
       "from": "date.created.from.timestamp",
       "to": "date.created.to.timestamp"
     },
-    "plural": "fremstillingstider",
-    "singular": "fremstillingstid",
+    "plural": "tider",
+    "singular": "tid",
     "type": "date-interval-range"
   },
   "media": {
