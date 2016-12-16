@@ -56,6 +56,7 @@ module.exports = {
   googleMapsAPIKey: 'AIzaSyCkoZ8EB9Vf5SfXUzMY6bewq6diets-pxU',
   ip: process.env.IP || '0.0.0.0',
   licenseMapping: require('../license-mapping.json'),
+  translations: require('../../translations'),
   natmus: {
     api: {
       baseURL: 'http://testapi.natmus.dk',
@@ -68,6 +69,11 @@ module.exports = {
   search: {
     path: 'søg',
     filters: require('../filters.json'),
+    baseQuery: {
+      'term': {
+        'type': 'asset'
+      }
+    }
   },
   sortOptions: require('../sort-options.json'),
   tagsBlacklist: require('../tags-blacklist.json'),

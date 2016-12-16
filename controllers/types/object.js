@@ -1,6 +1,6 @@
 'use strict';
 
-const documentCtrl = require('collections-online/lib/controllers/document');
+const documentController = require('collections-online/lib/controllers/document');
 const config = require('collections-online/lib/config');
 const section = require('collections-online/lib/section');
 
@@ -86,7 +86,7 @@ function getObject(req) {
  * Renders an asset's landing page
  */
 exports.index = function(req, res, next) {
-  return getObject(req).then((metadata) => {
+  return documentController.get(req, 'object').then((metadata) => {
     return {
       'metadata': metadata,
       'objectSection': objectSection({}),
