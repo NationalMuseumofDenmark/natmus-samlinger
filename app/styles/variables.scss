@@ -14,7 +14,8 @@
   font-style : normal;
 }
 
-$font-family-sans-serif: 'Nationale', sans-serif !default;
-$brand-primary: #9e0b0f !default;
+$font-family-sans-serif: 'Nationale', sans-serif;
+$brand-primary         : #9e0b0f;
+$filter-btn-full-width : true;
 
 @import '../../node_modules/collections-online/app/styles/variables';
