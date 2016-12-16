@@ -97,4 +97,26 @@ helpers.determinePlayer = (metadata) => {
   }
 };
 
+helpers.getThumbnailURL = (metadata, size) => {
+  let path = [
+    metadata.collection,
+    metadata.type,
+    metadata.id,
+    'thumbnail'
+  ];
+  if(size) {
+    path.push(size);
+  }
+  return '/' + path.join('/');
+};
+
+helpers.getDownloadURL = (metadata) => {
+  return '/' + [
+    metadata.collection,
+    metadata.type,
+    metadata.id,
+    'download'
+  ].join('/');
+};
+
 module.exports = helpers;
