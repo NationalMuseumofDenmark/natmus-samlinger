@@ -40,28 +40,41 @@ function proxy(options) {
 }
 
 module.exports = {
-  search: (body) => {
+  search: (options) => {
+    if(options.index) {
+      console.warn('Calling the document service with index is not supported');
+    }
     return proxy({
       url: SEARCH_RAW_URL,
       method: 'POST',
       json: true,
-      body: body
+      body: options
     });
   },
-  count: () => {
+  count: (options) => {
+    if(options.index) {
+      console.warn('Calling the document service with index is not supported');
+    }
+    let body = {
+      size: 0
+    };
+    if (options.query) {
+      body.query = options.query;
+    }
     return proxy({
       url: SEARCH_RAW_URL,
       method: 'POST',
       json: true,
-      body: {
-        size: 0
-      }
+      body
     }).then((response) => {
       response.count = response.hits.total;
       return response;
     });
   },
   getSource: (options) => {
+    if(options.index) {
+      console.warn('Calling the document service with index is not supported');
+    }
     let type = options.type;
     let collectionAndId = options.id.split('-');
     if(collectionAndId.length != 2) {
