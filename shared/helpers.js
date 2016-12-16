@@ -97,6 +97,15 @@ helpers.determinePlayer = (metadata) => {
   }
 };
 
+helpers.getDocumentURL = (metadata) => {
+  let path = [
+    metadata.collection,
+    metadata.type,
+    metadata.id
+  ];
+  return '/' + path.join('/');
+};
+
 helpers.getThumbnailURL = (metadata, size) => {
   let path = [
     metadata.collection,
