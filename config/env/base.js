@@ -71,8 +71,19 @@ module.exports = {
     path: 'søg',
     filters: require('../filters.json'),
     baseQuery: {
-      'term': {
-        'type': 'asset'
+      'bool': {
+        'must': {
+          'term': {
+            'type': 'asset'
+          }
+        },
+        'must_not': {
+          'range': {
+            'meta.rotation': {
+              'gt': 1
+            }
+          }
+        }
       }
     }
   },
