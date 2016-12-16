@@ -16,11 +16,61 @@
     "type": "date-interval-range"
   },
   "media": {
-    "field": "file.mediaType.keyword",
+    "filters" : {
+      "Billede": {
+        "bool": {
+          "must": {
+            "bool": {
+              "should": [
+                {"term": {"file.mediaType.keyword": "image/bitmap"}},
+                {"term": {"file.mediaType.keyword": "image/canon"}},
+                {"term": {"file.mediaType.keyword": "image/gif"}},
+                {"term": {"file.mediaType.keyword": "image/grid"}},
+                {"term": {"file.mediaType.keyword": "image/jpeg"}},
+                {"term": {"file.mediaType.keyword": "image/nikon"}},
+                {"term": {"file.mediaType.keyword": "image/photoshop"}},
+                {"term": {"file.mediaType.keyword": "image/tiff"}}
+              ]
+            }
+          },
+          "must_not": {
+            "exists": {"field": "meta.rotation"}
+          }
+        }
+      },
+      "Dokument": {
+        "bool": {
+          "should": [
+            {"term": {"file.mediaType.keyword": "image/portable"}}
+          ]
+        }
+      },
+      "Film": {
+        "bool": {
+          "should": [
+            {"term": {"file.mediaType.keyword": "image/mpeg-4"}},
+            {"term": {"file.mediaType.keyword": "image/mpeg"}}
+          ]
+        }
+      },
+      "Lyd": {
+        "bool": {
+          "should": [
+            {"term": {"file.mediaType.keyword": "image/mp3"}}
+          ]
+        }
+      },
+      "Rotationsbillede": {
+        "bool": {
+          "should": [
+            {"term": {"meta.rotation": 1}}
+          ]
+        }
+      }
+    },
     "plural": "medietyper",
     "singular": "medietype",
-    "translations": "mediaFileTypes",
-    "type": "term"
+    "type": "filters"
   },
   "license": {
     "field": "rights.license.keyword",
