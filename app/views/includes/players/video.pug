@@ -1,2 +1,3 @@
+- let downloadURL = helpers.getDownloadURL(metadata);
 video(width="100%", controls)
-  source(src=sources.video, type="video/mp4")
+  source(src=downloadURL, type="video/mp4")

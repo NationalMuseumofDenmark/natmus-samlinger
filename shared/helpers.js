@@ -128,4 +128,25 @@ helpers.getDownloadURL = (metadata) => {
   ].join('/');
 };
 
+
+
+helpers.magic360Options = function(relatedAssets) {
+  let smallImages = relatedAssets.filter((asset) => {
+    return asset.relation === 'child';
+  }).map((asset) => {
+    return asset.src + '/1280';
+  });
+  let options = {
+    'magnifier-shape': 'circle',
+    'magnifier-width': '100%',
+    'columns': smallImages.length,
+    'images': smallImages.join(' ')
+  };
+  let result = '';
+  for (var o in options) {
+    result += o + ': ' + options[o] + '; ';
+  }
+  return result;
+};
+
 module.exports = helpers;
