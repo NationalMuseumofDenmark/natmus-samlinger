@@ -44,12 +44,11 @@ module.exports = {
     },
   },
   features: {
-    clientSideSearchResultRendering: true,
-    crowdtagging: true,
-    filterSidebar: true,
     geotagging: true,
     rotationalImages: true,
-    scrollToTop: false,
+    crowdtagging: true,
+    clientSideSearchResultRendering: true,
+    filterSidebar: true,
     watermarks: false
   },
   googleAnalyticsPropertyID: null,
