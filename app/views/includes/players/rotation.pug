@@ -1,0 +1,8 @@
+.rotation-wrapper
+  picture(alt=title)
+    source(srcset=sources.imageSet['2000'], media='(min-width: 1200px)')
+    source(srcset=sources.imageSet['1200'], media='(min-width: 800px)')
+    source(srcset=sources.imageSet['800'], media='(min-width: 400px)')
+    source(srcset=sources.imageSet['400'], media='(max-width: 400px)')
+    a.Magic360(data-magic360-options=helpers.magic360Options(sources.imageRotationSet))
+      img(src=sources.image, alt=title)
