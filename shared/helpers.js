@@ -53,4 +53,48 @@ helpers.mediaFileType = (metadata) => {
   }
 };
 
+const playerFromFileMediaType = {
+  'document': [
+    'image/portable'
+  ],
+  'image': [
+    'image/bitmap',
+    'image/canon',
+    'image/grid',
+    'image/jpeg',
+    'image/nikon',
+    'image/photoshop',
+    'image/tiff'
+  ],
+  'image-downloaded': [
+    'image/gif'
+  ],
+  'audio': [
+    'image/mp3'
+  ],
+  'video': [
+    'image/mpeg-4',
+    'image/mpeg'
+  ]
+};
+
+helpers.determinePlayer = (metadata) => {
+  if(metadata.meta && metadata.meta.rotation) {
+    return 'rotation';
+  } else if(metadata.file && metadata.file.mediaType) {
+    // Iterate the players and try to determine the player based on media type
+    let player = Object.keys(playerFromFileMediaType)
+    .reduce((result, player) => {
+      let mediaTypes = playerFromFileMediaType[player];
+      if(!result && mediaTypes.indexOf(metadata.file.mediaType) > -1) {
+        return player;
+      }
+      return result;
+    }, undefined);
+    return player || 'unknown';
+  } else {
+    return 'unknown';
+  }
+};
+
 module.exports = helpers;
