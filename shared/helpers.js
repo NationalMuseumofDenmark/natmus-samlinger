@@ -129,16 +129,22 @@ helpers.getDownloadURL = (metadata) => {
 };
 
 helpers.magic360Options = function(relatedAssets) {
-  let smallImages = relatedAssets.filter((asset) => {
+  let relevantAssets = relatedAssets.filter((asset) => {
     return asset.relation === 'child';
-  }).map((asset) => {
-    return asset.src + '/1280';
+  });
+  relevantAssets.sort((assetA, assetB) => {
+    let nameA = assetA.file.name || '';
+    let nameB = assetB.file.name || '';
+    return nameA.localeCompare(nameB);
+  });
+  let relevantAssetUrls = relevantAssets.map((asset) => {
+    return helpers.getThumbnailURL(asset, 1280);
   });
   let options = {
     'magnifier-shape': 'circle',
     'magnifier-width': '100%',
-    'columns': smallImages.length,
-    'images': smallImages.join(' ')
+    'columns': relevantAssetUrls.length,
+    'images': relevantAssetUrls.join(' ')
   };
   let result = '';
   for (var o in options) {
