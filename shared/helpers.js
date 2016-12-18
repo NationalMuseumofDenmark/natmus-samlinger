@@ -128,6 +128,52 @@ helpers.getDownloadURL = (metadata) => {
   ].join('/');
 };
 
+helpers.getDownloadOptions = (metadata) => {
+  let result = [];
+  /*
+  a.btn.btn-primary(href=sources.imageSet.download800.src)
+  | Lille (#{sources.imageSet.download800.size} jpg)
+  a.btn.btn-primary(href=sources.imageSet.download1200.src)
+  | Mellem (#{sources.imageSet.download1200.size} jpg)
+  a.btn.btn-primary(href=sources.imageSet.download2000.src)
+  | Stor (#{sources.imageSet.download2000.size} jpg)
+  a.btn.btn-primary(href=sources.imageSet.downloadOriginal.src)
+  | Original (#{metadata.width_px} x #{metadata.height_px} jpg)
+  if(file_format === 'TIFF Image')
+  a.btn.btn-primary(href=sources.download)
+  | Original (#{metadata.width_px} x #{metadata.height_px} tif)
+  if(player === 'image-single-animated')
+  a.btn.btn-primary(href=sources.download)
+  | Original (#{metadata.width_px} x #{metadata.height_px} gif)
+
+  sources.imageSet = {
+    400: {src: url + '/image/400', size: sizes[400]},
+    800: {src: url + '/image/800', size: sizes[800]},
+    1200: {src: url + '/image/1200', size: sizes[1200]},
+    2000: {src: url + '/image/2000', size: sizes[2000]},
+    original: {src: url + '/image/original', size: sizes['original']},
+    // Downloads
+    download400: {
+      src: url + '/download/400/' + encodedTitle + '.jpg',
+      size: sizes[400]},
+    download800: {
+      src: url + '/download/800/' + encodedTitle + '.jpg',
+      size: sizes[800]},
+    download1200: {
+      src: url + '/download/1200/' + encodedTitle + '.jpg',
+      size: sizes[1200]},
+    download2000: {
+      src: url + '/download/2000/' + encodedTitle + '.jpg',
+      size: sizes[2000]},
+    downloadOriginal: {
+      src: url + '/download/original/' + encodedTitle + '.jpg',
+      size: sizes['original']}
+  };
+
+  */
+  return result;
+};
+
 helpers.magic360Options = function(relatedAssets) {
   let relevantAssets = relatedAssets.filter((asset) => {
     return asset.relation === 'child';
