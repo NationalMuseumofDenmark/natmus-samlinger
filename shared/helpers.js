@@ -79,7 +79,7 @@ const playerFromFileMediaType = {
 };
 
 helpers.determinePlayer = (metadata) => {
-  if(metadata.meta && metadata.meta.rotation) {
+  if(metadata.meta && metadata.meta.rotation === 1) {
     return 'rotation';
   } else if(metadata.file && metadata.file.mediaType) {
     // Iterate the players and try to determine the player based on media type
