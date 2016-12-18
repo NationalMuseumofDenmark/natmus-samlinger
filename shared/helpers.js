@@ -153,4 +153,12 @@ helpers.magic360Options = function(relatedAssets) {
   return result;
 };
 
+helpers.translate = key => {
+  if(config.translations[key]) {
+    return config.translations[key];
+  } else {
+    return key;
+  }
+};
+
 module.exports = helpers;
