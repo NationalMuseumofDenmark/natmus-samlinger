@@ -114,6 +114,12 @@ module.exports = {
     });
   },
   mget: (options) => {
+    if(!options.type) {
+      throw new Error('Expected a "type"');
+    }
+    if(!options.body || !options.body.ids) {
+      throw new Error('Expected a "body" object with "ids"');
+    }
     const type = options.type;
     const queries = options.body.ids.map(id => {
       const collectionAndId = id.split('-');
