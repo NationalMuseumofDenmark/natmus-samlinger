@@ -78,10 +78,8 @@ module.exports = {
           }
         },
         'must_not': {
-          'range': {
-            'meta.rotation': {
-              'gt': 1
-            }
+          'term': {
+            'related.assets.relation': 'parent'
           }
         }
       }
