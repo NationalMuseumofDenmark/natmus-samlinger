@@ -8,7 +8,8 @@ helpers.documentTitle = (metadata, fallback) => {
 
   if (metadata.type === 'asset') {
     title = metadata.text['da-DK'].title;
-    type = helpers.mediaFileType(metadata);
+    const player = helpers.determinePlayer(metadata);
+    type = config.translations.players[player] || 'Medie';
   } else if(metadata.type === 'object') {
     title = metadata.workDescription;
     type = 'Genstand';
@@ -49,7 +50,7 @@ helpers.documentDescription = (metadata, fallback) => {
 helpers.mediaFileType = (metadata) => {
   if(metadata.file && metadata.file.mediaType) {
     let mediaType = metadata.file.mediaType;
-    return config.translations.mediaFileTypes[mediaType] || 'Medie';
+    return config.translations.players[mediaType] || 'Medie';
   }
 };
 

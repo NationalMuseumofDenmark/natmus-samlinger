@@ -4,5 +4,6 @@ module.exports = {
   object: 'genstand',
   objects: 'genstande',
   collections: require('./collections.json'),
-  mediaFileTypes: require('./media-file-types.json')
+  mediaFileTypes: require('./media-file-types.json'),
+  players: require('./players.json')
 };
