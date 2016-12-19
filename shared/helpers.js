@@ -133,6 +133,19 @@ helpers.getDownloadURL = (metadata, size) => {
   return '/' + path.join('/');
 };
 
+helpers.getDirectDownloadURL = (metadata) => {
+  if(!config.cip || !config.cip.baseURL) {
+    throw new Error('Expected the baseURL of the CIP to be configered');
+  }
+  return [
+    config.cip.baseURL,
+    'asset',
+    'download',
+    metadata.collection,
+    metadata.id
+  ].join('/');
+};
+
 function getFileDimensionsString(metadata, size) {
   let width = metadata.file.dimensions.width;
   let height = metadata.file.dimensions.height;
