@@ -119,13 +119,17 @@ helpers.getThumbnailURL = (metadata, size) => {
   return '/' + path.join('/');
 };
 
-helpers.getDownloadURL = (metadata) => {
-  return '/' + [
+helpers.getDownloadURL = (metadata, size) => {
+  let path = [
     metadata.collection,
     metadata.type,
     metadata.id,
     'download'
-  ].join('/');
+  ];
+  if(size) {
+    path.push(size);
+  }
+  return '/' + path.join('/');
 };
 
 function getFileDimensionsString(metadata, size) {
