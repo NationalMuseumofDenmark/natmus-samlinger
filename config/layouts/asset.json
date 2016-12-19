@@ -4,16 +4,16 @@
       "title": "Sted",
       "rows": [{
         "title": "Adresse",
-        "template": "= location.address"
+        "template": "= location && location.address"
       }, {
         "title": "By",
-        "template": "= location.city"
+        "template": "= location && location.city"
       }, {
         "title": "Postnummer",
-        "template": "= location.zipcode"
+        "template": "= location && location.zipcode"
       }, {
         "title": "Bemærkning",
-        "template": "= location.note"
+        "template": "= location && location.note"
       }, {
         "title": "Koordinater",
         "type": "map-coordinates",
@@ -41,7 +41,7 @@
         }
       }, {
         "title": "Bemærkning",
-        "template": "= date.note"
+        "template": "= date && date.note"
       }]
     },
     "additional-information": {
@@ -51,22 +51,22 @@
         "template": "!= collectionLinked(collection, collectionName)"
       }, {
         "title": "Licens",
-        "template": "!= natmusLicenseLinked(rights.license)"
+        "template": "!= rights && natmusLicenseLinked(rights.license)"
       }, {
         "title": "Fotograf/skaber",
         "template": "= creators(actor)"
       }, {
         "title": "Kilde",
-        "template": "= rights.administrator"
+        "template": "= rights && rights.administrator"
       }, {
         "title": "Arkivnavn",
-        "template": "= physicalReference.archivename"
+        "template": "= physicalReference && physicalReference.archivename"
       }, {
         "title": "Negativ nr",
-        "template": "= physicalReference.negativeNumber"
+        "template": "= physicalReference && physicalReference.negativeNumber"
       }, {
         "title": "Genstands nr",
-        "template": "= physicalReference.objectNumber"
+        "template": "= physicalReference && physicalReference.objectNumber"
       }]
     },
     "technical-information": {
@@ -76,7 +76,7 @@
         "template": "= id"
       }, {
         "title": "Filstørrelse (mb)",
-        "template": "= natmusFilesizeMB(file.size)"
+        "template": "= file && natmusFilesizeMB(file.size)"
       }, {
         "title": "Størrelse (pixel)",
         "template": "!= decimals(width_px, 0) + ' &times; ' + decimals(height_px, 0)"
@@ -85,7 +85,7 @@
         "template": "!= decimals(width_cm, 1) + ' &times; ' + decimals(height_cm, 1)"
       }, {
         "title": "Opløsning (DPI)",
-        "template": "= decimals(file.dimensions.ppi, 0)"
+        "template": "= file && decimals(file.dimensions.ppi, 0)"
       }]
     }
   }
