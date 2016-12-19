@@ -68,7 +68,8 @@ module.exports.typeaheadSuggestions = (text) => {
   });
 };
 
-module.exports.save = () => {
+module.exports.save = (metadata) => {
+  console.log('Saving motif tags', metadata);
   throw new Error('Not implemented yet');
 };
 
