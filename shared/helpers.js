@@ -128,50 +128,70 @@ helpers.getDownloadURL = (metadata) => {
   ].join('/');
 };
 
-helpers.getDownloadOptions = (metadata) => {
-  let result = [];
-  /*
-  a.btn.btn-primary(href=sources.imageSet.download800.src)
-  | Lille (#{sources.imageSet.download800.size} jpg)
-  a.btn.btn-primary(href=sources.imageSet.download1200.src)
-  | Mellem (#{sources.imageSet.download1200.size} jpg)
-  a.btn.btn-primary(href=sources.imageSet.download2000.src)
-  | Stor (#{sources.imageSet.download2000.size} jpg)
-  a.btn.btn-primary(href=sources.imageSet.downloadOriginal.src)
-  | Original (#{metadata.width_px} x #{metadata.height_px} jpg)
-  if(file_format === 'TIFF Image')
-  a.btn.btn-primary(href=sources.download)
-  | Original (#{metadata.width_px} x #{metadata.height_px} tif)
-  if(player === 'image-single-animated')
-  a.btn.btn-primary(href=sources.download)
-  | Original (#{metadata.width_px} x #{metadata.height_px} gif)
+function getFileDimensionsString(metadata, size) {
+  let width = metadata.file.dimensions.width;
+  let height = metadata.file.dimensions.height;
+  if(typeof(size) === 'number') {
+    let ratio = width / height;
+    if(ratio > 1) {
+      width = size;
+      height = size / ratio;
+    } else {
+      width = size * ratio;
+      height = size;
+    }
+  }
+  return Math.round(width) + ' × ' + Math.round(height);
+}
 
-  sources.imageSet = {
-    400: {src: url + '/image/400', size: sizes[400]},
-    800: {src: url + '/image/800', size: sizes[800]},
-    1200: {src: url + '/image/1200', size: sizes[1200]},
-    2000: {src: url + '/image/2000', size: sizes[2000]},
-    original: {src: url + '/image/original', size: sizes['original']},
-    // Downloads
-    download400: {
-      src: url + '/download/400/' + encodedTitle + '.jpg',
-      size: sizes[400]},
-    download800: {
-      src: url + '/download/800/' + encodedTitle + '.jpg',
-      size: sizes[800]},
-    download1200: {
-      src: url + '/download/1200/' + encodedTitle + '.jpg',
-      size: sizes[1200]},
-    download2000: {
-      src: url + '/download/2000/' + encodedTitle + '.jpg',
-      size: sizes[2000]},
-    downloadOriginal: {
-      src: url + '/download/original/' + encodedTitle + '.jpg',
-      size: sizes['original']}
+function generateSizeDownloadOption(labelPrefix, size) {
+  return {
+    label: metadata => {
+      return labelPrefix + ' (' + getFileDimensionsString(metadata, size) + ') JPEG';
+    },
+    filter: metadata => {
+      if(typeof(size) === 'number') {
+        const maxSize = Math.max(metadata.file.dimensions.width,
+                              metadata.file.dimensions.height);
+        return maxSize >= size;
+      } else {
+        return true;
+      }
+    },
+    url: metadata => helpers.getDownloadURL(metadata, size),
   };
+}
 
-  */
-  return result;
+const AVAILABLE_DOWNLOAD_OPTIONS = [
+  generateSizeDownloadOption('Lille', 800),
+  generateSizeDownloadOption('Mellem', 1200),
+  generateSizeDownloadOption('Stor', 2000),
+  generateSizeDownloadOption('Original', 'original'),
+  {
+    label: metadata => {
+      let type = metadata.file.mediaType;
+      // Split the mime-type on slash
+      type = type.split('/');
+      // And pick the latter
+      type = type[type.length-1];
+      return 'Original (' + getFileDimensionsString(metadata) + ') ' + type;
+    },
+    filter: metadata => {
+      return metadata.file.mediaType !== 'image/jpeg';
+    },
+    url: metadata => helpers.getDownloadURL(metadata),
+  }
+];
+
+helpers.getDownloadOptions = (metadata) => {
+  return AVAILABLE_DOWNLOAD_OPTIONS.filter(option => {
+    return option.filter(metadata);
+  }).map(option => {
+    return {
+      label: option.label(metadata),
+      url: option.url(metadata)
+    };
+  });
 };
 
 helpers.magic360Options = function(relatedAssets) {
