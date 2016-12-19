@@ -6,15 +6,6 @@
     "translations": "collections",
     "type": "term"
   },
-  "creation": {
-    "fields": {
-      "from": "date.created.from.timestamp",
-      "to": "date.created.to.timestamp"
-    },
-    "plural": "tider",
-    "singular": "tid",
-    "type": "date-interval-range"
-  },
   "media": {
     "filters" : {
       "Billede": {
