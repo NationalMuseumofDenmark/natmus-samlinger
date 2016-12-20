@@ -51,7 +51,7 @@
         "template": "!= collectionLinked(collection, collectionName)"
       }, {
         "title": "Licens",
-        "template": "!= rights && natmusLicenseLinked(rights.license)"
+        "template": "!= rights && licenseLinked(rights.license)"
       }, {
         "title": "Fotograf/skaber",
         "template": "= creators(actor)"
@@ -76,7 +76,7 @@
         "template": "= id"
       }, {
         "title": "Filstørrelse (mb)",
-        "template": "= file && natmusFilesizeMB(file.size)"
+        "template": "= file && filesizeMB(file.size)"
       }, {
         "title": "Størrelse (pixel)",
         "template": "!= decimals(width_px, 0) + ' &times; ' + decimals(height_px, 0)"

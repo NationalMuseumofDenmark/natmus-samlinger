@@ -98,54 +98,6 @@ helpers.determinePlayer = (metadata) => {
   }
 };
 
-helpers.getDocumentURL = (metadata) => {
-  let path = [metadata.collection];
-  if(Object.keys(config.types).length > 1) {
-    path.push(metadata.type);
-  }
-  path.push(metadata.id);
-  return '/' + path.join('/');
-};
-
-helpers.getThumbnailURL = (metadata, size) => {
-  let path = [
-    metadata.collection,
-    metadata.type,
-    metadata.id,
-    'thumbnail'
-  ];
-  if(size) {
-    path.push(size);
-  }
-  return '/' + path.join('/');
-};
-
-helpers.getDownloadURL = (metadata, size) => {
-  let path = [
-    metadata.collection,
-    metadata.type,
-    metadata.id,
-    'download'
-  ];
-  if(size) {
-    path.push(size);
-  }
-  return '/' + path.join('/');
-};
-
-helpers.getDirectDownloadURL = (metadata) => {
-  if(!config.cip || !config.cip.baseURL) {
-    throw new Error('Expected the baseURL of the CIP to be configered');
-  }
-  return [
-    config.cip.baseURL,
-    'asset',
-    'download',
-    metadata.collection,
-    metadata.id
-  ].join('/');
-};
-
 function getFileDimensionsString(metadata, size) {
   let width = metadata.file.dimensions.width;
   let height = metadata.file.dimensions.height;
@@ -165,15 +117,18 @@ function getFileDimensionsString(metadata, size) {
 function generateSizeDownloadOption(labelPrefix, size) {
   return {
     label: metadata => {
-      return labelPrefix + ' (' + getFileDimensionsString(metadata, size) + ') JPEG';
+      let dimensions = getFileDimensionsString(metadata, size);
+      return labelPrefix + ' (' + dimensions + ') JPEG';
     },
-    filter: metadata => {
-      if(typeof(size) === 'number') {
-        const maxSize = Math.max(metadata.file.dimensions.width,
-                              metadata.file.dimensions.height);
-        return maxSize >= size;
+    filter: (metadata, derived) => {
+      if(derived.player === 'image') {
+        if(typeof(size) === 'number') {
+          return derived.maxSize >= size;
+        } else {
+          return true;
+        }
       } else {
-        return true;
+        return false;
       }
     },
     url: metadata => helpers.getDownloadURL(metadata, size),
@@ -187,11 +142,7 @@ const AVAILABLE_DOWNLOAD_OPTIONS = [
   generateSizeDownloadOption('Original', 'original'),
   {
     label: metadata => {
-      let type = metadata.file.mediaType;
-      // Split the mime-type on slash
-      type = type.split('/');
-      // And pick the latter
-      type = type[type.length-1];
+      let type = config.translations.mediaFileTypes[metadata.file.mediaType];
       return 'Original (' + getFileDimensionsString(metadata) + ') ' + type;
     },
     filter: metadata => {
@@ -202,12 +153,19 @@ const AVAILABLE_DOWNLOAD_OPTIONS = [
 ];
 
 helpers.getDownloadOptions = (metadata) => {
+  const hasDimensions = metadata.file && metadata.file.dimensions;
+  let maxSize = hasDimensions && Math.max(metadata.file.dimensions.width,
+                                          metadata.file.dimensions.height);
+  let derived = {
+    maxSize,
+    player: helpers.determinePlayer(metadata)
+  };
   return AVAILABLE_DOWNLOAD_OPTIONS.filter(option => {
-    return option.filter(metadata);
+    return option.filter(metadata, derived);
   }).map(option => {
     return {
-      label: option.label(metadata),
-      url: option.url(metadata)
+      label: option.label(metadata, derived),
+      url: option.url(metadata, derived)
     };
   });
 };
@@ -237,12 +195,37 @@ helpers.magic360Options = function(relatedAssets) {
   return result;
 };
 
-helpers.translate = key => {
-  if(config.translations[key]) {
-    return config.translations[key];
+helpers.isWatermarkRequired = (metadata) => {
+  return false;
+};
+
+helpers.filesizeMB = (filesize) => {
+  if (filesize) {
+    var mb = filesize / 1024 / 1024;
+    // Formatted
+    mb = helpers.decimals(mb, 1);
+    return mb + ' MB';
   } else {
-    return key;
+    return undefined;
   }
+};
+
+helpers.creators = (creators) => {
+  if (creators) {
+    let creatorsList = [];
+    creators.every(obj => creatorsList.push(obj.name));
+    return creatorsList.join(', ');
+  }
+};
+
+helpers.isDownloadable = (metadata) => {
+  return !metadata.rights || metadata.rights.license !== 'All Rights Reserved';
+};
+
+// TODO: Consider moving this to collections-online?
+helpers.collectionLinked = (collection, collectionName) => {
+  let url = `/${collection}`;
+  helpers.link(url, collectionName);
 };
 
 module.exports = helpers;
