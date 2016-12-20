@@ -99,11 +99,11 @@ helpers.determinePlayer = (metadata) => {
 };
 
 helpers.getDocumentURL = (metadata) => {
-  let path = [
-    metadata.collection,
-    metadata.type,
-    metadata.id
-  ];
+  let path = [metadata.collection];
+  if(Object.keys(config.types).length > 1) {
+    path.push(metadata.type);
+  }
+  path.push(metadata.id);
   return '/' + path.join('/');
 };
 
