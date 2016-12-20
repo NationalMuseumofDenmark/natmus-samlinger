@@ -47,6 +47,10 @@ helpers.documentDescription = (metadata, fallback) => {
   return helpers.capitalizeFirstLetter(description);
 };
 
+helpers.documentLicense = (metadata) => {
+  return metadata.rights && metadata.rights.license;
+};
+
 helpers.mediaFileType = (metadata) => {
   if(metadata.file && metadata.file.mediaType) {
     let mediaType = metadata.file.mediaType;
