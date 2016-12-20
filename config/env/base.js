@@ -68,7 +68,7 @@ module.exports = {
   projectOxfordAPIKey: process.env.PROJECT_OXFORD_API_KEY,
   root: rootPath, // TODO: Consider removing this
   search: {
-    path: 'søg',
+    path: 'search',
     filters: require('../filters.json'),
     baseQuery: {
       'bool': {
