@@ -22,7 +22,9 @@ module.exports.proxy = (req, res, next) => {
     body.from = req.query.from;
   }
 
-  natmus.search(body).then((response) => {
+  natmus.search({
+    body
+  }).then((response) => {
     res.json(response);
   }, next);
 };

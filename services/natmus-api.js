@@ -44,11 +44,15 @@ module.exports = {
     if(options.index) {
       console.warn('Calling the document service with index is not supported');
     }
+    if(!options.body) {
+      throw new Error('Missing the body parameter');
+    }
+
     return proxy({
       url: SEARCH_RAW_URL,
       method: 'POST',
       json: true,
-      body: options
+      body: options.body
     });
   },
   count: (options) => {
