@@ -5,8 +5,8 @@ const router = express.Router();
 const api = require('../controllers/api');
 
 router
-  .route('/:index/:action')
-  .post(api.proxy);
+  .post('/:action', api.proxy)
+  .post('/:index/:action', api.proxy);
 
 router
   .route('/*')
