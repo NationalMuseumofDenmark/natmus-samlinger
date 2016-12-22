@@ -51,6 +51,11 @@ helpers.documentLicense = (metadata) => {
   return metadata.rights && metadata.rights.license;
 };
 
+helpers.documentModified = (metadata) => {
+  return metadata.meta.modified;
+  // return metadata.modification_time.timestamp;
+};
+
 helpers.mediaFileType = (metadata) => {
   if(metadata.file && metadata.file.mediaType) {
     let mediaType = metadata.file.mediaType;
@@ -201,6 +206,23 @@ helpers.magic360Options = function(relatedAssets) {
 
 helpers.isWatermarkRequired = (metadata) => {
   return false;
+  /*
+  // Looping through the licenses to find the on
+  const WATERMARKED_LICENSE_IDS = config.licenseMapping
+  .map((license, licenseId) => {
+    return {
+      id: licenseId,
+      watermark: license && license.watermark
+    };
+  })
+  .filter(license => license.watermark)
+  .map(license => license.id);
+
+  // If no license is known or the configuration states it
+  let requiredByLicense = !metadata.license || WATERMARKED_LICENSE_IDS.indexOf(metadata.license.id) > -1;
+  // We should only apply the watermark when the size is large
+  let isLarge = size > THUMBNAIL_SIZE;
+  */
 };
 
 helpers.filesizeMB = (filesize) => {
