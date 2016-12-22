@@ -9,6 +9,7 @@
     "natmus-index": "node natmus-indexing/run",
     "install": "gulp build",
     "start": "node server.js",
+    "dev": "NODE_ENV=development nodemon server.js",
     "test": "echo \"Error: no test specified - but lets succeed\" && exit 0"
   },
   "repository": {
@@ -33,6 +34,7 @@
   },
   "devDependencies": {
     "gulp": "^3.9.1",
+    "nodemon": "^1.11.0",
     "run-sequence": "^1.1.5"
   },
   "engines": {
