@@ -9,41 +9,43 @@ module.exports.typeaheadSuggestions = (text) => {
   console.log('Searching for suggestions starting with', text);
   return ds.search({
     'size': 0,
-    'aggs': {
-      'verified_subject': {
-        'terms': {
-          'field': 'tags.verified.subject.keyword',
-          'include': text + '.*'
-        }
-      },
-      'verified_location': {
-        'terms': {
-          'field': 'tags.verified.location.keyword',
-          'include': text + '.*'
-        }
-      },
-      'verified_theme': {
-        'terms': {
-          'field': 'tags.verified.theme.keyword',
-          'include': text + '.*'
-        }
-      },
-      'verified_time': {
-        'terms': {
-          'field': 'tags.verified.time.keyword',
-          'include': text + '.*'
-        }
-      },
-      'crowd': {
-        'terms': {
-          'field': 'tags.crowd.keyword',
-          'include': text + '.*'
-        }
-      },
-      'automated': {
-        'terms': {
-          'field': 'tags.automated.keyword',
-          'include': text + '.*'
+    'body': {
+      'aggs': {
+        'verified_subject': {
+          'terms': {
+            'field': 'tags.verified.subject.keyword',
+            'include': text + '.*'
+          }
+        },
+        'verified_location': {
+          'terms': {
+            'field': 'tags.verified.location.keyword',
+            'include': text + '.*'
+          }
+        },
+        'verified_theme': {
+          'terms': {
+            'field': 'tags.verified.theme.keyword',
+            'include': text + '.*'
+          }
+        },
+        'verified_time': {
+          'terms': {
+            'field': 'tags.verified.time.keyword',
+            'include': text + '.*'
+          }
+        },
+        'crowd': {
+          'terms': {
+            'field': 'tags.crowd.keyword',
+            'include': text + '.*'
+          }
+        },
+        'automated': {
+          'terms': {
+            'field': 'tags.automated.keyword',
+            'include': text + '.*'
+          }
         }
       }
     }

@@ -1,35 +1,15 @@
 'use strict';
-const express = require('express');
+// Requiring collections-online and loading configuration
 const co = require('collections-online');
 co.config(__dirname);
-
-// Loading the configuration
-var config = require('./config');
+// Register collections-online plugins
+require('./plugins').register();
 
 // Creating an express app
-var app = express();
+const express = require('express');
+const app = express();
 
-// Initialize the collections online application
-// Natmus specific plugins
-const plugins = require('collections-online/plugins');
-
-const natmusModule = {
-  initialize: () => {
-    // Nothing really
-  },
-  registerPlugins: () => {
-    // plugins.register('geo-tag-controller', require('./controllers/geo-tag'));
-    plugins.register('motif-tag-controller',
-                     require('./controllers/motif-tag'));
-    plugins.register('document-service',
-                     require('./services/natmus-api'));
-  }
-};
-
-co.initialize(app, [
-  natmusModule,
-  require('collections-online-cumulus')
-]).then(() => {
+co.initialize(app).then(() => {
   var mainRouter = require('./routers/main');
   app.use('/', mainRouter);
   co.registerRoutes(app);
