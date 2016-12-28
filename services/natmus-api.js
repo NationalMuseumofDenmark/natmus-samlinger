@@ -107,7 +107,8 @@ module.exports = {
       }
     }).then((response) => {
       if(response.hits.total !== 1) {
-        let err = new Error('Expected one result, got ' + response.hits.total);
+        let err = new Error('Expected a single hit, got ' +
+                            response.hits.total);
         if(response.hits.total === 0) {
           err.status = 404;
         }
