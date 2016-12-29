@@ -17,6 +17,11 @@ const BASE_URL = config.natmus.api.baseURL;
 const SEARCH_SIMPLE_URL = BASE_URL + '/search/public/simple';
 const SEARCH_RAW_URL = BASE_URL + '/search/public/raw';
 
+// Used when polling the index for updates
+const UPDATED_POLL_TIMEOUT = 5000;
+const UPDATED_POLL_FREQUENCY = 1000;
+const modifiedBeforeSaving = {};
+
 function proxy(options) {
   console.log('Requesting natmus API with', JSON.stringify(options.body));
   return new Promise((resolve, reject) => {
@@ -39,7 +44,7 @@ function proxy(options) {
   });
 }
 
-module.exports = {
+let natmus = {
   search: (options) => {
     if(options.index) {
       console.warn('Calling the document service with index is not supported');
@@ -163,5 +168,71 @@ module.exports = {
         })
       };
     });
+  },
+  expectChanges: (type, collectionAndId) => {
+    const key = type + '/' + collectionAndId;
+    return natmus.getSource({
+      type: type,
+      id: collectionAndId
+    }).then(currentMetadata => {
+      modifiedBeforeSaving[key] = currentMetadata.meta.modified;
+      return currentMetadata;
+    });
+  },
+  hasChanged: (type, collectionAndId) => {
+    console.log('Checking for the index for an update ..', collectionAndId);
+    const key = type + '/' + collectionAndId;
+    const modifiedLast = modifiedBeforeSaving[key];
+    if(modifiedLast) {
+      return natmus.getSource({
+        type: 'asset',
+        id: collectionAndId
+      }).then(currentMetadata => {
+        return modifiedLast !== currentMetadata.meta.modified;
+      });
+    } else {
+      throw new Error('Call expectChanges before hasChanged');
+    }
+  },
+  pollForChange: (type, collectionAndId) => {
+    const key = type + '/' + collectionAndId;
+    // Start polling the index for changes, based on the meta.modified field
+    const startedPolling = new Date();
+    let interval;
+
+    return new Promise((resolve, reject) => {
+      function check() {
+        const now = new Date();
+        if (now.getTime() - startedPolling.getTime() > UPDATED_POLL_TIMEOUT) {
+          resolve({
+            'status': 'timeout'
+          });
+        } else {
+          return natmus.hasChanged(type, collectionAndId).then((changed) => {
+            if(changed) {
+              // Delete the value from the object that we are waiting for
+              delete modifiedBeforeSaving[key];
+              // Resolve the promise with success
+              resolve({
+                'status': 'success'
+              });
+            }
+          });
+        }
+      }
+      let interval = setInterval(check, UPDATED_POLL_FREQUENCY);
+    }).then((result) => {
+      // Clear the interval
+      clearInterval(interval);
+      // Return the result
+      return result;
+    }, (err) => {
+      // Clear the interval
+      clearInterval(interval);
+      // Rethrow the error
+      throw err;
+    });
   }
 };
+
+module.exports = natmus;
