@@ -4,3 +4,4 @@ require('base')({
 });
 
 // Project specific
+require('./magic360');
