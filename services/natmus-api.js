@@ -111,16 +111,16 @@ let natmus = {
         }
       }
     }).then((response) => {
-      if(response.hits.total !== 1) {
-        let err = new Error('Expected a single hit, got ' +
-                            response.hits.total);
-        if(response.hits.total === 0) {
-          err.status = 404;
-        }
+      if(response.hits.total === 0) {
+        let err = new Error('Expected at least one hit, got none');
+        err.status = 404;
         throw err;
-      } else {
-        return response.hits.hits[0]._source;
+      } else if(response.hits.total > 1) {
+        let err = new Error('Expected 1 hit, got ' + response.hits.total);
+        // console.warn(err.message);
+        throw err;
       }
+      return response.hits.hits[0]._source;
     });
   },
   mget: (options) => {
