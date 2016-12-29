@@ -145,10 +145,12 @@ function generateSizeDownloadOption(labelPrefix, size) {
 }
 
 const AVAILABLE_DOWNLOAD_OPTIONS = [
+  /*
   generateSizeDownloadOption('Lille', 800),
   generateSizeDownloadOption('Mellem', 1200),
   generateSizeDownloadOption('Stor', 2000),
   generateSizeDownloadOption('Original', 'original'),
+  */
   {
     label: metadata => {
       let type = config.translations.mediaFileTypes[metadata.file.mediaType];
