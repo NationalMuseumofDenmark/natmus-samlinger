@@ -45,9 +45,9 @@ module.exports = {
   },
   features: {
     clientSideSearchResultRendering: true,
-    crowdtagging: true,
     filterSidebar: true,
-    geotagging: true,
+    geoTagging: true,
+    motifTagging: true,
     rotationalImages: true,
     scrollToTop: false,
     watermarks: false
