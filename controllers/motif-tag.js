@@ -1,8 +1,8 @@
 const config = require('collections-online/lib/config');
 const _ = require('lodash');
+const motifTag = require('collections-online-cumulus/controllers/motif-tag');
 
-// const motifTagController = require('collections-online-cumulus/controllers/motif-tag');
-// const indexSingle = require('../natmus-indexing').indexSingle;
+const natmusApi = require('../services/natmus-api');
 
 module.exports.typeaheadSuggestions = (text) => {
   const ds = require('collections-online/lib/services/documents');
@@ -71,11 +71,20 @@ module.exports.typeaheadSuggestions = (text) => {
 };
 
 module.exports.save = (metadata) => {
-  console.log('Saving motif tags', metadata);
-  throw new Error('Not implemented yet');
+  const id = metadata.collection + '-' + metadata.id;
+  return natmusApi.expectChanges('asset', id)
+  .then((currentMetadata) => {
+    // Get the current crowd tags
+    console.log('currentMetadata', currentMetadata);
+    metadata.tags = currentMetadata.tags.crowd;
+    // Append the new metadata.tag to a list of metadata.tags
+    metadata.tags.push(metadata.tag);
+    // Save it ..
+    return motifTag.save(metadata);
+  });
 };
 
 module.exports.updateIndex = (metadata) => {
-  throw new Error('Not implemented yet');
-  // return indexSingle('asset', metadata.collection, metadata.id);
+  const id = metadata.collection + '-' + metadata.id;
+  return natmusApi.pollForChange('asset', id);
 };
