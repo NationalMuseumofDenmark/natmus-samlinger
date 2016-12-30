@@ -1,5 +1,6 @@
 /* global config */
 const config = require('collections-online/lib/config');
+const _ = require('lodash');
 let helpers = require('collections-online/shared/helpers');
 
 helpers.documentTitle = (metadata, fallback) => {
@@ -107,6 +108,9 @@ helpers.determinePlayer = (metadata) => {
   }
 };
 
+helpers.flattenValues = (obj) => {
+  return _.flatten(_.values(obj));
+};
 
 helpers.generateSitemapElements = (req, metadata) => {
   const title = helpers.documentTitle(metadata);

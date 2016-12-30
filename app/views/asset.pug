@@ -5,8 +5,7 @@ block asset-middle
     .container-fluid
       .row
         .col-md-4
-          - //const verifiedTags = _.flatten(_.values(metadata.tags.verified));
-          - const verifiedTags = ['test'];
+          - const verifiedTags = helpers.flattenValues(metadata.tags.verified);
           // Tags
           h2 Emneord
           .tags-container
