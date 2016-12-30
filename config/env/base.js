@@ -43,6 +43,7 @@ module.exports = {
       serverAddress: 'ppcumulus.natmus.int'
     },
   },
+  downloadOptions: require('../download-options'),
   features: {
     clientSideSearchResultRendering: true,
     filterSidebar: true,

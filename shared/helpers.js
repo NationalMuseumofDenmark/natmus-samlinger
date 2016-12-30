@@ -163,16 +163,16 @@ function getFileDimensionsString(metadata, size) {
   return Math.round(width) + ' × ' + Math.round(height);
 }
 
-function generateSizeDownloadOption(labelPrefix, size) {
+function generateSizeDownloadOption(optionKey, option) {
   return {
     label: metadata => {
-      let dimensions = getFileDimensionsString(metadata, size);
-      return labelPrefix + ' (' + dimensions + ') JPEG';
+      let dimensions = getFileDimensionsString(metadata, option.size);
+      return option.labelPrefix + ' (' + dimensions + ') JPEG';
     },
     filter: (metadata, derived) => {
       if(derived.player === 'image') {
         if(typeof(size) === 'number') {
-          return derived.maxSize >= size;
+          return derived.maxSize >= option.size;
         } else {
           return true;
         }
@@ -180,28 +180,46 @@ function generateSizeDownloadOption(labelPrefix, size) {
         return false;
       }
     },
-    url: metadata => helpers.getDownloadURL(metadata, size),
+    url: metadata => helpers.getDownloadURL(metadata, optionKey),
   };
 }
 
-const AVAILABLE_DOWNLOAD_OPTIONS = [
-  /*
-  generateSizeDownloadOption('Lille', 800),
-  generateSizeDownloadOption('Mellem', 1200),
-  generateSizeDownloadOption('Stor', 2000),
-  generateSizeDownloadOption('Original', 'original'),
-  */
-  {
-    label: metadata => {
-      let type = config.translations.mediaFileTypes[metadata.file.mediaType];
-      return 'Original (' + getFileDimensionsString(metadata) + ') ' + type;
-    },
-    filter: metadata => {
-      return metadata.file.mediaType !== 'image/jpeg';
-    },
-    url: metadata => helpers.getDownloadURL(metadata),
+
+// Loop though the download options defined in the configuration and make them
+// available as an iteratable array of 3-method objects
+const AVAILABLE_DOWNLOAD_OPTIONS = Object.keys(config.downloadOptions)
+.map(optionKey => {
+  const option = config.downloadOptions[optionKey];
+
+  if(option.size) {
+    return generateSizeDownloadOption(optionKey, option);
+  } else if(optionKey === 'original-jpeg') {
+    return {
+      label: metadata => {
+        let label = option.labelPrefix;
+        return label + ' (' + getFileDimensionsString(metadata) + ') JPEG';
+      },
+      filter: metadata => {
+        return metadata.file.mediaType !== 'image/jpeg';
+      },
+      url: metadata => helpers.getDownloadURL(metadata, optionKey),
+    };
+  } else if(optionKey === 'original') {
+    return {
+      label: metadata => {
+        let type = config.translations.mediaFileTypes[metadata.file.mediaType];
+        let label = option.labelPrefix;
+        return label + ' (' + getFileDimensionsString(metadata) + ') ' + type;
+      },
+      filter: metadata => {
+        return true; // Let's always allow download of the original
+      },
+      url: metadata => helpers.getDownloadURL(metadata),
+    };
+  } else {
+    throw new Error('Expected the "orignal", "original-jpeg" or a size field');
   }
-];
+});
 
 helpers.getDownloadOptions = (metadata) => {
   const hasDimensions = metadata.file && metadata.file.dimensions;
@@ -211,6 +229,7 @@ helpers.getDownloadOptions = (metadata) => {
     maxSize,
     player: helpers.determinePlayer(metadata)
   };
+
   return AVAILABLE_DOWNLOAD_OPTIONS.filter(option => {
     return option.filter(metadata, derived);
   }).map(option => {

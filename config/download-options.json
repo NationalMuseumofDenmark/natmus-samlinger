@@ -1,0 +1,36 @@
+{
+  "small": {
+    "cumulus": {
+      "com.canto.cumulus.assetaction": "Lille (800 x 800 pixel)"
+    },
+    "filenamePrefix": "-lille",
+    "labelPrefix": "Lille ",
+    "size": 800
+  },
+  "medium": {
+    "cumulus": {
+      "com.canto.cumulus.assetaction": "Mellem (1200 x 1200 pixel)"
+    },
+    "filenamePrefix": "-mellem",
+    "labelPrefix": "Mellem ",
+    "size": 1200
+  },
+  "large": {
+    "cumulus": {
+      "com.canto.cumulus.assetaction": "Stor (2000 x 2000 pixel)"
+    },
+    "filenamePrefix": "-stor",
+    "labelPrefix": "Stor ",
+    "size": 2000
+  },
+  "original-jpeg": {
+    "cumulus": {
+      "com.canto.cumulus.assetaction": "Original som JPEG"
+    },
+    "filenamePrefix": "-original",
+    "labelPrefix": "Original "
+  },
+  "original": {
+    "labelPrefix": "Original "
+  }
+}
