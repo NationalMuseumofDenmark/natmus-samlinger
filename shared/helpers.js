@@ -292,6 +292,16 @@ helpers.isWatermarkRequired = (metadata) => {
   */
 };
 
+helpers.isDownloadable = (metadata) => {
+  return !metadata.rights || metadata.rights.license !== 'All Rights Reserved';
+};
+
+helpers.isGeoTagsEditable = (metadata) => {
+  const verifiedLocation = (metadata.location && metadata.location.verified) ||
+                           {};
+  return !verifiedLocation.latitude && !verifiedLocation.longitude;
+};
+
 helpers.filesizeMB = (filesize) => {
   if (filesize) {
     var mb = filesize / 1024 / 1024;
@@ -309,10 +319,6 @@ helpers.creators = (creators) => {
     creators.every(obj => creatorsList.push(obj.name));
     return creatorsList.join(', ');
   }
-};
-
-helpers.isDownloadable = (metadata) => {
-  return !metadata.rights || metadata.rights.license !== 'All Rights Reserved';
 };
 
 // TODO: Consider moving this to collections-online?
