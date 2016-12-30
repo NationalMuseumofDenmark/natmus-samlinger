@@ -1,5 +1,6 @@
 'use strict';
 
+const assert = require('assert');
 const config = require('../config');
 
 if(!config.natmus || !config.natmus.api) {
@@ -18,7 +19,7 @@ const SEARCH_SIMPLE_URL = BASE_URL + '/search/public/simple';
 const SEARCH_RAW_URL = BASE_URL + '/search/public/raw';
 
 // Used when polling the index for updates
-const UPDATED_POLL_TIMEOUT = 5000;
+const UPDATED_POLL_TIMEOUT = 10000;
 const UPDATED_POLL_FREQUENCY = 1000;
 const modifiedBeforeSaving = {};
 
@@ -86,9 +87,7 @@ let natmus = {
     }
     let type = options.type;
     let collectionAndId = options.id.split('-');
-    if(collectionAndId.length != 2) {
-      throw new Error('Expected a collection and id seperated by a dash "-"');
-    }
+    assert.equal(collectionAndId.length, 2, 'Expected {collection}-{id}');
     let collection = collectionAndId[0];
     // Apparently the collection needs to be lowercase to match
     collection = collection.toLowerCase();
@@ -132,10 +131,9 @@ let natmus = {
     }
     const type = options.type;
     const queries = options.body.ids.map(id => {
+      assert.equal(typeof(id), 'string', 'Expected all ids to be strings');
       const collectionAndId = id.split('-');
-      if(collectionAndId.length != 2) {
-        throw new Error('Expected a collection and id seperated by a dash "-"');
-      }
+      assert.equal(collectionAndId.length, 2, 'Expected {collection}-{id}');
 
       return {
         bool: {
@@ -220,7 +218,8 @@ let natmus = {
           });
         }
       }
-      let interval = setInterval(check, UPDATED_POLL_FREQUENCY);
+      // Set the interval to check with the desired frequency
+      interval = setInterval(check, UPDATED_POLL_FREQUENCY);
     }).then((result) => {
       // Clear the interval
       clearInterval(interval);
