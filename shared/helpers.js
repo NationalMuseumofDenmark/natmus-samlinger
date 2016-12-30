@@ -107,6 +107,46 @@ helpers.determinePlayer = (metadata) => {
   }
 };
 
+
+helpers.generateSitemapElements = (req, metadata) => {
+  const title = helpers.documentTitle(metadata);
+  const description = helpers.documentDescription(metadata);
+  const relativeThumbnailUrl = helpers.getThumbnailURL(metadata);
+  const thumbnailUrl = helpers.getAbsoluteURL(req, relativeThumbnailUrl);
+  const elements = [];
+  if(metadata.type === 'asset') {
+    const player = helpers.determinePlayer(metadata);
+    const license = helpers.licenseMapped(metadata);
+    const licenseUrl = license ? license.url : null;
+    // If the player suggests the asset is an image
+    if(['image', 'image-downloaded', 'rotation'].indexOf(player) > -1) {
+      // See https://www.google.com/schemas/sitemap-image/1.1/
+      elements.push({
+        type: 'image',
+        location: thumbnailUrl,
+        title,
+        description,
+        licenseUrl
+      });
+    } else if(player === 'video') {
+      // See https://www.google.com/schemas/sitemap-video/1.1/
+      // TODO: Consider including 'rating', 'publication_date', 'tag',
+      // 'category', 'gallery_loc'
+      elements.push({
+        type: 'video',
+        thumbnailLocation: thumbnailUrl,
+        title,
+        description,
+        contentLocation: helpers.getDirectDownloadURL(metadata),
+        licenseUrl
+      });
+    } else if(player === 'audio') {
+      // Currently not supported by an extension to the sitemaps.org standard
+    }
+  }
+  return elements;
+};
+
 function getFileDimensionsString(metadata, size) {
   let width = metadata.file.dimensions.width;
   let height = metadata.file.dimensions.height;
