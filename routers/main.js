@@ -2,6 +2,7 @@
 const express = require('express');
 const router = express.Router();
 const config = require('../config');
+const querystring = require('querystring');
 
 const searchController = require('../controllers/search');
 
@@ -20,8 +21,9 @@ router.get(/^\/([A-Z]{2,3})\/(\d+)$/, (req, res) => {
 const searchPath = encodeURIComponent(config.search.path);
 // Temporary redirect of the frontpage to a search result
 router.get('/', (req, res) => {
-  const qs = 'sort=modification|desc';
-  res.redirect('/' + searchPath + '?' + qs);
+  const qs = req.query;
+  qs.sort = 'modification|desc';
+  res.redirect('/' + searchPath + '?' + querystring.stringify(qs));
 });
 router.get('/' + searchPath, searchController.redirect);
 
