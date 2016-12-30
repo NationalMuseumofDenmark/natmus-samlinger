@@ -184,61 +184,63 @@ function generateSizeDownloadOption(optionKey, option) {
   };
 }
 
+if(config.downloadOptions) {
+  // Loop though the download options defined in the configuration and make them
+  // available as an iteratable array of 3-method objects
+  const AVAILABLE_DOWNLOAD_OPTIONS = Object.keys(config.downloadOptions)
+  .map(optionKey => {
+    const option = config.downloadOptions[optionKey];
 
-// Loop though the download options defined in the configuration and make them
-// available as an iteratable array of 3-method objects
-const AVAILABLE_DOWNLOAD_OPTIONS = Object.keys(config.downloadOptions)
-.map(optionKey => {
-  const option = config.downloadOptions[optionKey];
-
-  if(option.size) {
-    return generateSizeDownloadOption(optionKey, option);
-  } else if(optionKey === 'original-jpeg') {
-    return {
-      label: metadata => {
-        let label = option.labelPrefix;
-        return label + ' (' + getFileDimensionsString(metadata) + ') JPEG';
-      },
-      filter: metadata => {
-        return metadata.file.mediaType !== 'image/jpeg';
-      },
-      url: metadata => helpers.getDownloadURL(metadata, optionKey),
-    };
-  } else if(optionKey === 'original') {
-    return {
-      label: metadata => {
-        let type = config.translations.mediaFileTypes[metadata.file.mediaType];
-        let label = option.labelPrefix;
-        return label + ' (' + getFileDimensionsString(metadata) + ') ' + type;
-      },
-      filter: metadata => {
-        return true; // Let's always allow download of the original
-      },
-      url: metadata => helpers.getDownloadURL(metadata),
-    };
-  } else {
-    throw new Error('Expected the "orignal", "original-jpeg" or a size field');
-  }
-});
-
-helpers.getDownloadOptions = (metadata) => {
-  const hasDimensions = metadata.file && metadata.file.dimensions;
-  let maxSize = hasDimensions && Math.max(metadata.file.dimensions.width,
-                                          metadata.file.dimensions.height);
-  let derived = {
-    maxSize,
-    player: helpers.determinePlayer(metadata)
-  };
-
-  return AVAILABLE_DOWNLOAD_OPTIONS.filter(option => {
-    return option.filter(metadata, derived);
-  }).map(option => {
-    return {
-      label: option.label(metadata, derived),
-      url: option.url(metadata, derived)
-    };
+    if(option.size) {
+      return generateSizeDownloadOption(optionKey, option);
+    } else if(optionKey === 'original-jpeg') {
+      return {
+        label: metadata => {
+          let label = option.labelPrefix;
+          return label + ' (' + getFileDimensionsString(metadata) + ') JPEG';
+        },
+        filter: metadata => {
+          return metadata.file.mediaType !== 'image/jpeg';
+        },
+        url: metadata => helpers.getDownloadURL(metadata, optionKey),
+      };
+    } else if(optionKey === 'original') {
+      return {
+        label: metadata => {
+          const mediaType = metadata.file.mediaType;
+          const type = config.translations.mediaFileTypes[mediaType];
+          const label = option.labelPrefix;
+          return label + ' (' + getFileDimensionsString(metadata) + ') ' + type;
+        },
+        filter: metadata => {
+          return true; // Let's always allow download of the original
+        },
+        url: metadata => helpers.getDownloadURL(metadata),
+      };
+    } else {
+      throw new Error('Expected "orignal", "original-jpeg" or a size field');
+    }
   });
-};
+
+  helpers.getDownloadOptions = (metadata) => {
+    const hasDimensions = metadata.file && metadata.file.dimensions;
+    let maxSize = hasDimensions && Math.max(metadata.file.dimensions.width,
+                                            metadata.file.dimensions.height);
+    let derived = {
+      maxSize,
+      player: helpers.determinePlayer(metadata)
+    };
+
+    return AVAILABLE_DOWNLOAD_OPTIONS.filter(option => {
+      return option.filter(metadata, derived);
+    }).map(option => {
+      return {
+        label: option.label(metadata, derived),
+        url: option.url(metadata, derived)
+      };
+    });
+  };
+}
 
 helpers.magic360Options = function(relatedAssets) {
   let relevantAssets = relatedAssets.filter((asset) => {
