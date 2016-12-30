@@ -27,7 +27,6 @@
     "cumulus": {
       "com.canto.cumulus.assetaction": "Original som JPEG"
     },
-    "filenamePrefix": "-original",
     "labelPrefix": "Original "
   },
   "original": {
