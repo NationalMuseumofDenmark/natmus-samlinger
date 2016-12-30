@@ -3,13 +3,13 @@
   "version": "0.1.0",
   "main": "server.js",
   "scripts": {
+    "dev": "NODE_ENV=development nodemon server.js",
+    "es-index": "node es-indexing",
     "gulp": "gulp",
     "index": "node indexing.js",
-    "es-index": "node es-indexing",
-    "natmus-index": "node natmus-indexing/run",
     "install": "gulp build",
+    "natmus-index": "node natmus-indexing/run",
     "start": "node server.js",
-    "dev": "NODE_ENV=development nodemon server.js",
     "test": "echo \"Error: no test specified - but lets succeed\" && exit 0"
   },
   "repository": {
