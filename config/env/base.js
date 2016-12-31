@@ -58,7 +58,6 @@ module.exports = {
   googleMapsAPIKey: 'AIzaSyCkoZ8EB9Vf5SfXUzMY6bewq6diets-pxU',
   ip: process.env.IP || '0.0.0.0',
   licenseMapping: require('../license-mapping.json'),
-  translations: require('../../translations'),
   natmus: {
     api: {
       baseURL: 'http://testapi.natmus.dk',
@@ -89,6 +88,7 @@ module.exports = {
   sortOptions: require('../sort-options.json'),
   tagsBlacklist: require('../tags-blacklist.json'),
   themeColor: '#262626',
+  translations: require('../translations'),
   types: {
     asset: {
       layout: require('../layouts/asset.json'),
