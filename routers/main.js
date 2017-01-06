@@ -19,12 +19,6 @@ router.get(/^\/([A-Z]{2,3})\/(\d+)$/, (req, res) => {
 });
 
 const searchPath = encodeURIComponent(config.search.path);
-// Temporary redirect of the frontpage to a search result
-router.get('/', (req, res) => {
-  const qs = req.query;
-  qs.sort = 'modification|desc';
-  res.redirect('/' + searchPath + '?' + querystring.stringify(qs));
-});
 router.get('/' + searchPath, searchController.redirect);
 
 module.exports = router;
