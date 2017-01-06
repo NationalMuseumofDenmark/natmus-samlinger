@@ -43,11 +43,13 @@ module.exports = {
       serverAddress: 'ppcumulus.natmus.int'
     },
   },
+  cloudinaryUrl: process.env.CLOUDINARY_URL || false,
   downloadOptions: require('../download-options'),
   features: {
     clientSideSearchResultRendering: true,
     filterSidebar: true,
     geoTagging: true,
+    keystone: true,
     motifTagging: true,
     rotationalImages: true,
     scrollToTop: false,
@@ -57,6 +59,21 @@ module.exports = {
   googleAPIKey: process.env.GOOGLE_API_KEY,
   googleMapsAPIKey: 'AIzaSyCkoZ8EB9Vf5SfXUzMY6bewq6diets-pxU',
   ip: process.env.IP || '0.0.0.0',
+  keystone: {
+    options: {
+      'name': 'KBH Billeder',
+      'brand': 'KBH Billeder',
+      'auto update': true,
+      'updates': path.join(__dirname, '..', '..', 'updates'),
+      'mongo': process.env.MONGO_CONNECTION || 'mongodb://localhost/natmus',
+      'session store': 'mongo',
+      'auth': true,
+      'user model': 'User',
+      'cookie secret': process.env.COOKIE_SECRET || 'not-a-secret',
+      'wysiwyg additional buttons': 'styleselect, blockquote',
+      'wysiwyg importcss': '/styles/keystone-tiny-mce.css'
+    }
+  },
   licenseMapping: require('../license-mapping.json'),
   natmus: {
     api: {
