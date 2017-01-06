@@ -3,12 +3,11 @@
   "version": "0.1.0",
   "main": "server.js",
   "scripts": {
-    "dev": "NODE_ENV=development nodemon server.js",
-    "es-index": "node es-indexing",
+    "dev": "concurrently \"npm run gulp watch\" \"npm run start-dev\"",
     "gulp": "gulp",
     "index": "node indexing.js",
-    "install": "gulp build",
-    "natmus-index": "node natmus-indexing/run",
+    "prepublish": "gulp build",
+    "start-dev": "NODE_ENV=development nodemon server.js",
     "start": "node server.js",
     "test": "echo \"Error: no test specified - but lets succeed\" && exit 0"
   },
@@ -33,6 +32,7 @@
     "q": "^1.4.1"
   },
   "devDependencies": {
+    "concurrently": "^3.1.0",
     "gulp": "^3.9.1",
     "nodemon": "^1.11.0",
     "run-sequence": "^1.1.5"
