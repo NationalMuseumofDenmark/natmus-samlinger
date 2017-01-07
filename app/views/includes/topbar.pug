@@ -3,41 +3,13 @@ include ../mixins/icon
 header.topbar(class=frontpage ? 'topbar--frontpage' : '')
   .container-fluid
     nav
-      .topbar-items
-        div(class=frontpage ? 'hidden-md hidden-lg' : '')
-          a.logo-wrap(href='/')
-            .logo
-              +icon('logo')
-            .logo-text.hidden-xs
-              | Nationalmuseets
-              br
-              | Samlinger Online
-        - var searchMethod = (isSearching ? 'modify-query' : '');
-        - var query = req && req.query && req.query.q ? req.query.q : '';
-        - if(config.features.clientSideSearchResultRendering) {
-        -   // Turning off the search related behaviour defined in main.js
-        -   searchMethod = false;
-        - }
-        form.search-box(method='get', action='/', data-method=searchMethod)
-          .input-group
-            input.form-control(
-              type='text',
-              id='search-input',
-              placeholder='Søg på samlinger.natmus.dk',
-              name='q',
-              autocomplete="off",
-              value=query)
-            .input-group-btn
-              button.btn-search.btn
-                span.sr-only Søg
-                +icon('search')
-        #heading-categories-menu.hamburger
-          span.sr-only Kataloger og kategorier
-          +icon('menu')
+      .topbar__items
+        include ./topbar-menu
+        include ./topbar-search
       if frontpage
-        .logo-wrap.big-wrap.hidden-sm.hidden-xs
-          .logo
+        .topbar__logo.hidden-sm.hidden-xs
+          .topbar__logo-icon.topbar__logo-icon--large
             +icon('logo')
-          .logo-text
+          .topbar__logo-text
             h1 Nationalmuseets Samlinger Online
-            .tag-line Udforsk #{totalAssets} billeder og genstande fra Nationalmuseets samling
+            .topbar__logo-tagline Udforsk #{totalAssets} billeder og genstande fra Nationalmuseets samling

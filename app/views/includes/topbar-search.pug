@@ -1,0 +1,21 @@
+include ../mixins/icon
+
+- var searchMethod = (isSearching ? 'modify-query' : '');
+- var query = req && req.query && req.query.q ? req.query.q : '';
+- if(config.features.clientSideSearchResultRendering) {
+-   // Turning off the search related behaviour defined in main.js
+-   searchMethod = false;
+- }
+form.search-box(method='get', action='/', data-method=searchMethod)
+  .input-group
+    input.form-control(
+      type='text',
+      id='search-input',
+      placeholder='Søg på samlinger.natmus.dk',
+      name='q',
+      autocomplete="off",
+      value=query)
+    .input-group-btn
+      button.btn-search.btn
+        span.sr-only Søg
+        +icon('search')

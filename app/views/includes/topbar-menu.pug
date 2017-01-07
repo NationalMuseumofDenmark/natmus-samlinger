@@ -1,0 +1,12 @@
+include ../mixins/icon
+
+#heading-categories-menu.hamburger.hidden-lg.hidden-md
+  +icon('menu')
+
+span.hidden-sm.hidden-xs
+  a.topbar__items-link(href='/', class=frontpage ? 'hidden-md hidden-lg' : '')
+    .topbar__logo-icon
+      +icon('logo')
+  if menus && menus.main
+    each item in menus.main
+      a(href=item.url).topbar__items-link= item.title

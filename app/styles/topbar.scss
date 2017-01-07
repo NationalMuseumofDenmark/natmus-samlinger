@@ -1,0 +1,61 @@
+.topbar {
+  &__logo {
+    align-items: center;
+    cursor: default; // TODO: Check why?
+    display: flex;
+    flex-grow: 1;
+    margin-top: .5rem;
+
+    &:hover,
+    &:focus {
+      text-decoration: none;
+    }
+  }
+
+  &__logo-text {
+    color: $white;
+    display: inline-block;
+    line-height: 1.4;
+    margin: .3rem 0 0 10px;
+
+    h1 {
+      font-size: 1.9rem;
+      margin: 0;
+    }
+
+    span {
+      display: block;
+    }
+  }
+
+  &__logo-tagline {
+    font-size: 1.1rem;
+    letter-spacing: .03rem;
+  }
+
+  &__logo-icon {
+    display: inline-block;
+
+    svg {
+      height: 40px;
+      vertical-align: middle;
+      width: 40px;
+    }
+
+    &--large {
+      svg {
+        height: 60px;
+        width: 60px;
+      }
+    }
+  }
+
+  &--frontpage {
+
+    nav {
+      @media (min-width: $medium-size) {
+        height: 200px;
+      }
+    }
+  }
+}
