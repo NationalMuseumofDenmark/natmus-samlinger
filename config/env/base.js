@@ -12,7 +12,6 @@ const REVIEW_STATE_FIELD = '{a493be21-0f70-4cae-9394-703eca848bad}';
 
 module.exports = {
   childPath: childPath,
-  appName: 'Samlinger',
   appPaths: [
     path.join(childPath, 'generated'),
     path.join(childPath, 'app')
@@ -61,8 +60,6 @@ module.exports = {
   ip: process.env.IP || '0.0.0.0',
   keystone: {
     options: {
-      'name': 'KBH Billeder',
-      'brand': 'KBH Billeder',
       'auto update': true,
       'updates': path.join(__dirname, '..', '..', 'updates'),
       'mongo': process.env.MONGO_CONNECTION || 'mongodb://localhost/natmus',
