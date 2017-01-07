@@ -1,0 +1,13 @@
+.sidebar-menu {
+  padding: 0;
+
+  &__link {
+    svg {
+      display: block;
+      fill: currentColor;
+      height: 40px;
+      margin: auto;
+      width: 40px;
+    }
+  }
+}
