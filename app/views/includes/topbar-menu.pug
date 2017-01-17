@@ -1,7 +1,8 @@
 include ../mixins/icon
 
-.hamburger.hidden-lg.hidden-md(data-action="toggle-sidebar-menu")
+.topbar__hamburger.hidden-lg.hidden-md(data-action="toggle-sidebar-menu")
   +icon('menu')
+  .topbar__hamburger-text Menu
 
 span.hidden-sm.hidden-xs
   a.topbar__items-link(href='/', class=frontpage ? 'hidden-md hidden-lg' : '')
