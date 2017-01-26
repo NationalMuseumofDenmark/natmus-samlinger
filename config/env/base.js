@@ -91,11 +91,19 @@ module.exports = {
             'type': 'asset'
           }
         },
-        'must_not': {
-          'term': {
-            'related.assets.relation': 'parent'
+        'must_not': [
+          { // Filtering out side shots of rotation images
+            'range': {
+              'meta.rotation': {
+                'gt': 1
+              }
+            }
+          }, {
+            'term': {
+              'meta.cropping': 'source'
+            }
           }
-        }
+        ]
       }
     }
   },
