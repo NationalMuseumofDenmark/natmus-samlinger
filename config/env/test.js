@@ -3,7 +3,7 @@
 var _ = require('lodash');
 var base = require('./base');
 
-delete base.natmus.api.baseQuery.bool.must;
+delete base.search.baseQuery.bool.must;
 
 module.exports = _.merge(base, {
   allowRobots: false,
@@ -12,7 +12,7 @@ module.exports = _.merge(base, {
   natmus: {
     api: {
       baseURL: 'http://testapi.natmus.dk',
-      baseQuery: base.natmus.api.baseQuery
+      baseQuery: base.search.baseQuery
     }
   },
   siteTitle: 'Nationalmuseets Samlinger Online (beta)'
