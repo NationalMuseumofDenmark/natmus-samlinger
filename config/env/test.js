@@ -7,13 +7,10 @@ module.exports = _.merge(base, {
   allowRobots: false,
   env: 'test',
   googleAnalyticsPropertyID: 'UA-2930791-7',
-  ip: process.env.IP || '0.0.0.0',
   natmus: {
     api: {
       baseURL: 'http://testapi.natmus.dk'
     }
   },
-  port: process.env.PORT || 9000,
-  siteTitle: 'Nationalmuseets Samlinger Online (beta)',
-  viewsPath: '/views',
+  siteTitle: 'Nationalmuseets Samlinger Online (beta)'
 });

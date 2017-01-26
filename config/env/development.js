@@ -11,6 +11,5 @@ module.exports = _.merge(base, {
       baseURL: 'http://testapi.natmus.dk'
     }
   },
-  siteTitle: 'Nationalmuseets Samlinger Online (dev)',
-  viewsPath: '/app/views',
+  siteTitle: 'Nationalmuseets Samlinger Online (dev)'
 });
