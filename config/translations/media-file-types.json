@@ -1,0 +1,14 @@
+{
+  "image/bitmap": "Bitmap billede",
+  "image/canon": "Canon billede",
+  "image/gif": "Gif billede",
+  "image/grid": "Grid billede",
+  "image/jpeg": "JPEG billede",
+  "image/mp3": "MP3 lydfil",
+  "image/mpeg-4": "MPEG-4 video",
+  "image/mpeg": "MPEG video",
+  "image/nikon": "Nikon billede",
+  "image/photoshop": "Photoshop billede",
+  "image/portable": "PDF dokument",
+  "image/tiff": "TIFF billede"
+}

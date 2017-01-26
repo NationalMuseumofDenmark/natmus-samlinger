@@ -1,0 +1,21 @@
+{
+  "sections": {
+    "events": {
+      "title": "Hændelser",
+      "rows": [
+        {
+          "title": "Erhvervelse",
+          "template": "= (accessionEvents || []).map(formatEvent).join(', ')"
+        },
+        {
+          "title": "Fremstilling",
+          "template": "= (creationEvents || []).map(formatEvent).join(', ')"
+        },
+        {
+          "title": "Fund",
+          "template": "= (foundEvents || []).map(formatEvent).join(', ')"
+        }
+      ]
+    }
+  }
+}

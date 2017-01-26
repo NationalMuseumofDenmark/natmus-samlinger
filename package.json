@@ -3,9 +3,11 @@
   "version": "0.1.0",
   "main": "server.js",
   "scripts": {
+    "dev": "concurrently \"npm run gulp\" \"npm run start-dev\"",
     "gulp": "gulp",
     "index": "node indexing.js",
-    "install": "gulp build",
+    "prepublish": "gulp build",
+    "start-dev": "NODE_ENV=development nodemon server.js",
     "start": "node server.js",
     "test": "echo \"Error: no test specified - but lets succeed\" && exit 0"
   },
@@ -15,17 +17,24 @@
   },
   "license": "MIT",
   "dependencies": {
+    "agentkeepalive": "~2.0.3",
+    "bootstrap-sass": "^3.3.7",
     "canvas": "^1.5.0",
     "collections-online": "git+https://github.com/NationalMuseumofDenmark/collections-online.git",
+    "collections-online-cumulus": "git+https://github.com/NationalMuseumofDenmark/collections-online-cumulus.git",
     "csurf": "^1.9.0",
     "dotenv": "^2.0.0",
+    "elasticsearch": "~11.0.1",
     "express": "^4.13.4",
     "keystone": "https://github.com/keystonejs/keystone.git#32d3a13",
     "lodash": "^4.12.0",
+    "moment": "^2.15.2",
     "q": "^1.4.1"
   },
   "devDependencies": {
+    "concurrently": "^3.1.0",
     "gulp": "^3.9.1",
+    "nodemon": "^1.11.0",
     "run-sequence": "^1.1.5"
   },
   "engines": {

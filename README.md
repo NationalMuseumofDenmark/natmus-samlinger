@@ -9,13 +9,28 @@ The webapp shows assets stored in the Canto Cumulus installation at the
 
 The webapp is built using [node.js](http://nodejs.org/), [Express](http://expressjs.com/),
 [jade](http://jade-lang.com/), and [elasticsearch](http://www.elasticsearch.org/). Most of the front-end
-stuff is using jQuery for performing masonry and auto suggestion. It is using the existing
+stuff is using jQuery for performing auto suggestion and UI updates. It is using the existing
 [cip.js](https://github.com/NationalMuseumofDenmark/cip.js) implementation for querying CIP.
 
 The solution is built by [Headnet ApS](http://www.headnet.dk) and [Socialsquare ApS](http://socialsquare.dk). Licensed under
 [LGPL v3](https://www.gnu.org/licenses/lgpl.html).
 
 ![Screenshot](misc/screenshot.png)
+
+## How to setup 2.0
+* Ensure that you have a running version of node.js (v6), bower and elasticsearch (v2.4).  
+    * On mac these can be installed using homebrew.
+* Clone this repository, collections-online and collections-online-cumulus.
+* Symlink Collections Online by running `npm link` in that folder and `npm link collections-online` in this folder.
+* Symlink Collections Online Cumulus by running `npm link` in that folder and `npm link collections-online-cumulus` in this folder.
+* Create a .env file in this folder with correct:
+```
+CIP_USERNAME=""
+CIP_PASSWORD=""
+ES_HOST=
+```
+* In a new terminal window start elasticsearch
+* In this folder run `npm run index all`
 
 ## How to setup
 

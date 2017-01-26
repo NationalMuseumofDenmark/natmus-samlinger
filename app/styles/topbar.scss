@@ -1,0 +1,9 @@
+.topbar {
+  &--frontpage {
+    nav {
+      @media (min-width: $medium-size) {
+        height: 200px;
+      }
+    }
+  }
+}

@@ -1,0 +1,139 @@
+{
+  "collection": {
+    "field": "collection.keyword",
+    "plural": "samlinger",
+    "singular": "samling",
+    "translations": "collections",
+    "type": "term"
+  },
+  "media": {
+    "filters" : {
+      "Billede": {
+        "bool": {
+          "must": {
+            "bool": {
+              "should": [
+                {"term": {"file.mediaType.keyword": "image/bitmap"}},
+                {"term": {"file.mediaType.keyword": "image/canon"}},
+                {"term": {"file.mediaType.keyword": "image/gif"}},
+                {"term": {"file.mediaType.keyword": "image/grid"}},
+                {"term": {"file.mediaType.keyword": "image/jpeg"}},
+                {"term": {"file.mediaType.keyword": "image/nikon"}},
+                {"term": {"file.mediaType.keyword": "image/photoshop"}},
+                {"term": {"file.mediaType.keyword": "image/tiff"}}
+              ]
+            }
+          },
+          "must_not": {
+            "exists": {"field": "meta.rotation"}
+          }
+        }
+      },
+      "Dokument": {
+        "bool": {
+          "should": [
+            {"term": {"file.mediaType.keyword": "image/portable"}}
+          ]
+        }
+      },
+      "Film": {
+        "bool": {
+          "should": [
+            {"term": {"file.mediaType.keyword": "image/mpeg-4"}},
+            {"term": {"file.mediaType.keyword": "image/mpeg"}}
+          ]
+        }
+      },
+      "Lyd": {
+        "bool": {
+          "should": [
+            {"term": {"file.mediaType.keyword": "image/mp3"}}
+          ]
+        }
+      },
+      "Rotationsbillede": {
+        "bool": {
+          "should": [
+            {"term": {"meta.rotation": 1}}
+          ]
+        }
+      }
+    },
+    "plural": "medietyper",
+    "singular": "medietype",
+    "type": "filters"
+  },
+  "license": {
+    "field": "rights.license.keyword",
+    "plural": "licenser",
+    "singular": "licens",
+    "type": "term"
+  },
+  "size": {
+    "filters" : {
+      "Minimum 1000px": {
+        "bool": {
+          "should": [
+            {"range": { "file.dimensions.width": { "gte": 1000 }}},
+            {"range": { "file.dimensions.height": { "gte": 1000 }}}
+          ]
+        }
+      },
+      "Minimum 2500px": {
+        "bool": {
+          "should": [
+            {"range": { "file.dimensions.width": { "gte": 2500 }}},
+            {"range": { "file.dimensions.height": { "gte": 2500 }}}
+          ]
+        }
+      },
+      "Minimum 4000px": {
+        "bool": {
+          "should": [
+            {"range": { "file.dimensions.width": { "gte": 4000 }}},
+            {"range": { "file.dimensions.height": { "gte": 4000 }}}
+          ]
+        }
+      },
+      "Printvenling": {
+        "bool": {
+          "should": [
+            {"range": { "file.dimensions.ppi": { "gte": 300 }}},
+            {"range": { "file.dimensions.width": { "gte": 2400 }}},
+            {"range": { "file.dimensions.height": { "gte": 2400 }}}
+          ]
+        }
+      }
+    },
+    "plural": "størrelser",
+    "singular": "størrelse",
+    "type": "filters"
+  },
+  "location": {
+    "filters" : {
+      "Har placering": {
+        "bool": {
+          "should": [
+            {"exists": { "field": "location.verified.latitude" }},
+            {"exists": { "field": "location.crowd.latitude" }}
+          ]
+        }
+      },
+      "Mangler placering": {
+        "bool": {
+          "must_not": [
+            {"exists": { "field": "location.verified.latitude" }},
+            {"exists": { "field": "location.crowd.latitude" }}
+          ]
+        }
+      }
+    },
+    "plural": "placeringer",
+    "singular": "placering",
+    "type": "filters"
+  },
+  "q": {
+    "skipSplit": true,
+    "type": "querystring"
+  }
+}

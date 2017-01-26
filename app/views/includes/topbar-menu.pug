@@ -1,0 +1,13 @@
+include ../mixins/icon
+
+.topbar__hamburger.hidden-lg.hidden-md(data-action="toggle-sidebar-menu")
+  +icon('menu')
+  .topbar__hamburger-text Menu
+
+.topbar__menu.hidden-sm.hidden-xs
+  a.topbar__items-link(href='/', class=frontpage ? 'hidden-md hidden-lg' : '')
+    .topbar__logo-icon
+      +icon('logo')
+  if menus && menus.main
+    each item in menus.main
+      a(href=item.url).topbar__items-link= item.title

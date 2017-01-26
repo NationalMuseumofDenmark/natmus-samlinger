@@ -4,22 +4,19 @@ var path = require('path');
 var _ = require('lodash');
 
 var rootPath = path.normalize(__dirname + '/../../..');
-var generatedDir = path.join(__dirname, '..', '..', 'generated');
-var appDir = path.join(__dirname, '..', '..', 'app');
+var childPath = path.normalize(path.join(__dirname, '..', '..'));
 
 var cipCatalogs = require('../cip-catalogs.json');
 
 const REVIEW_STATE_FIELD = '{a493be21-0f70-4cae-9394-703eca848bad}';
 
 module.exports = {
-  root: rootPath, // TODO: Consider removing this
-  appDir: appDir,
+  childPath: childPath,
   appPaths: [
-    generatedDir,
-    appDir
+    path.join(childPath, 'generated'),
+    path.join(childPath, 'app')
   ],
-  ip:   process.env.IP || '0.0.0.0',
-  port: process.env.PORT || 9000,
+  categoryBlacklist: require('../category-blacklist.js'),
   cip: {
     baseURL: 'http://cumulus.natmus.dk/CIP',
     username: process.env.CIP_USERNAME,
@@ -45,32 +42,84 @@ module.exports = {
       serverAddress: 'ppcumulus.natmus.int'
     },
   },
-  es: {
-    host: process.env.ES_HOST || 'localhost:9200',
-    assetsIndex: process.env.ES_ASSETS_INDEX || 'assets',
-  },
+  cloudinaryUrl: process.env.CLOUDINARY_URL || false,
+  downloadOptions: require('../download-options'),
   features: {
-    geotagging: true,
+    clientSideSearchResultRendering: true,
+    filterSidebar: true,
+    geoTagging: true,
+    keystone: true,
+    motifTagging: true,
     rotationalImages: true,
-    crowdtagging: true,
-    clientSideSearchResultRendering: false,
-    filterSidebar: false
+    scrollToTop: false,
+    watermarks: false
   },
-  generatedDir: generatedDir,
   googleAnalyticsPropertyID: null,
-  googleMapsAPIKey: 'AIzaSyCkoZ8EB9Vf5SfXUzMY6bewq6diets-pxU',
   googleAPIKey: process.env.GOOGLE_API_KEY,
-  projectOxfordAPIKey: process.env.PROJECT_OXFORD_API_KEY,
-  categoryBlacklist: require('../category-blacklist.js'),
-  tagsBlacklist: require('../tags-blacklist.json'),
-  natmusApiBaseURL: 'http://testapi.natmus.dk/',
-  natmusApiVersion: 1,
-  natmusApiMaxSockets: 10,
-  filterOptions: require('../filter-options.json'),
-  sortOptions: require('../sort-options.json'),
-  assetFields: require('../asset-fields.json'),
-  assetLayout: require('../asset-layout.json'),
+  googleMapsAPIKey: 'AIzaSyCkoZ8EB9Vf5SfXUzMY6bewq6diets-pxU',
+  ip: process.env.IP || '0.0.0.0',
+  keystone: {
+    options: {
+      'auto update': true,
+      'updates': path.join(__dirname, '..', '..', 'updates'),
+      'mongo': process.env.MONGO_CONNECTION || 'mongodb://localhost/natmus',
+      'session store': 'mongo',
+      'auth': true,
+      'user model': 'User',
+      'cookie secret': process.env.COOKIE_SECRET || 'not-a-secret',
+      'wysiwyg additional buttons': 'styleselect, blockquote',
+      'wysiwyg importcss': '/styles/keystone-tiny-mce.css'
+    }
+  },
   licenseMapping: require('../license-mapping.json'),
+  natmus: {
+    api: {
+      baseURL: 'http://testapi.natmus.dk',
+      maxSockets: 10
+    }
+  },
+  port: process.env.PORT || 9000,
+  projectOxfordAPIKey: process.env.PROJECT_OXFORD_API_KEY,
+  root: rootPath, // TODO: Consider removing this
+  search: {
+    path: 'search',
+    filters: require('../filters.json'),
+    baseQuery: {
+      'bool': {
+        'must': {
+          'term': {
+            'type': 'asset'
+          }
+        },
+        'must_not': [
+          { // Filtering out side shots of rotation images
+            'range': {
+              'meta.rotation': {
+                'gt': 1
+              }
+            }
+          }, {
+            'term': {
+              'meta.cropping': 'source'
+            }
+          }
+        ]
+      }
+    }
+  },
+  sortOptions: require('../sort-options.json'),
+  tagsBlacklist: require('../tags-blacklist.json'),
   themeColor: '#262626',
-  appName: 'Samlinger',
+  translations: require('../translations'),
+  types: {
+    asset: {
+      layout: require('../layouts/asset.json'),
+      mapping: require('../mappings/asset.json')
+    },
+    object: {
+      router: path.join(__dirname, '..', '..', 'routers', 'object'),
+      layout: require('../layouts/object.json'),
+      mapping: require('../mappings/object.json')
+    }
+  }
 };

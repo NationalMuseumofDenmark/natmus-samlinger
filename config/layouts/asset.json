@@ -1,0 +1,92 @@
+{
+  "sections": {
+    "place": {
+      "title": "Sted",
+      "rows": [{
+        "title": "Adresse",
+        "template": "= location && location.address"
+      }, {
+        "title": "By",
+        "template": "= location && location.city"
+      }, {
+        "title": "Postnummer",
+        "template": "= location && location.zipcode"
+      }, {
+        "title": "Bemærkning",
+        "template": "= location && location.note"
+      }, {
+        "title": "Koordinater",
+        "type": "map-coordinates",
+        "fields": {
+          "latitude": ["location.verified.latitude", "location.crowd.latitude"],
+          "longitude": ["location.verified.longitude", "location.crowd.longitude"]
+        }
+      }]
+    },
+    "time": {
+      "title": "Tid",
+      "rows": [{
+        "title": "Optagelsestid",
+        "type": "date-interval",
+        "fields": {
+          "from": "date.recorded.from",
+          "to": "date.recorded.to"
+        }
+      }, {
+        "title": "Fremstillingstid",
+        "type": "date-interval",
+        "fields": {
+          "from": "date.created.from",
+          "to": "date.created.to"
+        }
+      }, {
+        "title": "Bemærkning",
+        "template": "= date && date.note"
+      }]
+    },
+    "additional-information": {
+      "title": "Yderligere oplysninger",
+      "rows": [{
+        "title": "Samling",
+        "template": "!= collectionLinked(collection, collectionName)"
+      }, {
+        "title": "Licens",
+        "template": "!= rights && licenseLinked(rights.license)"
+      }, {
+        "title": "Fotograf/skaber",
+        "template": "= creators(actor)"
+      }, {
+        "title": "Kilde",
+        "template": "= rights && rights.administrator"
+      }, {
+        "title": "Arkivnavn",
+        "template": "= physicalReference && physicalReference.archivename"
+      }, {
+        "title": "Negativ nr",
+        "template": "= physicalReference && physicalReference.negativeNumber"
+      }, {
+        "title": "Genstands nr",
+        "template": "= physicalReference && physicalReference.objectNumber"
+      }]
+    },
+    "technical-information": {
+      "title": "Tekniske oplysninger",
+      "rows": [{
+        "title": "Fil-ID",
+        "template": "= id"
+      }, {
+        "title": "Filstørrelse (mb)",
+        "template": "= file && filesizeMB(file.size)"
+      }, {
+        "title": "Størrelse (pixel)",
+        "template": "!= decimals(width_px, 0) + ' &times; ' + decimals(height_px, 0)"
+      }, {
+        "title": "Størrelse (cm)",
+        "template": "!= decimals(width_cm, 1) + ' &times; ' + decimals(height_cm, 1)"
+      }, {
+        "title": "Opløsning (DPI)",
+        "template": "= file && decimals(file.dimensions.ppi, 0)"
+      }]
+    }
+  }
+}

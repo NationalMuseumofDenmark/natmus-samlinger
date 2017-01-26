@@ -1,19 +1,17 @@
 'use strict';
-var express = require('express');
-var co = require('collections-online');
-
-// This allows loading of environment variables from a .env file
-require('dotenv').config({silent: true});
-// Loading the configuration
-var config = require('./config');
+// Requiring collections-online and loading configuration
+const co = require('collections-online');
+co.config(__dirname);
+// Register collections-online plugins
+require('./plugins').register();
 
 // Creating an express app
-var app = express();
-co.config(config);
+const express = require('express');
+const app = express();
 
-co.initialize(app);
-
-require('./routes')(app);
-co.registerRoutes(app);
-
-co.registerErrors(app);
+co.initialize(app).then(() => {
+  var mainRouter = require('./routers/main');
+  app.use('/', mainRouter);
+  co.registerRoutes(app);
+  co.registerErrors(app);
+}).then(null, console.error);
