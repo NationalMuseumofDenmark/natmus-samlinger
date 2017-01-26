@@ -12,10 +12,11 @@ router.use('/api', require('./api'));
 router.get(/^\/([A-Z]{2,3})$/, searchController.redirect);
 router.get(/^\/([A-Z]{2,3})$/, searchController.redirect);
 // Redirecting assets
-router.get(/^\/([A-Z]{2,3})\/(\d+)$/, (req, res) => {
+router.get(/^\/([A-Z]{2,3})\/(\d+)(\/.*)?$/, (req, res) => {
   let catalog = req.params[0];
   let id = req.params[1];
-  res.redirect('/' + catalog + '/asset/' + id);
+  let rest = req.params[2] || '';
+  res.redirect('/' + catalog + '/asset/' + id + rest);
 });
 
 const searchPath = encodeURIComponent(config.search.path);

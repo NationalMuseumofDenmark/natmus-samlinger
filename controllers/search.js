@@ -5,7 +5,7 @@ const querystring = require('querystring');
 const searchController = require('collections-online/lib/controllers/search');
 
 module.exports.redirect = function(req, res, next) {
-  if(req.params.length) {
+  if(Object.keys(req.params).length > 0) {
     const catalog = req.params[0];
     // Replace a path param on catalog, with a query param
     req.query.collection = catalog;
