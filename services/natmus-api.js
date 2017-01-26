@@ -68,8 +68,8 @@ let natmus = {
     let body = {
       size: 0
     };
-    if (options.query) {
-      body.query = options.query;
+    if (options.body && options.body.query) {
+      body.query = options.body.query;
     }
     return proxy({
       url: SEARCH_RAW_URL,
