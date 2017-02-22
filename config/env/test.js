@@ -3,6 +3,7 @@
 var _ = require('lodash');
 var base = require('./base');
 
+// Delete the part of the base query that filters out objects
 delete base.search.baseQuery.bool.must;
 
 module.exports = _.merge(base, {
