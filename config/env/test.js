@@ -3,8 +3,9 @@
 var _ = require('lodash');
 var base = require('./base');
 
+var baseQuery = _.cloneDeep(base.search.baseQuery);
 // Delete the part of the base query that filters out objects
-delete base.search.baseQuery.bool.must;
+delete baseQuery.bool.must;
 
 module.exports = _.merge(base, {
   allowRobots: false,
@@ -14,7 +15,7 @@ module.exports = _.merge(base, {
   natmus: {
     api: {
       baseURL: 'http://testapi.natmus.dk',
-      baseQuery: base.search.baseQuery
+      baseQuery: baseQuery
     }
   },
   siteTitle: 'Nationalmuseets Samlinger Online (beta)'
