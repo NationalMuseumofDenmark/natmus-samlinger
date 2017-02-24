@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "main": "server.js",
   "scripts": {
-    "dev": "concurrently \"npm run gulp\" \"npm run start-dev\"",
+    "dev": "NODE_ENV=development concurrently \"npm run gulp\" \"npm run start-dev\"",
     "gulp": "gulp",
     "index": "node indexing.js",
     "prepublish": "gulp build",

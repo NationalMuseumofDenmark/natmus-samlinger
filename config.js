@@ -10,7 +10,7 @@ require('dotenv').config({
 
 // If no NODE_ENV was specified, we are in development
 if (!process.env.NODE_ENV) {
-  process.env.NODE_ENV = 'development';
+  throw new Error('Expected a NODE_ENV environment variable');
 }
 
 console.log('Loading ' + process.env.NODE_ENV + ' configuration');
