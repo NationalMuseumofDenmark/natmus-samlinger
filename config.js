@@ -14,4 +14,6 @@ if (!process.env.NODE_ENV) {
 }
 
 console.log('Loading ' + process.env.NODE_ENV + ' configuration');
-module.exports = require('./config/env/' + process.env.NODE_ENV);
+const config = require('./config/env/' + process.env.NODE_ENV);
+
+module.exports = config;
