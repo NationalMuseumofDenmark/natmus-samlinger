@@ -310,4 +310,27 @@ helpers.collectionLinked = (collection, collectionName) => {
   helpers.link(url, collectionName);
 };
 
+const documentIdRegExp = /([A-Z]{0,3})[_-]*(\d+)[_-]*/;
+
+/**
+ * Fixes malformed related ids
+ */
+helpers.cleanDocumentId = (id, fallbackCollection) => {
+  const match = documentIdRegExp.exec(id);
+  if(match) {
+    const matchCollection = match[1];
+    const matchId = match[2];
+    if(!matchCollection && fallbackCollection) {
+      return fallbackCollection + '-' + matchId;
+    } else if(matchCollection) {
+      return matchCollection + '-' + matchId;
+    } else {
+      throw new Error('Could not determine the collection.');
+    }
+  } else {
+    throw new Error('Input did not match the expected pattern.');
+  }
+  return id;
+};
+
 module.exports = helpers;
