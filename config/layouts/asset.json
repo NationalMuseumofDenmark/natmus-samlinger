@@ -40,6 +40,9 @@
           "to": "date.created.to"
         }
       }, {
+        "title": "Sidst opdateret",
+        "template": "= meta && formatDate(meta.modified)"
+      }, {
         "title": "Bemærkning",
         "template": "= date && date.note"
       }]
