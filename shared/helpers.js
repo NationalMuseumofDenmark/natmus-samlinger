@@ -315,22 +315,30 @@ const documentIdRegExp = /([A-Z]{0,3})[_-]*(\d+)[_-]*/;
 /**
  * Fixes malformed related ids
  */
-helpers.cleanDocumentId = (id, fallbackCollection) => {
+helpers.cleanDocumentId = (id, fallbackCollection, asObject) => {
+  let result = {};
+
   const match = documentIdRegExp.exec(id);
   if(match) {
     const matchCollection = match[1];
     const matchId = match[2];
-    if(!matchCollection && fallbackCollection) {
-      return fallbackCollection + '-' + matchId;
-    } else if(matchCollection) {
-      return matchCollection + '-' + matchId;
+    if(matchCollection) {
+      result.collection = matchCollection;
+    } else if(!matchCollection && fallbackCollection) {
+      result.collection = fallbackCollection;
     } else {
       throw new Error('Could not determine the collection.');
     }
+    result.id = matchId;
   } else {
     throw new Error('Input did not match the expected pattern.');
   }
-  return id;
+
+  if(asObject) {
+    return result;
+  } else {
+    return result.collection + '-' + result.id;
+  }
 };
 
 module.exports = helpers;

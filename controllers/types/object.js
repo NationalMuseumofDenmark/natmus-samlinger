@@ -3,6 +3,7 @@
 const documentController = require('collections-online/lib/controllers/document');
 const config = require('collections-online/lib/config');
 const section = require('collections-online/lib/section');
+const helpers = require('collections-online/shared/helpers');
 
 const moment = require('moment');
 
@@ -30,11 +31,12 @@ function formatEvent(e) {
   return result;
 }
 
-const helpers = {
+const objectHelpers = {
   dateInterval,
   formatEvent
 };
-const objectSection = section('object', helpers);
+
+const objectSection = section('object', objectHelpers);
 
 const Q = require('q');
 const request = require('request');
@@ -96,6 +98,34 @@ exports.index = function(req, res, next) {
   .then(function(renderParameters) {
     if (renderParameters) {
       res.render('object.pug', renderParameters);
+    }
+  })
+  .then(null, function(error) {
+    if (error.message === 'Not Found') {
+      error.status = 404;
+    }
+    next(error);
+  });
+};
+
+exports.thumbnail = function(req, res, next) {
+  return documentController.get(req, 'object').then((metadata) => {
+    if(metadata.related &&
+       metadata.related.assets &&
+       metadata.related.assets.length > 0) {
+      const primaryAsset = metadata.related.assets[0];
+      const primaryAssetId = helpers.cleanDocumentId(primaryAsset.id,
+                                                     primaryAsset.collection,
+                                                     true);
+      const thumbnailUrl = helpers.getThumbnailURL({
+        type: 'asset',
+        id: primaryAssetId.id,
+        collection: primaryAssetId.collection
+      });
+
+      res.redirect(thumbnailUrl);
+    } else {
+      throw new Error('Not Found');
     }
   })
   .then(null, function(error) {
