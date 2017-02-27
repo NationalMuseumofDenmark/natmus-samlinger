@@ -12,5 +12,12 @@ module.exports = _.merge(base, {
       baseURL: 'http://api.natmus.dk'
     }
   },
-  siteTitle: 'Nationalmuseets Samlinger Online'
+  siteTitle: 'Nationalmuseets Samlinger Online',
+  types: {
+    asset: {
+      layout: {
+        restrictRelated: ['assets']
+      }
+    }
+  }
 });
