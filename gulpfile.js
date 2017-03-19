@@ -1,7 +1,14 @@
 // ------------------------------------------
 // Require - sorted alphabetically after npm name
 // ------------------------------------------
-require('dotenv').config({silent: true});
+require('dotenv').config({
+  silent: true
+});
+
+// If the NODE_ENV is not set, assume development
+if(!process.env.NODE_ENV) {
+  process.env.NODE_ENV = 'development';
+}
 
 var gulp = require('gulp');
 var sequence = require('run-sequence');
