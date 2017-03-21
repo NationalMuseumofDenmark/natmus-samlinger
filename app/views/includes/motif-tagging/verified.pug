@@ -1,0 +1,10 @@
+include ../../mixins/tag
+
+- const verifiedTags = helpers.flattenValues(metadata.tags.verified);
+
+.tags-container
+  each tag in verifiedTags
+    .btn-group
+      +tag(tag)
+  else
+    span.no-tags Der er ingen emneord endnu.

@@ -1,12 +1,11 @@
 const config = require('collections-online/lib/config');
 const _ = require('lodash');
-const motifTag = require('collections-online-cumulus/controllers/motif-tag');
+const cumulus = require('collections-online-cumulus/controllers/motif-tagging');
 
 const natmusApi = require('../services/natmus-api');
 
 module.exports.typeaheadSuggestions = (text) => {
   const ds = require('collections-online/lib/services/documents');
-  console.log('Searching for suggestions starting with', text);
   return ds.search({
     'size': 0,
     'body': {
@@ -70,21 +69,36 @@ module.exports.typeaheadSuggestions = (text) => {
   });
 };
 
-module.exports.save = (metadata) => {
-  const id = metadata.collection + '-' + metadata.id;
-  return natmusApi.expectChanges('asset', id)
+module.exports.save = ({id, collection}, metadata) => {
+  return natmusApi.expectChanges('asset', collection + '-' + id)
   .then((currentMetadata) => {
-    // Get the current crowd tags
-    console.log('currentMetadata', currentMetadata);
-    metadata.tags = currentMetadata.tags.crowd;
-    // Append the new metadata.tag to a list of metadata.tags
-    metadata.tags.push(metadata.tag);
+    currentMetadata.tags.crowd = metadata.tags.crowd;
+    currentMetadata.tags.automated = metadata.tags.automated;
     // Save it ..
-    return motifTag.save(metadata);
+    return cumulus.save({
+      id,
+      collection,
+      userTags: currentMetadata.tags.crowd,
+      visionTags: currentMetadata.tags.automated
+    })
+    .then(response => {
+      return {
+        id,
+        collection,
+        tags: currentMetadata.tags
+      };
+    });
   });
 };
 
 module.exports.updateIndex = (metadata) => {
   const id = metadata.collection + '-' + metadata.id;
-  return natmusApi.pollForChange('asset', id);
+  return natmusApi.pollForChange('asset', id)
+  .then(result => {
+    if(result.status === 'success') {
+      return metadata;
+    } else {
+      throw new Error('Error updating the index');
+    }
+  });
 };

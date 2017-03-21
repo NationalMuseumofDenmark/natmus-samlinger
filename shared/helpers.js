@@ -341,4 +341,43 @@ helpers.cleanDocumentId = (id, fallbackCollection, asObject) => {
   }
 };
 
+helpers.motifTagging = {
+  getTags: metadata => {
+    return metadata.tags && metadata.tags.crowd;
+  },
+  getVisionTags: metadata => {
+    return metadata.tags && metadata.tags.automated;
+  },
+  addTag: (metadata, tag) => {
+    if(!metadata.tags) {
+      metadata.tags = {};
+    }
+    if(!metadata.tags.crowd) {
+      metadata.tags.crowd = [];
+    }
+    // Add it to the tags if not already there
+    if(metadata.tags.crowd.indexOf(tag) === -1) {
+      metadata.tags.crowd.push(tag);
+    }
+    // Remove it from the vision tags if there
+    helpers.motifTagging.removeVisionTag(metadata, tag);
+  },
+  removeTag: (metadata, tag) => {
+    // Is it there?
+    const tagIndex = metadata.tags.crowd.indexOf(tag);
+    if(tagIndex > -1) {
+      // Remove it
+      metadata.tags.crowd.splice(tagIndex, 1);
+    }
+  },
+  removeVisionTag: (metadata, tag) => {
+    // Is it there?
+    const tagIndex = metadata.tags.automated.indexOf(tag);
+    if(tagIndex > -1) {
+      // Remove it
+      metadata.tags.automated.splice(tagIndex, 1);
+    }
+  }
+};
+
 module.exports = helpers;

@@ -72,6 +72,10 @@ module.exports = {
     }
   },
   licenseMapping: require('../license-mapping.json'),
+  motifTagging: {
+    userField: '{73be3a90-a8ef-4a42-aa8f-d16ca4f55e0a}',
+    visionField: '{6864395c-c433-2148-8b05-56edf606d4d4}'
+  },
   natmus: {
     api: {
       baseURL: 'http://testapi.natmus.dk',
