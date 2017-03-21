@@ -112,6 +112,46 @@ module.exports = {
             'term': {
               'meta.cropping': 'source'
             }
+          }, {
+            // Leave out objects from the AS collection
+            'bool': {
+              'must': [
+                {
+                  'term': {
+                    'collection.keyword': 'AS'
+                  }
+                }, {
+                  'term': {
+                    'type.keyword': 'object'
+                  }
+                }
+              ]
+            }
+          }, {
+            // Leave out the "flmlibrary" collection
+            'term': {
+              'collection.keyword': 'flmlibrary'
+            }
+          }, {
+            // Leave out the "DODMR" collection
+            'term': {
+              'collection.keyword': 'DODMR'
+            }
+          }, {
+            // Leave out assets from the MUM collection
+            'bool': {
+              'must': [
+                {
+                  'term': {
+                    'collection.keyword': 'MUM'
+                  }
+                }, {
+                  'term': {
+                    'type.keyword': 'asset'
+                  }
+                }
+              ]
+            }
           }
         ]
       }
