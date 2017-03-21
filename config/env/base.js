@@ -90,11 +90,17 @@ module.exports = {
     filters: require('../filters.json'),
     baseQuery: {
       'bool': {
-        'must': {
-          'term': {
-            'type': 'asset'
+        'should': [
+          {
+            'term': {
+              'type': 'asset'
+            }
+          }, {
+            'exists': {
+              'field': 'related.assets'
+            }
           }
-        },
+        ],
         'must_not': [
           { // Filtering out side shots of rotation images
             'range': {
