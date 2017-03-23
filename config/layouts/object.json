@@ -41,6 +41,24 @@
           "template": "= nominal"
         }
       ]
+    },
+    "place": {
+      "title": "Sted",
+      "rows": [
+        {
+          "title": "Fremstillet",
+          "template": "= (creationEvents || []).map(e => e.place).join(', ')"
+        }, {
+          "title": "Brugt",
+          "template": "= (usageEvents || []).map(e => e.place).join(', ')"
+        }, {
+          "title": "Fundet",
+          "template": "= (foundEvents || []).map(e => e.place).join(', ')"
+        }, {
+          "title": "Indsamlet",
+          "template": "= (accessionEvents || []).map(e => e.place).join(', ')"
+        }
+      ]
     }
   }
 }
