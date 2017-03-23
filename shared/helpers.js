@@ -1,7 +1,8 @@
-/* global config */
-const config = require('collections-online/lib/config');
 const _ = require('lodash');
-let helpers = require('collections-online/shared/helpers');
+const moment = require('moment');
+
+const config = require('collections-online/lib/config');
+const helpers = require('collections-online/shared/helpers');
 
 helpers.documentTitle = (metadata, fallback) => {
   let title;
@@ -34,6 +35,7 @@ helpers.documentDescription = (metadata, fallback) => {
   if (metadata.type === 'asset') {
     description = metadata.text['da-DK'].description;
   } else if(metadata.type === 'object') {
+    // Get values from a lot of fields, filter out any empty string and undefied
     description = helpers.getAnyFlat(metadata, [
       'accessionEvents.dimensions.overallDescription',
       'creationEvents.dimensions.overallDescription',
@@ -41,7 +43,7 @@ helpers.documentDescription = (metadata, fallback) => {
       'usageEvents.dimensions.overallDescription',
       'accessionEvents.eventNote',
       'accessionEvents.protocolText'
-    ]).join('\n\n');
+    ]).filter(value => value).join('\n\n');
   }
 
   if(!description && typeof(fallback) !== 'undefined') {
@@ -382,6 +384,30 @@ helpers.motifTagging = {
       metadata.tags.automated.splice(tagIndex, 1);
     }
   }
+};
+
+helpers.dateInterval = (fromString, toString) => {
+  let dates = [];
+  if(fromString) {
+    let from = moment(fromString);
+    dates.push(from.format('L'));
+  }
+  if(toString) {
+    let to = moment(toString);
+    dates.push(to.format('L'));
+  }
+  return dates.join(' - ');
+};
+
+helpers.formatEvent = (e) => {
+  let result = e.eventTypeSubDescription;
+  if(e.dateFrom || e.dateTo) {
+    result += ' ' + helpers.dateInterval(e.dateFrom, e.dateTo);
+  }
+  if(e.place) {
+    result += ' (' + e.place + ')';
+  }
+  return result;
 };
 
 module.exports = helpers;
