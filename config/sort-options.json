@@ -4,20 +4,8 @@
     "method": "_score",
     "default": true
   },
-  "title|desc": {
-    "label": "Alfabetisk(original): z-a",
-    "method": {
-      "method": {"text.da-DK.title.keyword": "desc"}
-    }
-  },
   "title|asc": {
-    "label": "Alfabetisk(original): a-z",
-    "method": {
-      "method": {"text.da-DK.title.keyword": "asc"}
-    }
-  },
-  "title-scripted|asc": {
-    "label": "Alfabetisk(scripted): a-z",
+    "label": "Alfabetisk: a-z",
     "method": {
       "_script": {
         "type": "string",
@@ -29,8 +17,8 @@
       }
     }
   },
-  "title-scripted|desc": {
-    "label": "Alfabetisk(scripted): z-a",
+  "title|desc": {
+    "label": "Alfabetisk: z-a",
     "method": {
       "_script": {
         "type": "string",
@@ -42,34 +30,6 @@
       }
     }
   },
-  "title-unmapped|asc": {
-    "label": "Alfabetisk(unmapped): a-z",
-    "method": [{
-      "text.da-DK.title.keyword":{
-        "order" : "asc",
-        "unmapped_type" : "string"
-      },
-      "workDescription.keyword":{
-        "order" : "asc",
-        "unmapped_type" : "string"
-      }
-    }
-    ]
-  },
-  "title-unmapped|desc": {
-    "label": "Alfabetisk(unmapped): z-a",
-    "method": [{
-      "text.da-DK.title.keyword":{
-        "order" : "desc",
-        "unmapped_type" : "string"
-      },
-      "workDescription.keyword":{
-        "order" : "desc",
-        "unmapped_type" : "string"
-      }
-    }
-    ]
-  },
   "modification|desc": {
     "label": "Opdateret: Nyeste",
     "method": {
@@ -78,7 +38,7 @@
         "order": "desc",
         "script": {
           "lang": "painless",
-          "inline": "(doc.containsKey('meta.modified') ? doc['meta.modified'].date.getMillisOfDay() : (doc.containsKey('createdDate') ? doc['createdDate'].date.getMillisOfDay() : 0) )"
+          "inline": "(doc.containsKey('meta.modified') ? doc['meta.modified'].value : (doc.containsKey('createdDate') ? doc['createdDate'].date.getMillisOfDay() : 0) )"
         }
       }
     }
@@ -91,7 +51,7 @@
         "order": "asc",
         "script": {
           "lang": "painless",
-          "inline": "(doc.containsKey('meta.modified') ? doc['meta.modified'].date.getMillisOfDay() : (doc.containsKey('createdDate') ? doc['createdDate'].date.getMillisOfDay() : 0) )"
+          "inline": "(doc.containsKey('meta.modified') ? doc['meta.modified'].value : (doc.containsKey('createdDate') ? doc['createdDate'].date.getMillisOfDay() : 0) )"
         }
       }
     }
