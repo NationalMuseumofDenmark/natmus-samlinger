@@ -8,9 +8,10 @@ block content
       .row
         .col-md-6
           .row
-            each asset in metadata.related.assets
-              .col-md-6
-                +relatedAssetImage(asset)
+            if metadata.related && metadata.related.assets
+              each asset in metadata.related.assets
+                .col-md-6
+                  +relatedAssetImage(asset)
             else
               .col-md-12
                 | Ingen relaterede medier
