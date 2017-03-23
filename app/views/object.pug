@@ -18,5 +18,5 @@ block content
           h1= helpers.documentTitle(metadata)
           - let description = helpers.documentDescription(metadata, null)
           if description
-            p= description
+            p.lead.metadata__description= description
           != objectSection('events', metadata)

@@ -34,10 +34,14 @@ helpers.documentDescription = (metadata, fallback) => {
   if (metadata.type === 'asset') {
     description = metadata.text['da-DK'].description;
   } else if(metadata.type === 'object') {
-    let dimensions = metadata.dimensions || [];
-    description = dimensions
-      .map(dimension => dimension.overallDescription)
-      .join(', ');
+    description = helpers.getAnyFlat(metadata, [
+      'accessionEvents.dimensions.overallDescription',
+      'creationEvents.dimensions.overallDescription',
+      'foundEvents.dimensions.overallDescription',
+      'usageEvents.dimensions.overallDescription',
+      'accessionEvents.eventNote',
+      'accessionEvents.protocolText'
+    ]).join('\n\n');
   }
 
   if(!description && typeof(fallback) !== 'undefined') {
