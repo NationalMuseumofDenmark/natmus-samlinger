@@ -16,6 +16,31 @@
           "template": "= (foundEvents || []).map(formatEvent).join(', ')"
         }
       ]
+    },
+    "objectinfo": {
+      "title": "Genstandsoplysniner",
+      "rows": [
+        {
+          "title": "Materiale",
+          "template": "= materials && materials.map(m => m.material).join(', ')"
+        },
+        {
+          "title": "Nation",
+          "template": "= nation"
+        },
+        {
+          "title": "Møntsted",
+          "template": "= place"
+        },
+        {
+          "title": "Autoritet",
+          "template": "= authority"
+        },
+        {
+          "title": "Nominal",
+          "template": "= nominal"
+        }
+      ]
     }
   }
 }
