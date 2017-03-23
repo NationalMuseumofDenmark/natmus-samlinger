@@ -2,41 +2,10 @@
 
 const documentController = require('collections-online/lib/controllers/document');
 const config = require('collections-online/lib/config');
-const section = require('collections-online/lib/section');
+const layouts = require('collections-online/lib/layouts');
 const helpers = require('collections-online/shared/helpers');
 
-const moment = require('moment');
-
-function dateInterval(fromString, toString) {
-  let dates = [];
-  if(fromString) {
-    let from = moment(fromString);
-    dates.push(from.format('L'));
-  }
-  if(toString) {
-    let to = moment(toString);
-    dates.push(to.format('L'));
-  }
-  return dates.join(' - ');
-}
-
-function formatEvent(e) {
-  let result = e.eventTypeSubDescription;
-  if(e.dateFrom || e.dateTo) {
-    result += ' ' + dateInterval(e.dateFrom, e.dateTo);
-  }
-  if(e.place) {
-    result += ' (' + e.place + ')';
-  }
-  return result;
-}
-
-const objectHelpers = {
-  dateInterval,
-  formatEvent
-};
-
-const objectSection = section('object', objectHelpers);
+const objectSection = layouts.section('object');
 
 const Q = require('q');
 const request = require('request');
@@ -91,7 +60,7 @@ exports.index = function(req, res, next) {
   return documentController.get(req, 'object').then((metadata) => {
     return {
       'metadata': metadata,
-      'objectSection': objectSection({}),
+      'objectSection': objectSection(),
       'req': req
     };
   })
