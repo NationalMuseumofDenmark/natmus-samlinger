@@ -25,6 +25,14 @@
           "template": "= materials && materials.map(m => m.material).join(', ')"
         },
         {
+          "type": "title-and-value-list",
+          "field": "measurements",
+          "templates": {
+            "title": "= dimension + ':'",
+            "value": "= (data && decimals(data, 1)) + ' ' + (unit || '')"
+          }
+        },
+        {
           "title": "Nation",
           "template": "= nation"
         },
