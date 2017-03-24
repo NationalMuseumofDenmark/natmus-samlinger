@@ -49,6 +49,23 @@
           "template": "= nominal"
         }
       ]
+    },
+    "objecttechinfo": {
+      "title": "Tekniske oplysninger",
+      "rows": [
+        {
+          "title": "Post oprettelsesdato",
+          "template": "= createdDate && formatDate(createdDate)"
+        },
+        {
+          "title": "Genstandsnummer",
+          "template": "= objectIdentification"
+        },
+        {
+          "title": "System-ID",
+          "template": "= id"
+        }
+      ]
     }
   }
 }
