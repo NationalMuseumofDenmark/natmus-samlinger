@@ -84,6 +84,75 @@
           "template": "= (accessionEvents || []).map(e => e.place).join(', ')"
         }
       ]
+    },
+    "time": {
+      "title": "Tid",
+      "rows": [
+        {
+          "title": "Fremstillingstidspunkt",
+          "type": "date-interval",
+          "fields": {
+            "from": "creationEvents[0].yearFrom",
+            "to": "creationEvents[0].yearTo"
+          }
+        },
+        {
+          "title": "Fremstillingstidspunkt",
+          "type": "date-interval",
+          "fields": {
+            "from": "creationEvents[0].dateFrom",
+            "to": "creationEvents[0].dateTo"
+          }
+        },
+        {
+          "title": "Brugstidspunkt",
+          "type": "date-interval",
+          "fields": {
+            "from": "usageEvents[0].yearFrom",
+            "to": "usageEvents[0].yearTo"
+          }
+        },
+        {
+          "title": "Brugstidspunkt",
+          "type": "date-interval",
+          "fields": {
+            "from": "usageEvents[0].dateFrom",
+            "to": "usageEvents[0].dateTo"
+          }
+        },
+        {
+          "title": "Fundstidspunkt",
+          "type": "date-interval",
+          "fields": {
+            "from": "foundEvents[0].yearFrom",
+            "to": "foundEvents[0].yearTo"
+          }
+        },
+        {
+          "title": "Fundstidspunkt",
+          "type": "date-interval",
+          "fields": {
+            "from": "foundEvents[0].dateFrom",
+            "to": "foundEvents[0].dateTo"
+          }
+        },
+        {
+          "title": "Indsamlingstidspunkt",
+          "type": "date-interval",
+          "fields": {
+            "from": "accessionEvents[0].yearFrom",
+            "to": "accessionEvents[0].yearTo"
+          }
+        },
+        {
+          "title": "Indsamlingstidspunkt",
+          "type": "date-interval",
+          "fields": {
+            "from": "accessionEvents[0].dateFrom",
+            "to": "accessionEvents[0].dateTo"
+          }
+        }
+      ]
     }
   }
 }
