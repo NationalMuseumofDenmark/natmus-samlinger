@@ -19,4 +19,15 @@ $brand-primary: #9e0b0f;
 $filter-btn-full-width: true;
 $filter-btn-svg-right-margin: -.2em;
 
+// Colors
+$black: #000;
+$white: #fff;
+$gray-darker: #151515;
+$gray-dark: #404040;
+$gray: #555;
+$gray-light: #e0e0e0;
+$gray-lighter: #f0f0f0;
+
+$button-bg: $gray;
+
 @import '../../node_modules/collections-online/app/styles/variables';
