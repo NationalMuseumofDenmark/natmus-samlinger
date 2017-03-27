@@ -1,6 +1,5 @@
 - let thumbnailURL = helpers.getThumbnailURL(metadata, 1280);
 - let magic360Options = helpers.magic360Options(metadata.related.assets);
-.rotation-wrapper
-  picture(alt=title)
-    a.Magic360(data-magic360-options=magic360Options)
-      img(src=thumbnailURL, alt=title)
+picture(alt=title)
+  a.Magic360(data-magic360-options=magic360Options)
+    img(src=thumbnailURL, alt=title)
