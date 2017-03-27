@@ -96,6 +96,7 @@ const playerFromFileMediaType = {
 };
 
 helpers.determinePlayer = (metadata) => {
+  const relatedAssets = (metadata.related && metadata.related.assets) || [];
   if(metadata.meta && metadata.meta.rotation === 1) {
     return 'rotation';
   } else if(metadata.file && metadata.file.mediaType) {
@@ -109,7 +110,14 @@ helpers.determinePlayer = (metadata) => {
       return result;
     }, undefined);
     return player || 'unknown';
-  } else {
+  } else if(metadata.type === 'object' && relatedAssets.find((asset) => {
+      return (asset.assetType ===  "Rotation");
+    })) {
+    // If an object has a related asset of type rotation, return that as the
+    // primary player.
+    return 'rotation';
+  }
+  else {
     return 'unknown';
   }
 };
