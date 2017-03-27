@@ -3,6 +3,7 @@ const moment = require('moment');
 
 const config = require('collections-online/lib/config');
 const helpers = require('collections-online/shared/helpers');
+const Q = require('q');
 
 helpers.documentTitle = (metadata, fallback) => {
   let title;
@@ -408,6 +409,16 @@ helpers.formatEvent = (e) => {
     result += ' (' + e.place + ')';
   }
   return result;
+};
+
+// Apply a series of transformations on a metadata document. The transforms are
+// defined via modules in ./metadata-transforms.
+helpers.transformMetadata = (metadata, transformations = require('./metadata-transforms')) => {
+  return transformations.reduce(function(metadata, transformation) {
+    return Q.when(metadata).then(function(metadata) {
+      return transformation(metadata);
+    });
+  }, new Q(metadata));
 };
 
 module.exports = helpers;
