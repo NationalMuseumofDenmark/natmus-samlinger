@@ -54,6 +54,17 @@ module.exports = {
     scrollToTop: false,
     watermarks: false
   },
+  geoTagging: {
+    default: {
+      position: {
+        latitude: 55.6747,
+        longitude: 12.5747
+      },
+      zoom: 16
+    },
+    coordinatesField: '{81780c19-86be-44e6-9eeb-4e63f16d7215}',
+    headingField: '{ef236a08-62f8-485f-b232-9771792d29ba}'
+  },
   googleAnalyticsPropertyID: null,
   googleAPIKey: process.env.GOOGLE_API_KEY,
   googleMapsAPIKey: 'AIzaSyCkoZ8EB9Vf5SfXUzMY6bewq6diets-pxU',

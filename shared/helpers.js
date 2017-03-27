@@ -395,6 +395,18 @@ helpers.motifTagging = {
   }
 };
 
+helpers.geoTagging = {
+  getLocation: (metadata) => {
+    return metadata.location && metadata.location.crowd;
+  },
+  enabled: (metadata) => {
+    const verifiedLocation = metadata.location && metadata.location.verified;
+    return !verifiedLocation ||
+           !verifiedLocation.latitude ||
+           !verifiedLocation.longitude;
+  }
+};
+
 helpers.dateInterval = (fromString, toString) => {
   let dates = [];
   if(fromString) {
