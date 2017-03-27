@@ -44,16 +44,7 @@ let mapAssetValue = function(asset) {
 module.exports = function(metadata) {
   if (metadata.related && metadata.related.assets) {
     metadata.related.assets = metadata.related.assets.sort(
-      (a, b) => {
-        let a_mapped = mapAssetValue(a);
-        let b_mapped = mapAssetValue(b);
-
-        if (a_mapped < b_mapped)
-          return -1;
-        if (a_mapped > b_mapped)
-          return 1;
-        return 0;
-      }
+      (a, b) => { return mapAssetValue(a).localeCompare(mapAssetValue(b)) }
     );
   }
 
