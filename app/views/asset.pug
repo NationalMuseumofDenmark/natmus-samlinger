@@ -1,4 +1,16 @@
-extends asset-base
+extends asset
+
+block document__bottom-metadata
+  .row
+    .col-sm-6
+      != assetSection('place', metadata)
+    .col-sm-6
+      != assetSection('time', metadata)
+    .clearfix
+    .col-sm-6
+      != assetSection('additional-information', metadata)
+    .col-sm-6
+      != assetSection('technical-information', metadata)
 
 append extra
   .facebook-group
