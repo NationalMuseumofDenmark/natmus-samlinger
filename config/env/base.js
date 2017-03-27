@@ -152,6 +152,21 @@ module.exports = {
                 }
               ]
             }
+          }, {
+            // Leave out assets from the KMM collection
+            'bool': {
+              'must': [
+                {
+                  'term': {
+                    'collection.keyword': 'KMM'
+                  }
+                }, {
+                  'term': {
+                    'type.keyword': 'asset'
+                  }
+                }
+              ]
+            }
           }
         ]
       }
