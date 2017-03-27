@@ -17,10 +17,10 @@ html {
 
 body {
   overflow-x: hidden; // Enable bleeds without horizontal scroll
-  position  : relative; // For category menu
+  position: relative; // For category menu
 
   a {
-    cursor : pointer;
+    cursor: pointer;
     outline: none;
   }
 }
@@ -41,13 +41,6 @@ body {
   }
 }
 
-@media (max-width: $small-size) {
-  .small-bleed {
-    padding-left : 0;
-    padding-right: 0;
-  }
-}
-
 .sprite {
   display: none;
 }
@@ -55,3 +48,4 @@ body {
 .dimmed {
   opacity: .5;
 }
+
