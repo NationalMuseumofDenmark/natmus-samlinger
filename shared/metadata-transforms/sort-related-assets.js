@@ -29,9 +29,9 @@ let mapAssetValue = function(asset) {
   // Prefix the sort-value based on the type of asset. The prefix effectivly
   // places the value in a group. Values in the same group are sorted
   // alphabetically.
-  if (asset.assetType === 'Rotation') {
+  if (asset.type === 'rotation') {
     baseName = WEIGHT_ROT + '_' + baseName;
-  } else if (asset.assetType === 'Still' && baseName.match(/_\w\.\w{3,4}$/)) {
+  } else if (asset.type === 'still' && baseName.match(/_\w\.\w{3,4}$/)) {
     baseName = WEIGHT_ASSET_LABLED_FILENAME + '_' + baseName;
   } else {
     baseName = WEIGHT_DEFAULT + '_' + baseName;

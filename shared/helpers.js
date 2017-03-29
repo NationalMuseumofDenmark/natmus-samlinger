@@ -156,10 +156,10 @@ helpers.determinePlayers = metadata => {
     }
   } else if(metadata.type === 'object') {
     const rotationAssets = relatedAssets.filter(asset => {
-      return asset.assetType === 'Rotation';
+      return asset.type === 'rotation';
     });
     const stillAssets = relatedAssets.filter(asset => {
-      return asset.assetType === 'Still';
+      return asset.type === 'still';
     });
 
     if(rotationAssets.length > 0) {
