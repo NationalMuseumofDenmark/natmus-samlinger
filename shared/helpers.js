@@ -154,7 +154,14 @@ helpers.determinePlayers = metadata => {
       }
     }
   } else if(metadata.type === 'object') {
-    if(relatedAssets.find(asset => asset.assetType === 'Rotation')) {
+    const rotationAssets = relatedAssets.filter(asset => {
+      return asset.assetType === 'Rotation';
+    });
+    const stillAssets = relatedAssets.filter(asset => {
+      return asset.assetType === 'Still';
+    });
+
+    if(rotationAssets.length > 0) {
       // If an object has a related asset of type rotation, return that as the
       // primary player.
       const images = rotationAssets.map(asset => {
@@ -164,9 +171,29 @@ helpers.determinePlayers = metadata => {
           collection: metadata.collection
         };
       });
+      // Add this to the players
       players.push({
         type: 'rotation',
         thumbnail: helpers.getThumbnailURL(metadata, 1280),
+        images
+      });
+    }
+    // Still images
+    if(stillAssets.length > 0) {
+      const images = stillAssets.map(asset => {
+        const stillMetadata = {
+          type: 'asset',
+          id: helpers.getNummericId(asset),
+          collection: metadata.collection
+        };
+        return {
+          thumbnail: helpers.getThumbnailURL(stillMetadata, 1280),
+          title: asset.fileName
+        };
+      });
+      // Add it to the players
+      players.push({
+        type: 'multiple-images',
         images
       });
     }
