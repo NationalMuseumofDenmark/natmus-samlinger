@@ -137,6 +137,18 @@ helpers.determinePlayers = metadata => {
     if(relatedAssets.find(asset => asset.assetType === 'Rotation')) {
       // If an object has a related asset of type rotation, return that as the
       // primary player.
+      const rotationAssets = relatedAssets.filter(asset => {
+        return asset.assetType === 'Rotation';
+      }).map(asset => {
+        const collectionAndId = asset.id.split('-');
+        const stringId = collectionAndId[collectionAndId.length-1];
+        const nummericId = parseInt(stringId, 10);
+        return {
+          type: 'asset',
+          id: nummericId,
+          collection: metadata.collection
+        };
+      });
       players.push({
         type: 'rotation'
       });
@@ -285,16 +297,8 @@ if(config.downloadOptions) {
   };
 }
 
-helpers.magic360Options = function(relatedAssets) {
-  let relevantAssets = relatedAssets.filter((asset) => {
-    return asset.relation === 'child';
-  });
-  relevantAssets.sort((assetA, assetB) => {
-    let nameA = assetA.file.name || '';
-    let nameB = assetB.file.name || '';
-    return nameA.localeCompare(nameB);
-  });
-  let relevantAssetUrls = relevantAssets.map((asset) => {
+helpers.magic360Options = function(assets) {
+  let relevantAssetUrls = assets.map((asset) => {
     return helpers.getThumbnailURL(asset, 1280);
   });
   let options = {
