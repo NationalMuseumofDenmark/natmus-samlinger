@@ -9,5 +9,6 @@ var router = express.Router({
 
 router.get('/', object.index);
 router.get('/thumbnail', object.thumbnail);
+router.get('/thumbnail/:size', object.thumbnail);
 
 module.exports = router;

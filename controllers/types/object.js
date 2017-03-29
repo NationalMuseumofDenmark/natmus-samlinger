@@ -78,7 +78,8 @@ exports.index = function(req, res, next) {
 };
 
 exports.thumbnail = function(req, res, next) {
-  return documentController.get(req, 'object').then((metadata) => {
+  const size = req.params.size || null;
+  return documentController.get(req, 'object').then(metadata => {
     if(metadata.related &&
        metadata.related.assets &&
        metadata.related.assets.length > 0) {
@@ -90,7 +91,7 @@ exports.thumbnail = function(req, res, next) {
         type: 'asset',
         id: primaryAssetId.id,
         collection: primaryAssetId.collection
-      });
+      }, size);
 
       res.redirect(thumbnailUrl);
     } else {
