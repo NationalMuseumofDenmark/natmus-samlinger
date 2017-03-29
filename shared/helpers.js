@@ -44,7 +44,8 @@ helpers.documentDescription = (metadata, fallback) => {
       'foundEvents.dimensions.overallDescription',
       'usageEvents.dimensions.overallDescription',
       'accessionEvents.eventNote',
-      'accessionEvents.protocolText'
+      'accessionEvents.protocolText',
+      'objectDimensionOverallDescription'
     ]).filter(value => value).join('\n\n');
   }
 
