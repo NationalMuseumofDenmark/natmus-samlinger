@@ -5,11 +5,18 @@ include mixins/related-asset
 block document__top-metadata
   .document__top-metadata.col-xs-12.col-sm-5
     h1.document__title= title
+    // A header-less section with fields that should be displayed
+    // underneath the main title.
+    != objectSection('objecthead', metadata)
     p.document__description= description
-    != objectSection('events', metadata)
+    // Header-less section with fields that should be displayed underneath
+    // the main description.
+    != objectSection('objectdescription', metadata)
     != objectSection('objectinfo', metadata)
-    != objectSection('time', metadata)
-    != objectSection('place', metadata)
+    != objectSection('creation', metadata)
+    != objectSection('usage', metadata)
+    != objectSection('found', metadata)
+    != objectSection('accession', metadata)
     != objectSection('techinfo', metadata)
 
 block document__bottom

@@ -1,19 +1,20 @@
 {
   "sections": {
-    "events": {
-      "title": "Hændelser",
+    "objecthead": {
+      "title": "",
       "rows": [
         {
-          "title": "Erhvervelse",
-          "template": "= (accessionEvents || []).map(formatEvent).join(', ')"
-        },
+          "title": "Genstandsnummer",
+          "template": "= objectIdentification"
+        }
+      ]
+    },
+    "objectdescription": {
+      "title": "",
+      "rows": [
         {
-          "title": "Fremstilling",
-          "template": "= (creationEvents || []).map(formatEvent).join(', ')"
-        },
-        {
-          "title": "Fund",
-          "template": "= (foundEvents || []).map(formatEvent).join(', ')"
+          "title": "Protokoltekst",
+          "template": "= accessionEvents && accessionEvents[0] && accessionEvents[0].protocolText"
         }
       ]
     },
@@ -47,6 +48,139 @@
         {
           "title": "Nominal",
           "template": "= nominal"
+        },
+        {
+          "title": "Typenummer",
+          "template": "= typeNumber"
+        },
+        {
+          "title": "Motiv",
+          "template": "= motif"
+        },
+        {
+          "title": "Typografisk nummer",
+          "template": "= typographicalNumber"
+        }
+      ]
+    },
+    "creation": {
+      "title": "Fremstilling",
+      "rows": [
+        {
+          "title": "Fremstillingstidspunkt",
+          "type": "date-interval",
+          "fields": {
+            "from": "creationEvents[0].dateFrom",
+            "to": "creationEvents[0].dateTo"
+          }
+        },
+        {
+          "title": "Fremstillingstidspunkt",
+          "type": "date-interval",
+          "format": "Y",
+          "fields": {
+            "from": "creationEvents[0].yearFrom",
+            "to": "creationEvents[0].yearTo"
+          }
+        },
+        {
+          "title": "Fremstillingssted",
+          "template": "= creationEvents && creationEvents[0] && creationEvents[0].place"
+        }
+      ]
+    },
+    "usage": {
+      "title": "Brug",
+      "rows": [
+        {
+          "title": "Brugstidspunkt",
+          "type": "date-interval",
+          "fields": {
+            "from": "usageEvents[0].dateFrom",
+            "to": "usageEvents[0].dateTo"
+          }
+        },
+        {
+          "title": "Brugstidspunkt",
+          "type": "date-interval",
+          "format": "Y",
+          "fields": {
+            "from": "usageEvents[0].yearFrom",
+            "to": "usageEvents[0].yearTo"
+          }
+        },
+        {
+          "title": "Brugssted",
+          "type": "any-of-list",
+          "paths": [
+            "usageEvents.place",
+            "usageEvents.region",
+            "usageEvents.geographicalArea"
+          ]
+        },
+        {
+          "title": "Lokalitetsnummer",
+          "template": "= usageEvents && usageEvents[0] && usageEvents[0].sbNumber"
+        }
+      ]
+    },
+    "found": {
+      "title": "Fund",
+      "rows": [
+        {
+          "title": "Fundstidspunkt",
+          "type": "date-interval",
+          "fields": {
+            "from": "foundEvents[0].dateFrom",
+            "to": "foundEvents[0].dateTo"
+          }
+        },
+        {
+          "title": "Brugstidspunkt",
+          "type": "date-interval",
+          "format": "Y",
+          "fields": {
+            "from": "foundEvents[0].yearFrom",
+            "to": "foundEvents[0].yearTo"
+          }
+        },
+        {
+          "title": "Fundsted",
+          "template": "= foundEvents && foundEvents[0] && foundEvents[0].place"
+        },
+        {
+          "title": "Lokalitetsnummer",
+          "type": "any-of-list",
+          "paths": [
+            "foundEvents.sbNumber",
+            "foundEvents.sbNumberExt"
+          ]
+        }
+      ]
+    },
+    "accession": {
+      "title": "Indsamling",
+      "rows": [
+        {
+          "title": "Indsamlingstidspunkt",
+          "type": "date-interval",
+          "fields": {
+            "from": "accessionEvents[0].dateFrom",
+            "to": "accessionEvents[0].dateTo"
+          }
+        },
+        {
+          "title": "Indsamlingstidspunkt",
+          "type": "date-interval",
+          "format": "Y",
+          "fields": {
+            "from": "accessionEvents[0].yearFrom",
+            "to": "accessionEvents[0].yearTo"
+          }
+        },
+        {
+          "title": "Indsamlingssted",
+          "template": "= accessionEvents && accessionEvents[0] && accessionEvents[0].place"
         }
       ]
     },
@@ -58,99 +192,8 @@
           "template": "= createdDate && formatDate(createdDate)"
         },
         {
-          "title": "Genstandsnummer",
-          "template": "= objectIdentification"
-        },
-        {
           "title": "System-ID",
           "template": "= id"
-        }
-      ]
-    },
-    "place": {
-      "title": "Sted",
-      "rows": [
-        {
-          "title": "Fremstillet",
-          "template": "= (creationEvents || []).map(e => e.place).join(', ')"
-        }, {
-          "title": "Brugt",
-          "template": "= (usageEvents || []).map(e => e.place).join(', ')"
-        }, {
-          "title": "Fundet",
-          "template": "= (foundEvents || []).map(e => e.place).join(', ')"
-        }, {
-          "title": "Indsamlet",
-          "template": "= (accessionEvents || []).map(e => e.place).join(', ')"
-        }
-      ]
-    },
-    "time": {
-      "title": "Tid",
-      "rows": [
-        {
-          "title": "Fremstillingstidspunkt",
-          "type": "date-interval",
-          "fields": {
-            "from": "creationEvents[0].yearFrom",
-            "to": "creationEvents[0].yearTo"
-          }
-        },
-        {
-          "title": "Fremstillingstidspunkt",
-          "type": "date-interval",
-          "fields": {
-            "from": "creationEvents[0].dateFrom",
-            "to": "creationEvents[0].dateTo"
-          }
-        },
-        {
-          "title": "Brugstidspunkt",
-          "type": "date-interval",
-          "fields": {
-            "from": "usageEvents[0].yearFrom",
-            "to": "usageEvents[0].yearTo"
-          }
-        },
-        {
-          "title": "Brugstidspunkt",
-          "type": "date-interval",
-          "fields": {
-            "from": "usageEvents[0].dateFrom",
-            "to": "usageEvents[0].dateTo"
-          }
-        },
-        {
-          "title": "Fundstidspunkt",
-          "type": "date-interval",
-          "fields": {
-            "from": "foundEvents[0].yearFrom",
-            "to": "foundEvents[0].yearTo"
-          }
-        },
-        {
-          "title": "Fundstidspunkt",
-          "type": "date-interval",
-          "fields": {
-            "from": "foundEvents[0].dateFrom",
-            "to": "foundEvents[0].dateTo"
-          }
-        },
-        {
-          "title": "Indsamlingstidspunkt",
-          "type": "date-interval",
-          "fields": {
-            "from": "accessionEvents[0].yearFrom",
-            "to": "accessionEvents[0].yearTo"
-          }
-        },
-        {
-          "title": "Indsamlingstidspunkt",
-          "type": "date-interval",
-          "fields": {
-            "from": "accessionEvents[0].dateFrom",
-            "to": "accessionEvents[0].dateTo"
-          }
         }
       ]
     }
