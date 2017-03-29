@@ -139,11 +139,11 @@ helpers.determinePlayers = metadata => {
     } else if(metadata.file && metadata.file.mediaType) {
       // Iterate the players and try to determine the player based on media type
       const player = Object.keys(playerFromFileMediaType)
-      .reduce((result, player) => {
-        let mediaTypes = playerFromFileMediaType[player];
+      .reduce((result, type) => {
+        let mediaTypes = playerFromFileMediaType[type];
         if(!result && mediaTypes.indexOf(metadata.file.mediaType) > -1) {
           return {
-            type: player
+            type
           };
         }
         return result;
