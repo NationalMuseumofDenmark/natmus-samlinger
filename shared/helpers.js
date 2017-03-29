@@ -142,11 +142,18 @@ helpers.determinePlayers = metadata => {
       // If an object has a related asset of type rotation, return that as the
       // primary player.
       const rotationAssets = relatedAssets.filter(asset => {
-        return asset.assetType === 'Rotation';
+        return asset.assetType === 'Rotation' && asset.id;
       }).map(asset => {
-        const collectionAndId = asset.id.split('-');
-        const stringId = collectionAndId[collectionAndId.length-1];
-        const nummericId = parseInt(stringId, 10);
+        let nummericId;
+        if(typeof(asset.id) === 'string') {
+          const collectionAndId = asset.id.split('-');
+          const stringId = collectionAndId[collectionAndId.length-1];
+          nummericId = parseInt(stringId, 10);
+        } else if(typeof(asset.id) === 'number') {
+          nummericId = asset.id;
+        } else {
+          throw new Error('Got a related asset with an unexpected id');
+        }
         return {
           type: 'asset',
           id: nummericId,
