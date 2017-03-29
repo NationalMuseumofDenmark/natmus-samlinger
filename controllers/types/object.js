@@ -11,6 +11,8 @@ const Q = require('q');
 const request = require('request');
 const querystring = require('querystring');
 
+const NOT_FOUND_THUMBNAIL_URL = '/images/fallback_not_public.png';
+
 function getObject(req) {
   let deferred = Q.defer();
   let id = req.params.id;
@@ -80,9 +82,12 @@ exports.index = function(req, res, next) {
 exports.thumbnail = function(req, res, next) {
   const size = req.params.size || null;
   return documentController.get(req, 'object').then(metadata => {
-    if(metadata.related &&
-       metadata.related.assets &&
-       metadata.related.assets.length > 0) {
+    // Filter out related assets without an id
+    const relatedAssets = (
+      metadata.related && metadata.related.assets || []
+    ).filter(asset => asset.id);
+
+    if(relatedAssets.length > 0) {
       const primaryAsset = metadata.related.assets[0];
       const primaryAssetId = helpers.cleanDocumentId(primaryAsset.id,
                                                      primaryAsset.collection,
@@ -100,8 +105,9 @@ exports.thumbnail = function(req, res, next) {
   })
   .then(null, function(error) {
     if (error.message === 'Not Found') {
-      error.status = 404;
+      res.redirect(NOT_FOUND_THUMBNAIL_URL);
+    } else {
+      next(error);
     }
-    next(error);
   });
 };
