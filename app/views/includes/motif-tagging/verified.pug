@@ -1,5 +1,6 @@
 include ../../mixins/tag
 
-each tag in helpers.flattenValues(metadata.tags.verified) || []
+- const verifiedTags = (metadata.tags && metadata.tags.verified) || [];
+each tag in helpers.flattenValues(verifiedTags)
   .btn-group(data-tag=tag)
     +tag(tag)
