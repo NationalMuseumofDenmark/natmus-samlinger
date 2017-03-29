@@ -11,8 +11,9 @@ helpers.documentTitle = (metadata, fallback) => {
 
   if (metadata.type === 'asset') {
     title = metadata.text['da-DK'].title;
-    const player = helpers.determinePlayer(metadata);
-    type = config.translations.players[player] || 'Medie';
+    const players = helpers.determinePlayers(metadata);
+    const mediaType = players.find(player => player.type);
+    type = config.translations.players[mediaType] || 'Medie';
   } else if(metadata.type === 'object') {
     title = metadata.workDescription;
     type = 'Genstand';
@@ -60,7 +61,13 @@ helpers.documentLicense = (metadata) => {
 };
 
 helpers.documentModified = (metadata) => {
-  return metadata.meta.modified;
+  if(metadata.type === 'asset') {
+    return metadata.meta.modified;
+  } else if(metadata.type === 'object') {
+    return metadata.createdDate;
+  } else {
+    throw new Error('Not implemented');
+  }
   // return metadata.modification_time.timestamp;
 };
 
@@ -96,31 +103,46 @@ const playerFromFileMediaType = {
   ]
 };
 
-helpers.determinePlayer = (metadata) => {
+helpers.determineMediaTypes = metadata => {
+  const players = helpers.determinePlayers(metadata);
+  return players.map(player => player.type);
+};
+
+helpers.determinePlayers = metadata => {
+  const players = [];
   const relatedAssets = (metadata.related && metadata.related.assets) || [];
-  if(metadata.meta && metadata.meta.rotation === 1) {
-    return 'rotation';
-  } else if(metadata.file && metadata.file.mediaType) {
-    // Iterate the players and try to determine the player based on media type
-    let player = Object.keys(playerFromFileMediaType)
-    .reduce((result, player) => {
-      let mediaTypes = playerFromFileMediaType[player];
-      if(!result && mediaTypes.indexOf(metadata.file.mediaType) > -1) {
-        return player;
+  if(metadata.type === 'asset') {
+    if(metadata.meta && metadata.meta.rotation === 1) {
+      players.push({
+        type: 'rotation'
+      });
+    } else if(metadata.file && metadata.file.mediaType) {
+      // Iterate the players and try to determine the player based on media type
+      const player = Object.keys(playerFromFileMediaType)
+      .reduce((result, player) => {
+        let mediaTypes = playerFromFileMediaType[player];
+        if(!result && mediaTypes.indexOf(metadata.file.mediaType) > -1) {
+          return {
+            type: player
+          };
+        }
+        return result;
+      }, null);
+      // Add it to the result
+      if(player) {
+        players.push(player);
       }
-      return result;
-    }, undefined);
-    return player || 'unknown';
-  } else if(metadata.type === 'object' && relatedAssets.find((asset) => {
-      return (asset.assetType ===  "Rotation");
-    })) {
-    // If an object has a related asset of type rotation, return that as the
-    // primary player.
-    return 'rotation';
+    }
+  } else if(metadata.type === 'object') {
+    if(relatedAssets.find(asset => asset.assetType === 'Rotation')) {
+      // If an object has a related asset of type rotation, return that as the
+      // primary player.
+      players.push({
+        type: 'rotation'
+      });
+    }
   }
-  else {
-    return 'unknown';
-  }
+  return players;
 };
 
 helpers.flattenValues = (obj) => {
@@ -134,34 +156,36 @@ helpers.generateSitemapElements = (req, metadata) => {
   const thumbnailUrl = helpers.getAbsoluteURL(req, relativeThumbnailUrl);
   const elements = [];
   if(metadata.type === 'asset') {
-    const player = helpers.determinePlayer(metadata);
+    const mediaTypes = helpers.determineMediaTypes(metadata);
     const license = helpers.licenseMapped(metadata);
     const licenseUrl = license ? license.url : null;
-    // If the player suggests the asset is an image
-    if(['image', 'image-downloaded', 'rotation'].indexOf(player) > -1) {
-      // See https://www.google.com/schemas/sitemap-image/1.1/
-      elements.push({
-        type: 'image',
-        location: thumbnailUrl,
-        title,
-        description,
-        licenseUrl
-      });
-    } else if(player === 'video') {
-      // See https://www.google.com/schemas/sitemap-video/1.1/
-      // TODO: Consider including 'rating', 'publication_date', 'tag',
-      // 'category', 'gallery_loc'
-      elements.push({
-        type: 'video',
-        thumbnailLocation: thumbnailUrl,
-        title,
-        description,
-        contentLocation: helpers.getDirectDownloadURL(metadata),
-        licenseUrl
-      });
-    } else if(player === 'audio') {
-      // Currently not supported by an extension to the sitemaps.org standard
-    }
+    mediaTypes.forEach(type => {
+      // If the player suggests the asset is an image
+      if(['image', 'image-downloaded', 'rotation'].indexOf(type) > -1) {
+        // See https://www.google.com/schemas/sitemap-image/1.1/
+        elements.push({
+          type: 'image',
+          location: thumbnailUrl,
+          title,
+          description,
+          licenseUrl
+        });
+      } else if(type === 'video') {
+        // See https://www.google.com/schemas/sitemap-video/1.1/
+        // TODO: Consider including 'rating', 'publication_date', 'tag',
+        // 'category', 'gallery_loc'
+        elements.push({
+          type: 'video',
+          thumbnailLocation: thumbnailUrl,
+          title,
+          description,
+          contentLocation: helpers.getDirectDownloadURL(metadata),
+          licenseUrl
+        });
+      } else if(type === 'audio') {
+        // Currently not supported by an extension to the sitemaps.org standard
+      }
+    });
   }
   return elements;
 };
@@ -189,7 +213,7 @@ function generateSizeDownloadOption(optionKey, option) {
       return option.labelPrefix + ' (' + dimensions + ') JPEG';
     },
     filter: (metadata, derived) => {
-      if(derived.player === 'image') {
+      if(derived.mediaType === 'image') {
         if(typeof(size) === 'number') {
           return derived.maxSize >= option.size;
         } else {
@@ -247,7 +271,7 @@ if(config.downloadOptions) {
                                             metadata.file.dimensions.height);
     let derived = {
       maxSize,
-      player: helpers.determinePlayer(metadata)
+      mediaType: helpers.determinePlayers(metadata).find(player => player.type)
     };
 
     return AVAILABLE_DOWNLOAD_OPTIONS.filter(option => {

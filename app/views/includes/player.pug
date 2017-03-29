@@ -1,15 +1,16 @@
-- let player = helpers.determinePlayer(metadata);
-if(player === 'image')
-  include ./players/image
-else if(player === 'image-downloaded')
-  include ./players/image-downloaded
-else if(player === 'rotation')
-  include ./players/rotation
-else if(player === 'audio')
-  include ./players/audio
-else if(player === 'video')
-  include ./players/video
-else if(player === 'document')
-  include ./players/document
+- let players = helpers.determinePlayers(metadata);
+each player in players
+  if(player.type === 'image')
+    include ./players/image
+  else if(player.type === 'image-downloaded')
+    include ./players/image-downloaded
+  else if(player.type === 'rotation')
+    include ./players/rotation
+  else if(player.type === 'audio')
+    include ./players/audio
+  else if(player.type === 'video')
+    include ./players/video
+  else if(player.type === 'document')
+    include ./players/document
 else
   | Couldn't determine player
