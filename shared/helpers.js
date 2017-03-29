@@ -114,7 +114,11 @@ helpers.determinePlayers = metadata => {
   if(metadata.type === 'asset') {
     if(metadata.meta && metadata.meta.rotation === 1) {
       players.push({
-        type: 'rotation'
+        type: 'rotation',
+        thumbnail: helpers.getThumbnailURL(metadata, 1280),
+        assets: metadata.related.assets.filter((asset) => {
+          return asset.relation === 'child';
+        })
       });
     } else if(metadata.file && metadata.file.mediaType) {
       // Iterate the players and try to determine the player based on media type
@@ -150,7 +154,9 @@ helpers.determinePlayers = metadata => {
         };
       });
       players.push({
-        type: 'rotation'
+        type: 'rotation',
+        thumbnail: helpers.getThumbnailURL(metadata, 1280),
+        assets: rotationAssets
       });
     }
   }
