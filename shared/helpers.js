@@ -122,7 +122,11 @@ helpers.determineMediaTypes = metadata => {
 
 helpers.determinePlayers = metadata => {
   const players = [];
-  const relatedAssets = (metadata.related && metadata.related.assets) || [];
+  // Get at list of related assets and filter out any without an id
+  const relatedAssets = (
+    (metadata.related && metadata.related.assets) || []
+  ).filter(asset => asset.id);
+
   if(metadata.type === 'asset') {
     if(metadata.meta && metadata.meta.rotation === 1) {
       players.push({
