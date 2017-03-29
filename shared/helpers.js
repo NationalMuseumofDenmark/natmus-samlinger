@@ -132,7 +132,7 @@ helpers.determinePlayers = metadata => {
       players.push({
         type: 'rotation',
         thumbnail: helpers.getThumbnailURL(metadata, 1280),
-        assets: metadata.related.assets.filter((asset) => {
+        images: metadata.related.assets.filter((asset) => {
           return asset.relation === 'child';
         })
       });
@@ -167,7 +167,7 @@ helpers.determinePlayers = metadata => {
       players.push({
         type: 'rotation',
         thumbnail: helpers.getThumbnailURL(metadata, 1280),
-        assets: rotationAssets
+        images
       });
     }
   }
