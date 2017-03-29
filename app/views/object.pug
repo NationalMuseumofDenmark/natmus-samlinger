@@ -1,27 +1,30 @@
-extends index
+extends document
 
-include ./includes/related-asset.pug
+include mixins/related-asset
 
-block content
-  article.object.let-it-grow
-    .container-fluid
-      .row
-        .col-md-6
-          .row
-            if metadata.related && metadata.related.assets
-              each asset in metadata.related.assets
-                .col-md-6
-                  +relatedAssetImage(asset)
-            else
-              .col-md-12
-                | Ingen relaterede medier
-        .col-md-6.metadata
-          h1= helpers.documentTitle(metadata)
-          - let description = helpers.documentDescription(metadata, null)
-          if description
-            p.lead.metadata__description= description
-          != objectSection('events', metadata)
-          != objectSection('objectinfo', metadata)
-          != objectSection('time', metadata)
-          != objectSection('place', metadata)
-          != objectSection('techinfo', metadata)
+block document__player
+  .document__player.col-xs-12.col-sm-7
+    .row
+      if metadata.related && metadata.related.assets
+        each asset in metadata.related.assets
+          .col-md-6
+            +relatedAssetImage(asset)
+      else
+        .col-md-12
+          | Ingen relaterede medier
+
+block document__top-metadata
+  .document__top-metadata.col-xs-12.col-sm-5
+    h1.document__title= title
+    p.document__description= description
+    != objectSection('events', metadata)
+    != objectSection('objectinfo', metadata)
+    != objectSection('time', metadata)
+    != objectSection('place', metadata)
+    != objectSection('techinfo', metadata)
+
+block document__bottom
+  - // Empty - TODO: Consider placing related objects here
+
+block document__overlays
+  - // None
