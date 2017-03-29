@@ -13,7 +13,7 @@ helpers.documentTitle = (metadata, fallback) => {
     title = metadata.text['da-DK'].title;
     const players = helpers.determinePlayers(metadata);
     const mediaType = players.find(player => player.type);
-    type = config.translations.players[mediaType] || 'Medie';
+    type = (mediaType && config.translations.players[mediaType]) || 'Medie';
   } else if(metadata.type === 'object') {
     title = metadata.workDescription;
     type = 'Genstand';
