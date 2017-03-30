@@ -2,6 +2,7 @@
 
 const assert = require('assert');
 const config = require('../config');
+const Q = require('q');
 
 if(!config.natmus || !config.natmus.api) {
   throw new Error('You need to specify a natmus API configuration');
@@ -22,6 +23,7 @@ const SEARCH_RAW_URL = BASE_URL + '/search/public/raw';
 const UPDATED_POLL_TIMEOUT = 10000;
 const UPDATED_POLL_FREQUENCY = 1000;
 const modifiedBeforeSaving = {};
+const DEFAULT_TRANSFORMATIONS = require('./metadata-transforms');
 
 function proxy(options) {
   console.log('Requesting natmus API with', JSON.stringify(options.body));
@@ -59,7 +61,7 @@ let natmus = {
       method: 'POST',
       json: true,
       body: options.body
-    });
+    }).then(natmus.transformSearchMetadata);
   },
   count: (options) => {
     if(options.index) {
@@ -120,7 +122,7 @@ let natmus = {
         throw err;
       }
       return response.hits.hits[0]._source;
-    });
+    }).then(natmus.transformMetadata);
   },
   mget: (options) => {
     if(!options.type) {
@@ -158,7 +160,7 @@ let natmus = {
           }
         }
       }
-    }).then((response) => {
+    }).then(natmus.transformSearchMetadata).then((response) => {
       return {
         docs: response.hits.hits.map(hit => {
           hit.found = true;
@@ -166,6 +168,29 @@ let natmus = {
         })
       };
     });
+  },
+  transformSearchMetadata: (response, transformations = DEFAULT_TRANSFORMATIONS) => {
+    // Transform the document metadata of every hit in a response from the API
+    const transformationPromises = response.hits.hits.map(hit => {
+      // Mutating the hit object
+      return natmus.transformMetadata(hit._source).then(transfomedSource => {
+        hit._source = transfomedSource;
+        return hit;
+      });
+    });
+    // When all transformations resolve, return the response transformed.
+    return Q.all(transformationPromises).then(() => {
+      return response;
+    });
+  },
+  transformMetadata: (metadata, transformations = DEFAULT_TRANSFORMATIONS) => {
+    // Apply a series of transformations on a metadata document. The transforms
+    // are defined via modules in ./metadata-transforms.
+    return transformations.reduce(function(metadata, transformation) {
+      return Q.when(metadata).then(function(metadata) {
+        return transformation(metadata);
+      });
+    }, new Q(metadata));
   },
   expectChanges: (type, collectionAndId) => {
     const key = type + '/' + collectionAndId;
