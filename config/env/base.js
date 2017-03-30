@@ -178,6 +178,21 @@ module.exports = {
                 }
               ]
             }
+          }, {
+            // Leave out objects from the DO collection
+            'bool': {
+              'must': [
+                {
+                  'term': {
+                    'collection.keyword': 'DO'
+                  }
+                }, {
+                  'term': {
+                    'type.keyword': 'object'
+                  }
+                }
+              ]
+            }
           }
         ]
       }
