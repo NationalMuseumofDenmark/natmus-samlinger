@@ -79,18 +79,6 @@ helpers.mediaFileType = (metadata) => {
   }
 };
 
-helpers.getNummericId = metadata => {
-  if(typeof(metadata.id) === 'string') {
-    const collectionAndId = metadata.id.split('-');
-    const stringId = collectionAndId[collectionAndId.length-1];
-    return parseInt(stringId, 10);
-  } else if(typeof(metadata.id) === 'number') {
-    return metadata.id;
-  } else {
-    throw new Error('Got a metadata with an unexpected id');
-  }
-};
-
 const playerFromFileMediaType = {
   'document': [
     'image/portable'
@@ -166,10 +154,13 @@ helpers.determinePlayers = metadata => {
       // If an object has a related asset of type rotation, return that as the
       // primary player.
       const images = rotationAssets.map(asset => {
+        const collectionAndId = helpers.cleanDocumentId(
+          asset.id, metadata.collection, true
+        );
         return {
           type: 'asset',
-          id: helpers.getNummericId(asset),
-          collection: metadata.collection
+          id: collectionAndId.id,
+          collection: collectionAndId.collection
         };
       });
       // Add this to the players
@@ -182,10 +173,13 @@ helpers.determinePlayers = metadata => {
     // Still images
     if(stillAssets.length > 0) {
       const images = stillAssets.map(asset => {
+        const collectionAndId = helpers.cleanDocumentId(
+          asset.id, metadata.collection, true
+        );
         const stillMetadata = {
           type: 'asset',
-          id: helpers.getNummericId(asset),
-          collection: metadata.collection
+          id: collectionAndId.id,
+          collection: collectionAndId.collection
         };
         return {
           thumbnail: helpers.getThumbnailURL(stillMetadata, 1280),
