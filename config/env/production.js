@@ -9,7 +9,7 @@ module.exports = _.merge(base, {
   host: 'samlinger.natmus.dk',
   natmus: {
     api: {
-      baseURL: 'http://api.natmus.dk'
+      baseURL: 'http://testapi.natmus.dk'
     }
   },
   siteTitle: 'Nationalmuseets Samlinger Online',
