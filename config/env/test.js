@@ -16,7 +16,4 @@ const config = _.merge({}, base, {
   siteTitle: 'Nationalmuseets Samlinger Online (beta)'
 });
 
-// Delete the part of the base query that filters out objects
-delete config.search.baseQuery.bool.must;
-
 module.exports = config;
