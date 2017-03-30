@@ -2,6 +2,7 @@
 
 const assert = require('assert');
 const config = require('../config');
+const Q = require('q');
 
 if(!config.natmus || !config.natmus.api) {
   throw new Error('You need to specify a natmus API configuration');
@@ -22,6 +23,7 @@ const SEARCH_RAW_URL = BASE_URL + '/search/public/raw';
 const UPDATED_POLL_TIMEOUT = 10000;
 const UPDATED_POLL_FREQUENCY = 1000;
 const modifiedBeforeSaving = {};
+const DEFAULT_TRANSFORMATIONS = require('./metadata-transforms');
 
 function proxy(options) {
   console.log('Requesting natmus API with', JSON.stringify(options.body));
@@ -166,6 +168,15 @@ let natmus = {
         })
       };
     });
+  },
+  transformMetadata: (metadata, transformations = DEFAULT_TRANSFORMATIONS) => {
+    // Apply a series of transformations on a metadata document. The transforms
+    // are defined via modules in ./metadata-transforms.
+    return transformations.reduce(function(metadata, transformation) {
+      return Q.when(metadata).then(function(metadata) {
+        return transformation(metadata);
+      });
+    }, new Q(metadata));
   },
   expectChanges: (type, collectionAndId) => {
     const key = type + '/' + collectionAndId;

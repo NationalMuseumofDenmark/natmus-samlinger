@@ -504,14 +504,4 @@ helpers.formatEvent = (e) => {
   return result;
 };
 
-// Apply a series of transformations on a metadata document. The transforms are
-// defined via modules in ./metadata-transforms.
-helpers.transformMetadata = (metadata, transformations = require('./metadata-transforms')) => {
-  return transformations.reduce(function(metadata, transformation) {
-    return Q.when(metadata).then(function(metadata) {
-      return transformation(metadata);
-    });
-  }, new Q(metadata));
-};
-
 module.exports = helpers;
