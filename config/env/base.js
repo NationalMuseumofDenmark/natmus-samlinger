@@ -21,7 +21,10 @@ module.exports = {
     baseURL: 'http://cumulus.natmus.dk/CIP',
     username: process.env.CIP_USERNAME,
     password: process.env.CIP_PASSWORD,
-    proxyMaxSockets: 10,
+    proxy: {
+      includeSessionId: false,
+      maxSockets: 10
+    },
     rotationCategoryName: 'Rotationsbilleder',
     indexing: {
       additionalFields: [
