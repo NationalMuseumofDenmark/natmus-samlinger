@@ -6,6 +6,7 @@ const natmusApi = require('../services/natmus-api');
 
 module.exports.save = (metadata) => {
   const id = metadata.collection + '-' + metadata.id;
+  // Expect changes - to detect a change
   return natmusApi.expectChanges('asset', id)
   .then((currentMetadata) => {
     return cumulus.save(metadata);
