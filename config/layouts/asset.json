@@ -19,7 +19,8 @@
         "type": "map-coordinates",
         "fields": {
           "latitude": ["location.verified.latitude", "location.crowd.latitude"],
-          "longitude": ["location.verified.longitude", "location.crowd.longitude"]
+          "longitude": ["location.verified.longitude", "location.crowd.longitude"],
+          "heading": ["location.verified.heading", "location.crowd.heading"]
         }
       }]
     },
