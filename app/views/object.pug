@@ -2,8 +2,8 @@ extends document
 
 include mixins/related-asset
 
-block document__top-metadata
-  .document__top-metadata.col-xs-12.col-sm-5
+block document__section-1-metadata
+  .document__section-1-metadata.col-xs-12.col-sm-5
     h1.document__title= title
     // A header-less section with fields that should be displayed
     // underneath the main title.
@@ -19,7 +19,7 @@ block document__top-metadata
     != objectSection('accession', metadata)
     != objectSection('techinfo', metadata)
 
-block document__bottom
+block document__section-3
   - // Empty - TODO: Consider placing related objects here
 
 block document__overlays
