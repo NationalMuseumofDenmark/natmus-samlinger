@@ -7,7 +7,6 @@ const config = _.merge({}, base, {
   env: 'development',
   viewsPath: '/app/views',
   siteTitle: 'Nationalmuseets Samlinger Online (dev)',
-  googleAnalyticsPropertyID: 'no-please',
   natmus: {
     api: {
       baseURL: 'http://testapi.natmus.dk'

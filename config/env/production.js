@@ -5,7 +5,9 @@ var base = require('./base');
 
 module.exports = _.merge(base, {
   env: 'production',
-  googleAnalyticsPropertyID: 'UA-2930791-3',
+  google: {
+    analyticsPropertyID: 'UA-2930791-3'
+  },
   host: 'samlinger.natmus.dk',
   natmus: {
     api: {

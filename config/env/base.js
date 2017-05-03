@@ -1,20 +1,20 @@
 'use strict';
 
-var path = require('path');
-var _ = require('lodash');
+const path = require('path');
+const _ = require('lodash');
 
-var rootPath = path.normalize(__dirname + '/../../..');
-var childPath = path.normalize(path.join(__dirname, '..', '..'));
+const appDir = path.join(__dirname, '..', '..', 'app');
+const generatedDir = path.join(__dirname, '..', '..', 'generated');
 
-var cipCatalogs = require('../cip-catalogs.json');
+const cipCatalogs = require('../cip-catalogs.json');
 
 const REVIEW_STATE_FIELD = '{a493be21-0f70-4cae-9394-703eca848bad}';
 
 module.exports = {
-  childPath: childPath,
+  appDir: appDir,
   appPaths: [
-    path.join(childPath, 'generated'),
-    path.join(childPath, 'app')
+    generatedDir,
+    appDir
   ],
   categoryBlacklist: require('../category-blacklist.js'),
   cip: {
@@ -57,6 +57,7 @@ module.exports = {
     scrollToTop: false,
     watermarks: false
   },
+  generatedDir: generatedDir,
   geoTagging: {
     default: {
       position: {
@@ -68,9 +69,13 @@ module.exports = {
     coordinatesField: '{81780c19-86be-44e6-9eeb-4e63f16d7215}',
     headingField: '{ef236a08-62f8-485f-b232-9771792d29ba}'
   },
-  googleAnalyticsPropertyID: null,
-  googleAPIKey: process.env.GOOGLE_API_KEY,
-  googleMapsAPIKey: 'AIzaSyCkoZ8EB9Vf5SfXUzMY6bewq6diets-pxU',
+  google: {
+    analyticsPropertyID: null,
+    keys: {
+      restricted: 'AIzaSyCkoZ8EB9Vf5SfXUzMY6bewq6diets-pxU',
+      unrestricted: process.env.GOOGLE_UNRESTRICTED_API_KEY
+    }
+  },
   ip: process.env.IP || '0.0.0.0',
   keystone: {
     options: {
@@ -98,7 +103,6 @@ module.exports = {
   },
   port: process.env.PORT || 9000,
   projectOxfordAPIKey: process.env.PROJECT_OXFORD_API_KEY,
-  root: rootPath, // TODO: Consider removing this
   search: {
     path: 'search',
     filters: require('../filters.json'),
