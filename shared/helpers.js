@@ -104,11 +104,6 @@ const playerFromFileMediaType = {
   ]
 };
 
-helpers.determineMediaTypes = metadata => {
-  const players = helpers.determinePlayers(metadata);
-  return players.map(player => player.type);
-};
-
 helpers.determinePlayers = metadata => {
   const players = [];
   // Get at list of related assets and filter out any without an id
