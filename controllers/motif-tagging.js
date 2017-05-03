@@ -69,25 +69,13 @@ module.exports.typeaheadSuggestions = (text) => {
   });
 };
 
-module.exports.save = ({id, collection}, metadata) => {
-  return natmusApi.expectChanges('asset', collection + '-' + id)
+module.exports.save = (metadata) => {
+  const id = metadata.collection + '-' + metadata.id;
+  // Expect changes - to detect a change
+  return natmusApi.expectChanges('asset', id)
   .then((currentMetadata) => {
-    currentMetadata.tags.crowd = metadata.tags.crowd;
-    currentMetadata.tags.automated = metadata.tags.automated;
     // Save it ..
-    return cumulus.save({
-      id,
-      collection,
-      userTags: currentMetadata.tags.crowd,
-      visionTags: currentMetadata.tags.automated
-    })
-    .then(response => {
-      return {
-        id,
-        collection,
-        tags: currentMetadata.tags
-      };
-    });
+    return cumulus.save(metadata);
   });
 };
 
