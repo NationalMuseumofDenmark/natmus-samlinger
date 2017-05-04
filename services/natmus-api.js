@@ -1,8 +1,10 @@
 'use strict';
 
 const assert = require('assert');
-const config = require('../config');
+const querystring = require('querystring');
 const Q = require('q');
+
+const config = require('../config');
 
 if(!config.natmus || !config.natmus.api) {
   throw new Error('You need to specify a natmus API configuration');
@@ -18,6 +20,7 @@ const request = require('request').defaults({
 const BASE_URL = config.natmus.api.baseURL;
 const SEARCH_SIMPLE_URL = BASE_URL + '/search/public/simple';
 const SEARCH_RAW_URL = BASE_URL + '/search/public/raw';
+const CUMULUS_POST_UPDATE = BASE_URL + '/service/cumulus/postUpdate';
 
 // Used when polling the index for updates
 const UPDATED_POLL_TIMEOUT = 10000;
@@ -26,14 +29,17 @@ const modifiedBeforeSaving = {};
 const DEFAULT_TRANSFORMATIONS = require('./metadata-transforms');
 
 function proxy(options) {
-  console.log('Requesting natmus API with', JSON.stringify(options.body));
+  console.log(
+    'Requesting natmus API',
+    options.url,
+    JSON.stringify(options.body)
+  );
   return new Promise((resolve, reject) => {
     request(options, function(error, response, body) {
       if(error) {
         reject(error);
-      } else if(response.statusCode === 200) {
-        // TODO: Suggest that the natmus API returns correct error-codes
-        if(body.status && body.status !== 200) {
+      } else if(response.statusCode >= 200 && response.statusCode < 300) {
+        if(body && body.status && (body.status < 200 || body.status >= 300)) {
           let bodyString = JSON.stringify(body);
           reject(new Error('Got a !200 response from the API: ' + bodyString));
         } else {
@@ -211,7 +217,10 @@ let natmus = {
         type: 'asset',
         id: collectionAndId
       }).then(currentMetadata => {
-        return modifiedLast !== currentMetadata.meta.modified;
+        return {
+          changed: modifiedLast !== currentMetadata.meta.modified,
+          metadata: currentMetadata
+        };
       });
     } else {
       throw new Error('Call expectChanges before hasChanged');
@@ -228,16 +237,18 @@ let natmus = {
         const now = new Date();
         if (now.getTime() - startedPolling.getTime() > UPDATED_POLL_TIMEOUT) {
           resolve({
-            'status': 'timeout'
+            status: 'timeout'
           });
         } else {
-          return natmus.hasChanged(type, collectionAndId).then((changed) => {
+          return natmus.hasChanged(type, collectionAndId)
+          .then(({changed, metadata}) => {
             if(changed) {
               // Delete the value from the object that we are waiting for
               delete modifiedBeforeSaving[key];
               // Resolve the promise with success
               resolve({
-                'status': 'success'
+                status: 'success',
+                metadata
               });
             }
           });
@@ -256,6 +267,47 @@ let natmus = {
       // Rethrow the error
       throw err;
     });
+  },
+  cumulus: {
+    postUpdate: options => {
+      assert.ok(options.id, 'Expected an id');
+
+      const query = {};
+      if(options.priority) {
+        query.priority = options.priority;
+      }
+
+      const qs = Object.keys(query).length > 0 ?
+                 '?' + querystring.stringify(query) :
+                 '';
+
+      return proxy({
+        url: CUMULUS_POST_UPDATE + qs,
+        method: 'POST',
+        json: true,
+        body: {
+          id: options.id,
+          action: options.action || 'Update',
+          apiKey: options.apiKey || ''
+        }
+      });
+    },
+    updateIndex: (metadata) => {
+      const id = metadata.collection + '-' + metadata.id;
+      return natmus.cumulus.postUpdate({
+        id,
+        priority: 'high'
+      }).then(() => {
+        return natmus.pollForChange('asset', id)
+        .then(({status, metadata}) => {
+          if(status === 'success') {
+            return metadata;
+          } else {
+            throw new Error('Ændringen blev gemt, men er endnu ikke opdateret');
+          }
+        });
+      });
+    }
   }
 };
 

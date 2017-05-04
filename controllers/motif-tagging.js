@@ -79,14 +79,4 @@ module.exports.save = (metadata) => {
   });
 };
 
-module.exports.updateIndex = (metadata) => {
-  const id = metadata.collection + '-' + metadata.id;
-  return natmusApi.pollForChange('asset', id)
-  .then(result => {
-    if(result.status === 'success') {
-      return metadata;
-    } else {
-      throw new Error('Error updating the index');
-    }
-  });
-};
+module.exports.updateIndex = natmusApi.cumulus.updateIndex;

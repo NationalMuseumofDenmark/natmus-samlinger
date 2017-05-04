@@ -13,7 +13,4 @@ module.exports.save = (metadata) => {
   });
 };
 
-module.exports.updateIndex = (metadata) => {
-  const id = metadata.collection + '-' + metadata.id;
-  return natmusApi.pollForChange('asset', id);
-};
+module.exports.updateIndex = natmusApi.cumulus.updateIndex;
