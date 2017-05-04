@@ -458,10 +458,26 @@ helpers.motifTagging = {
 };
 
 helpers.geoTagging = {
-  getLocation: (metadata) => {
-    return metadata.location && metadata.location.crowd;
+  getAddress: metadata => {
+    if(metadata && metadata.location) {
+      return [
+        metadata.location.address,
+        metadata.location.city
+      ].filter(s => s).join(', ');
+    } else {
+      return '';
+    }
   },
-  enabled: (metadata) => {
+  getLocation: metadata => {
+    if(metadata.location) {
+      const crowd = metadata.location.crowd;
+      const verified = metadata.location.verified;
+      return Object.assign({}, crowd, verified);
+    } else {
+      return {};
+    }
+  },
+  enabled: metadata => {
     const verifiedLocation = metadata.location && metadata.location.verified;
     return !verifiedLocation ||
            !verifiedLocation.latitude ||
