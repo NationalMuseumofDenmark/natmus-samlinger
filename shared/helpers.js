@@ -470,16 +470,19 @@ helpers.geoTagging = {
   },
   getLocation: metadata => {
     // Return the first of the two: location.verified or location.crowd
-    return [
-      metadata.location && metadata.location.verified,
-      metadata.location && metadata.location.crowd
-    ].find(location => location.latitude && location.longitude) || {};
+    if(metadata && metadata.location) {
+      return [
+        metadata.location.verified,
+        metadata.location.crowd
+      ].find(c => c.latitude && c.longitude) || {};
+    } else {
+      return {};
+    }
   },
   enabled: metadata => {
-    const verifiedLocation = metadata.location && metadata.location.verified;
-    return !verifiedLocation ||
-           !verifiedLocation.latitude ||
-           !verifiedLocation.longitude;
+    // Returns true if no verified location exists
+    const verified = metadata.location && metadata.location.verified;
+    return !verified || !verified.latitude || !verified.longitude;
   }
 };
 
