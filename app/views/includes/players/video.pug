@@ -1,5 +1,10 @@
 - let downloadURL = helpers.getDirectDownloadURL(metadata);
-video(width="100%", controls, src=downloadURL)
+video(
+  width="100%",
+  controls,
+  src=downloadURL,
+  itemprop=metadata.type==='asset' ? 'about' : 'video',
+)
   | Undskyld, din browser understøtter ikke dette videoformat du kan
   a(href=downloadURL) downloaded video
   | i stedet.

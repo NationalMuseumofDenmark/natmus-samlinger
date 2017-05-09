@@ -1,2 +1,7 @@
 - let downloadUrl = helpers.getDownloadURL(metadata);
-img(src=downloadUrl, alt=title, data-action='toggle-expandable').asset__image
+img.asset__image(
+  src=downloadUrl,
+  alt=title,
+  itemprop=metadata.type==='asset' ? 'about' : 'image',
+  data-action='toggle-expandable'
+)
