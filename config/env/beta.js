@@ -5,7 +5,7 @@ var base = require('./base');
 
 const config = _.merge({}, base, {
   allowRobots: false,
-  env: 'test',
+  env: 'beta',
   google: {
     analyticsPropertyID: 'UA-2930791-7'
   },
