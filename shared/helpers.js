@@ -469,13 +469,11 @@ helpers.geoTagging = {
     }
   },
   getLocation: metadata => {
-    if(metadata.location) {
-      const crowd = metadata.location.crowd;
-      const verified = metadata.location.verified;
-      return Object.assign({}, crowd, verified);
-    } else {
-      return {};
-    }
+    // Return the first of the two: location.verified or location.crowd
+    return [
+      metadata.location && metadata.location.verified,
+      metadata.location && metadata.location.crowd
+    ].find(location => location.latitude && location.longitude) || {};
   },
   enabled: metadata => {
     const verifiedLocation = metadata.location && metadata.location.verified;
