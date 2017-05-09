@@ -98,7 +98,8 @@ module.exports = {
   natmus: {
     api: {
       baseURL: 'http://testapi.natmus.dk',
-      maxSockets: 10
+      maxSockets: 10,
+      key: process.env.NATMUS_API_KEY
     }
   },
   port: process.env.PORT || 9000,

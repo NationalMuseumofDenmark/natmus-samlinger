@@ -10,6 +10,8 @@ if(!config.natmus || !config.natmus.api) {
   throw new Error('You need to specify a natmus API configuration');
 }
 
+assert.ok(config.natmus.api.key, 'A config.natmus.api.key is required');
+
 const Agent = require('agentkeepalive');
 const request = require('request').defaults({
   agent: new Agent({
@@ -288,7 +290,7 @@ let natmus = {
         body: {
           id: options.id,
           action: options.action || 'Update',
-          apiKey: options.apiKey || ''
+          apiKey: options.apiKey || config.natmus.api.key
         }
       });
     },
