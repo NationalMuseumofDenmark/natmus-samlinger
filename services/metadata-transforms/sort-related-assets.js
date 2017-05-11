@@ -18,12 +18,12 @@ const WEIGHT_DEFAULT = '0500';
 let mapAssetValue = function(asset) {
   let baseName = '';
 
-  if (asset.fileName) {
-    baseName = asset.fileName
+  if (asset.filename) {
+    baseName = asset.filename;
   } else if (asset.id) {
-    baseName = asset.id
+    baseName = asset.id;
   } else {
-    throw new Error("Unable to determine search-value for asset");
+    throw new Error('Unable to determine search-value for asset');
   }
 
   // Prefix the sort-value based on the type of asset. The prefix effectivly
@@ -43,10 +43,9 @@ let mapAssetValue = function(asset) {
 // Sorts assets based on a mapped "business" value - see mapAssetValue().
 module.exports = function(metadata) {
   if (metadata.related && metadata.related.assets) {
-    metadata.related.assets = metadata.related.assets.sort(
-      (a, b) => { return mapAssetValue(a).localeCompare(mapAssetValue(b)) }
-    );
+    metadata.related.assets = metadata.related.assets.sort((a, b) => {
+      return mapAssetValue(a).localeCompare(mapAssetValue(b));
+    });
   }
-
   return metadata;
 };

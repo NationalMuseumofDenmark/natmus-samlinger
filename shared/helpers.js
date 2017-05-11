@@ -178,7 +178,7 @@ helpers.determinePlayers = metadata => {
         };
         return {
           thumbnail: helpers.getThumbnailURL(stillMetadata, 1280),
-          title: asset.fileName
+          title: asset.filename
         };
       });
       // Add it to the players
