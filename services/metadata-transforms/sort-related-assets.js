@@ -15,7 +15,7 @@ const WEIGHT_ASSET_LABLED_FILENAME = '0200';
 const WEIGHT_DEFAULT = '0500';
 
 // Maps a asset to a sortable value.
-let mapAssetValue = function(asset) {
+function mapAssetValue(asset) {
   let baseName = '';
 
   if (asset.filename) {
@@ -30,15 +30,13 @@ let mapAssetValue = function(asset) {
   // places the value in a group. Values in the same group are sorted
   // alphabetically.
   if (asset.type === 'rotation') {
-    baseName = WEIGHT_ROT + '_' + baseName;
+    return WEIGHT_ROT + '_' + baseName;
   } else if (asset.type === 'still' && baseName.match(/_\w\.\w{3,4}$/)) {
-    baseName = WEIGHT_ASSET_LABLED_FILENAME + '_' + baseName;
+    return WEIGHT_ASSET_LABLED_FILENAME + '_' + baseName;
   } else {
-    baseName = WEIGHT_DEFAULT + '_' + baseName;
+    return WEIGHT_DEFAULT + '_' + baseName;
   }
-
-  return baseName;
-};
+}
 
 // Sorts assets based on a mapped "business" value - see mapAssetValue().
 module.exports = function(metadata) {
