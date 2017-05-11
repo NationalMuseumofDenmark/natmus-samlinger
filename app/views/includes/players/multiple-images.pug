@@ -3,7 +3,7 @@ if player.images.length === 1
   img.asset__image(
     src=image.thumbnail,
     alt=image.title,
-    itemprop=metadata.type==='asset' ? 'about' : 'image',
+    itemprop='image',
     data-action='toggle-expandable'
   )
 else
@@ -13,6 +13,6 @@ else
         img.asset__image(
           src=image.thumbnail,
           alt=image.title,
-          itemprop=metadata.type==='asset' ? 'about' : 'image',
+          itemprop='image',
           data-action='toggle-expandable'
         )

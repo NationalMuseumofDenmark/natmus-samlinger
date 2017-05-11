@@ -510,4 +510,39 @@ helpers.formatEvent = (e) => {
   return result;
 };
 
+helpers.rdfa = {
+  about: (req, metadata) => {
+    if (metadata.type === 'asset') {
+      const mediaTypes = helpers.determineMediaTypes(metadata);
+      if (mediaTypes.indexOf('image') >= 0) {
+        const relative = helpers.getThumbnailURL(metadata, 1280);
+        return helpers.getAbsoluteURL(req, relative);
+      } else if (mediaTypes.indexOf('video') >= 0 ||
+                 mediaTypes.indexOf('audio') >= 0) {
+        const relative = helpers.getDownloadURL(metadata);
+        return helpers.getAbsoluteURL(req, relative);
+      }
+      // TODO: Choose either thumbnail URL or document URL based on media type.
+    } else if(metadata.type === 'object') {
+      const relative = helpers.getDocumentURL(metadata);
+      return helpers.getAbsoluteURL(req, relative);
+    } else {
+      throw new Error('Unexpected type: ' + metadata.type);
+    }
+  },
+  itemType: metadata => {
+    if (metadata.type === 'asset') {
+      const mediaTypes = helpers.determineMediaTypes(metadata);
+      if (mediaTypes.indexOf('image') >= 0) {
+        return 'http://schema.org/ImageObject';
+      } else if (mediaTypes.indexOf('video') >= 0) {
+        return 'http://schema.org/VideoObject';
+      } else if (mediaTypes.indexOf('audio') >= 0) {
+        return 'http://schema.org/AudioObject';
+      }
+    }
+    return 'http://schema.org/CreativeWork';
+  }
+};
+
 module.exports = helpers;
