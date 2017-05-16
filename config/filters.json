@@ -54,7 +54,8 @@
       "Rotationsbillede": {
         "bool": {
           "should": [
-            {"term": {"meta.rotation": 1}}
+            {"term": {"meta.rotation": 1}},
+            {"term": {"related.assets.type": "rotation"}}
           ]
         }
       }
