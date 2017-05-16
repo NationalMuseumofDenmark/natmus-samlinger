@@ -10,14 +10,14 @@ module.exports.redirect = function(req, res, next) {
     // Replace a path param on catalog, with a query param
     req.query.collection = catalog;
     var qs = querystring.stringify(req.query);
-    res.redirect('/' + config.search.path + '?' + qs);
+    res.redirect('/' + config.search.path + '?' + qs, 301);
   } else if(req.query.catalog) {
     const catalog = req.query.catalog;
     delete req.query.catalog;
     // Replace a path param on catalog, with a query param
     req.query.collection = catalog;
     var qs = querystring.stringify(req.query);
-    res.redirect(req.path + '?' + qs);
+    res.redirect(req.path + '?' + qs, 301);
   } else {
     next();
   }

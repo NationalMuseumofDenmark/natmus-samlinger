@@ -16,7 +16,7 @@ router.get(/^\/([A-Z]{2,3})\/(\d+)(\/.*)?$/, (req, res) => {
   let catalog = req.params[0];
   let id = req.params[1];
   let rest = req.params[2] || '';
-  res.redirect('/' + catalog + '/asset/' + id + rest);
+  res.redirect('/' + catalog + '/asset/' + id + rest, 301);
 });
 
 const searchPath = encodeURIComponent(config.search.path);
