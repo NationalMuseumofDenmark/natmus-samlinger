@@ -67,7 +67,7 @@
       "title": "Fremstilling",
       "rows": [
         {
-          "title": "Fremstillingstidspunkt",
+          "title": "Tid",
           "type": "date-interval",
           "fields": {
             "from": "creationEvents[0].dateFrom",
@@ -75,16 +75,15 @@
           }
         },
         {
-          "title": "Fremstillingstidspunkt",
-          "type": "date-interval",
-          "format": "Y",
+          "title": "Tid (årstal)",
+          "type": "year-interval",
           "fields": {
             "from": "creationEvents[0].yearFrom",
             "to": "creationEvents[0].yearTo"
           }
         },
         {
-          "title": "Fremstillingssted",
+          "title": "Sted",
           "template": "= creationEvents && creationEvents[0] && creationEvents[0].place"
         }
       ]
@@ -93,7 +92,7 @@
       "title": "Brug",
       "rows": [
         {
-          "title": "Brugstidspunkt",
+          "title": "Tid",
           "type": "date-interval",
           "fields": {
             "from": "usageEvents[0].dateFrom",
@@ -101,16 +100,15 @@
           }
         },
         {
-          "title": "Brugstidspunkt",
-          "type": "date-interval",
-          "format": "Y",
+          "title": "Tid (årstal)",
+          "type": "year-interval",
           "fields": {
             "from": "usageEvents[0].yearFrom",
             "to": "usageEvents[0].yearTo"
           }
         },
         {
-          "title": "Brugssted",
+          "title": "Sted",
           "type": "any-of-list",
           "paths": [
             "usageEvents.place",
@@ -128,7 +126,7 @@
       "title": "Fund",
       "rows": [
         {
-          "title": "Fundstidspunkt",
+          "title": "Tid",
           "type": "date-interval",
           "fields": {
             "from": "foundEvents[0].dateFrom",
@@ -136,16 +134,15 @@
           }
         },
         {
-          "title": "Brugstidspunkt",
-          "type": "date-interval",
-          "format": "Y",
+          "title": "Tid (årstal)",
+          "type": "year-interval",
           "fields": {
             "from": "foundEvents[0].yearFrom",
             "to": "foundEvents[0].yearTo"
           }
         },
         {
-          "title": "Fundsted",
+          "title": "Sted",
           "template": "= foundEvents && foundEvents[0] && foundEvents[0].place"
         },
         {
@@ -162,7 +159,7 @@
       "title": "Indsamling",
       "rows": [
         {
-          "title": "Indsamlingstidspunkt",
+          "title": "Tid",
           "type": "date-interval",
           "fields": {
             "from": "accessionEvents[0].dateFrom",
@@ -170,16 +167,15 @@
           }
         },
         {
-          "title": "Indsamlingstidspunkt",
-          "type": "date-interval",
-          "format": "Y",
+          "title": "Tid (årstal)",
+          "type": "year-interval",
           "fields": {
             "from": "accessionEvents[0].yearFrom",
             "to": "accessionEvents[0].yearTo"
           }
         },
         {
-          "title": "Indsamlingssted",
+          "title": "Sted",
           "template": "= accessionEvents && accessionEvents[0] && accessionEvents[0].place"
         }
       ]
