@@ -510,7 +510,7 @@ helpers.formatEvent = (e) => {
   return result;
 };
 
-helpers.rdfa = {
+helpers.microdata = {
   about: (req, metadata) => {
     if (metadata.type === 'asset') {
       const mediaTypes = helpers.determineMediaTypes(metadata);
@@ -530,6 +530,14 @@ helpers.rdfa = {
       throw new Error('Unexpected type: ' + metadata.type);
     }
   },
+  contentUrl: (req, metadata) => {
+    if (metadata.type === 'asset') {
+      const relative = helpers.getDownloadURL(metadata);
+      return helpers.getAbsoluteURL(req, relative);
+    } else {
+      return null;
+    }
+  },
   itemType: metadata => {
     if (metadata.type === 'asset') {
       const mediaTypes = helpers.determineMediaTypes(metadata);
@@ -542,6 +550,21 @@ helpers.rdfa = {
       }
     }
     return 'http://schema.org/CreativeWork';
+  },
+  thumbnailUrl: (req, metadata) => {
+    const relative = helpers.getThumbnailURL(metadata, 1280);
+    return helpers.getAbsoluteURL(req, relative);
+  },
+  url: (req, metadata) => {
+    const relative = helpers.getDocumentURL(metadata);
+    return helpers.getAbsoluteURL(req, relative);
+  },
+  metaTags: (req, metadata) => {
+    return {
+      contentUrl: helpers.microdata.contentUrl(req, metadata),
+      thumbnailUrl: helpers.microdata.thumbnailUrl(req, metadata),
+      url: helpers.microdata.url(req, metadata)
+    };
   }
 };
 
