@@ -259,7 +259,7 @@ function generateSizeDownloadOption(optionKey, option) {
       return option.labelPrefix + ' (' + dimensions + ') JPEG';
     },
     filter: (metadata, derived) => {
-      if(derived.mediaType === 'image') {
+      if(derived.mediaTypes.indexOf('image') >= 0) {
         if(typeof(size) === 'number') {
           return derived.maxSize >= option.size;
         } else {
@@ -317,7 +317,7 @@ if(config.downloadOptions) {
                                             metadata.file.dimensions.height);
     let derived = {
       maxSize,
-      mediaType: helpers.determinePlayers(metadata).find(player => player.type)
+      mediaTypes: helpers.determineMediaTypes(metadata)
     };
 
     return AVAILABLE_DOWNLOAD_OPTIONS.filter(option => {
