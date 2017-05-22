@@ -11,9 +11,7 @@ helpers.documentTitle = (metadata, fallback) => {
 
   if (metadata.type === 'asset') {
     title = metadata.text['da-DK'].title;
-    const players = helpers.determinePlayers(metadata);
-    const mediaType = players.find(player => player.type);
-    type = (mediaType && config.translations.players[mediaType]) || 'Medie';
+    type = 'Medie';
   } else if(metadata.type === 'object') {
     title = metadata.workDescription;
     type = 'Genstand';
@@ -127,7 +125,9 @@ helpers.determinePlayers = metadata => {
         let mediaTypes = playerFromFileMediaType[type];
         if(!result && mediaTypes.indexOf(metadata.file.mediaType) > -1) {
           return {
-            type
+            type,
+            thumbnail: helpers.getThumbnailURL(metadata, 1280),
+            title: helpers.documentTitle(metadata)
           };
         }
         return result;
@@ -177,14 +177,13 @@ helpers.determinePlayers = metadata => {
           collection: collectionAndId.collection
         };
         return {
+          type: 'image',
           thumbnail: helpers.getThumbnailURL(stillMetadata, 1280),
           title: asset.filename
         };
-      });
-      // Add it to the players
-      players.push({
-        type: 'multiple-images',
-        images
+      }).forEach(player => {
+        // Add it to the players
+        players.push(player);
       });
     }
   }
