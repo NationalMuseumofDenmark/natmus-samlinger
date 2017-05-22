@@ -254,6 +254,7 @@ function getFileDimensionsString(metadata, size) {
 
 function generateSizeDownloadOption(optionKey, option) {
   return {
+    key: optionKey,
     label: metadata => {
       let dimensions = getFileDimensionsString(metadata, option.size);
       return option.labelPrefix + ' (' + dimensions + ') JPEG';
@@ -269,7 +270,7 @@ function generateSizeDownloadOption(optionKey, option) {
         return false;
       }
     },
-    url: metadata => helpers.getDownloadURL(metadata, optionKey),
+    url: metadata => helpers.getDownloadURL(metadata, optionKey)
   };
 }
 
@@ -284,6 +285,7 @@ if(config.downloadOptions) {
       return generateSizeDownloadOption(optionKey, option);
     } else if(optionKey === 'original-jpeg') {
       return {
+        key: optionKey,
         label: metadata => {
           let label = option.labelPrefix;
           return label + ' (' + getFileDimensionsString(metadata) + ') JPEG';
@@ -291,10 +293,11 @@ if(config.downloadOptions) {
         filter: metadata => {
           return metadata.file.mediaType !== 'image/jpeg';
         },
-        url: metadata => helpers.getDownloadURL(metadata, optionKey),
+        url: metadata => helpers.getDownloadURL(metadata, optionKey)
       };
     } else if(optionKey === 'original') {
       return {
+        key: optionKey,
         label: metadata => {
           const mediaType = metadata.file.mediaType;
           const type = config.translations.mediaFileTypes[mediaType];
@@ -304,7 +307,7 @@ if(config.downloadOptions) {
         filter: metadata => {
           return true; // Let's always allow download of the original
         },
-        url: metadata => helpers.getDownloadURL(metadata),
+        url: metadata => helpers.getDownloadURL(metadata)
       };
     } else {
       throw new Error('Expected "orignal", "original-jpeg" or a size field');
@@ -324,6 +327,7 @@ if(config.downloadOptions) {
       return option.filter(metadata, derived);
     }).map(option => {
       return {
+        key: option.key,
         label: option.label(metadata, derived),
         url: option.url(metadata, derived)
       };
