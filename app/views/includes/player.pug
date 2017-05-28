@@ -3,7 +3,11 @@ extends player
 block document__player
   .document__players
     each player, i in players
-      section(id='player-' + i, class=classes).document__player
+      .document__player(
+        data-collection=player.collection,
+        data-id=player.id
+        data-href=player.href
+      )
         if(player.type === 'image')
           include ./players/image
         else if(player.type === 'image-downloaded')

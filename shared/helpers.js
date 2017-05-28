@@ -113,6 +113,8 @@ helpers.determinePlayers = metadata => {
     if(metadata.meta && metadata.meta.rotation === 1) {
       players.push({
         type: 'rotation',
+        collection: metadata.collection,
+        id: metadata.id,
         thumbnail: helpers.getThumbnailURL(metadata, 1280),
         images: metadata.related.assets.filter((asset) => {
           return asset.relation === 'child';
@@ -126,6 +128,8 @@ helpers.determinePlayers = metadata => {
         if(!result && mediaTypes.indexOf(metadata.file.mediaType) > -1) {
           return {
             type,
+            collection: metadata.collection,
+            id: metadata.id,
             thumbnail: helpers.getThumbnailURL(metadata, 1280),
             title: helpers.documentTitle(metadata)
           };
@@ -158,10 +162,14 @@ helpers.determinePlayers = metadata => {
           collection: collectionAndId.collection
         };
       });
+      const frontImage = images[0];
       // Add this to the players
       players.push({
         type: 'rotation',
-        thumbnail: helpers.getThumbnailURL(metadata, 1280),
+        collection: frontImage.collection,
+        id: frontImage.id,
+        href: helpers.getDocumentURL(frontImage),
+        thumbnail: helpers.getThumbnailURL(frontImage, 1280),
         images
       });
     }
@@ -178,6 +186,9 @@ helpers.determinePlayers = metadata => {
         };
         return {
           type: 'image',
+          collection: stillMetadata.collection,
+          id: stillMetadata.id,
+          href: helpers.getDocumentURL(stillMetadata),
           thumbnail: helpers.getThumbnailURL(stillMetadata, 1280),
           title: asset.filename
         };
