@@ -19,8 +19,8 @@
   "dependencies": {
     "agentkeepalive": "^3.1.0",
     "bootstrap-sass": "^3.3.7",
-    "collections-online": "git+https://github.com/NationalMuseumofDenmark/collections-online.git",
     "collections-online-cumulus": "git+https://github.com/NationalMuseumofDenmark/collections-online-cumulus.git",
+    "collections-online": "git+https://github.com/NationalMuseumofDenmark/collections-online.git#updated-depedencies",
     "dotenv": "^4.0.0",
     "elasticsearch": "^13.0.1",
     "express": "^4.15.3",
