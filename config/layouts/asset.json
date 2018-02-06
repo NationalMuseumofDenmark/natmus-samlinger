@@ -60,7 +60,7 @@
         "title": "Fotograf/skaber",
         "template": "= creators(actor)"
       }, {
-        "title": "Kilde",
+        "title": "Rettighedsforvalter",
         "template": "= rights && rights.administrator"
       }, {
         "title": "Arkivnavn",

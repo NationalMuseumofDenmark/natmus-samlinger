@@ -1,18 +1,20 @@
 if player.images.length === 1
   - const image = player.images[0];
-  img.asset__image(
-    src=image.thumbnail,
-    alt=image.title,
-    itemprop='image',
-    data-action='toggle-expandable'
-  )
+  - const [url, rest] = image.thumbnail.split('/thumbnail')
+  a(onclick=`location.href='${url}'`)
+    img.asset__image(
+      src=image.thumbnail,
+      alt=image.title,
+      itemprop='image'
+    )
 else
   .row
     each image in player.images
       .col-md-4
-        img.asset__image(
-          src=image.thumbnail,
-          alt=image.title,
-          itemprop='image',
-          data-action='toggle-expandable'
-        )
+        - const [url, rest] = image.thumbnail.split('/thumbnail')
+        a(onclick=`location.href='${url}'`)
+          img.asset__image(
+            src=image.thumbnail,
+            alt=image.title,
+            itemprop='image',
+          )

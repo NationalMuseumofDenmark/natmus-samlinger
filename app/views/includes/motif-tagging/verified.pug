@@ -1,6 +1,10 @@
 include ../../mixins/tag
 
 - const verifiedTags = (metadata.tags && metadata.tags.verified) || [];
-each tag in helpers.flattenValues(verifiedTags)
-  .btn-group(data-tag=tag)
-    +tag(tag)
+.motif-tagging__tags
+  h4 Verificeret
+  each tag in helpers.flattenValues(verifiedTags)
+    .btn-group(data-tag=tag)
+      +tag(tag)
+  else
+    p.motif-tagging__no-tags Der er ikke verificeret emneord endnu.

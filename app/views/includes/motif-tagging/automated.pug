@@ -1,0 +1,10 @@
+include ../../mixins/tag
+
+- const automatedTags = (metadata.tags && metadata.tags.automated) || [];
+.motif-tagging__tags
+  h4 Automatisk
+  each tag in helpers.flattenValues(automatedTags)
+    .btn-group(data-tag=tag)
+      +tag(tag)
+  else
+    p.motif-tagging__no-tags Der er ikke genereret automatisk emneord endnu.
