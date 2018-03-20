@@ -1,5 +1,5 @@
 // Always include collections-online's base
-require('base')({
+require('collections-online/app/scripts-browserify/base')({
   helpers: require('../../shared/helpers')
 });
 
