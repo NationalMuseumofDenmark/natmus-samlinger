@@ -19,6 +19,7 @@
   "dependencies": {
     "agentkeepalive": "~2.0.3",
     "bootstrap-sass": "^3.3.7",
+    "gulp-sass": "^3.1.0",
     "canvas": "^1.5.0",
     "collections-online": "git+https://github.com/NationalMuseumofDenmark/collections-online.git",
     "collections-online-cumulus": "git+https://github.com/NationalMuseumofDenmark/collections-online-cumulus.git",
